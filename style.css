@@ -119,7 +119,8 @@ nav #menu li {
   padding: 0;
   text-align: center;
 }
-nav #menu li:hover {
+nav #menu li:hover,
+nav #menu .currenttab {
   background-color: var(--nav-hover-color);
 }
 /* nav #menu li:first-child {
@@ -132,7 +133,8 @@ nav #menu a {
   border-bottom: solid 1px var(--nav-border-color);
 }
 nav #menu a:hover,
-nav #menu a:focus {
+nav #menu a:focus,
+nav #menu .currenttab a {
   color: var(--nav-text-hover-color);
   background: none;
 }
