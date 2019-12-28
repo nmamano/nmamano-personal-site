@@ -5,30 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nil Mamano | Personal site</title>
-    <link rev="Made" href="mailto:nilmamano at gmail.com">
+    <!-- <link rev="Made" href="mailto:nilmamano at gmail dot com"> -->
     <meta name="person" content="Nil Mamano">
     <meta name="sortname" content="Mamano, Nil">
     <meta name="keywords" content="personal site">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+
 </head>
 <body>
-
+<header>
     <h1>Nil Mamano</h1>
+</header>
 
-    <p><img src="/img/nil.jpg" alt="this should be a picture of me" height="574px" width="378"></p>
-
-<p>I received my PhD in Computer Science from <a href="http://www.uci.edu" target="_blank">UCI</a>, as part of the <a href="http://www.ics.uci.edu/~theory" target="_blank">Theory group</a>. I was advised by Professor <a href="https://www.ics.uci.edu/~eppstein/" target="_blank">David Eppstein</a> and Professor <a href="http://www.ics.uci.edu/~goodrich/" target="_blank">Michael Goodrich</a>.</p>
-
-<p>I have a Bachelor Degree in CS from <a href="https://www.fib.upc.edu/en" target="_blank">UPC</a>. I conducted my senior thesis at UCI under the guidance of Professor Wayne Hayes.</p>
-
-<h2>Contact and links</h2>
-<p>E-mail: nmamano (at) uci.edu</p>
+<div id="pic"><img id="nilpic" src="/img/nil.jpg" alt="this should be a picture of me" height="574px" width="378"></div>
 
 
-<h2>Research</h2>
-<p><strong>Research interests:</strong></p>
+<main>
+
+    <h2>About me</h2>
+<p>I am a computer scientist specialized in algorithm design. I received a PhD in computer science from <a href="http://www.uci.edu" target="_blank">UCI</a>, as part of the <a href="http://www.ics.uci.edu/~theory" target="_blank">Theory group</a>. I was co-advised by Professors <a href="https://www.ics.uci.edu/~eppstein/" target="_blank">David Eppstein</a> and <a href="http://www.ics.uci.edu/~goodrich/" target="_blank">Michael Goodrich</a>. My research dealt with graph algorithms and computational geometry.</p>
+
+<p>Before that, I got a bachelor's degree in CS from <a href="https://www.fib.upc.edu/en" target="_blank">UPC</a> in my hometown of Barcelona. I conducted my senior thesis as a visitor at UCI under Professor Wayne Hayes.</p>
+
+<h2>Research interests</h2>
 
 <p>My dissertation, <a href="nilthesis.pdf" target="_blank">“New Applications of the Nearest-neighbor Chain Algorithm”</a>
 studies how we can "relax" the selection rule of a greedy algorithm and still obtain the same solution. We pair this with an algorithmic technique, nearest-neighbor chains, based on which we give new alternative algorithms to greedy algorithms for many classic problems.</p>
+
+See <a href="#">Research</a> for details of individual projects.
+
+<section id="research">
 
 <H3>Publications</H3>
 
@@ -63,7 +71,9 @@ Minimizing Turns and Crossings</a>,”
 
 </ul>
 
+</section>
 
+<section id="projects">
 <H2>Projects</H2>
 <ul>
     <li>I contributed to the <a href="https://racso.lsi.upc.edu/juezwsgi/index" target="_blank">RACSO online Judge</a>, a teaching tool for the subject «Theory of Computation». It contains a collection of automatically-judged exercises asking to define recognizers / generators of formal languages (regular or context-free), as well as exercises asking for reductions between problems (undecidable or NP-complete).</li>
@@ -79,9 +89,34 @@ Minimizing Turns and Crossings</a>,”
 
 <p>Here is <a href="https://www.youtube.com/watch?v=NhDfHADuhWg&list=PLChBXfQcPfZj95P4_6MpYlE18H478MUFx" target="_blank">a collection</a> of songs I've written, and <a href="https://soundcloud.com/nil-mamano/la-nit-mes-curta" target="_blank">a demo</a> of the song I wrote for my sister's wedding!</p>
 
+</section>
+</main>
+
+<nav>
+ 
+<ul>
+    <li class="navitem"><a href="#" target="_blank">Home</a></li>
+    <li class="navitem"><a href="#" target="_blank">Research</a></li>
+    <li class="navitem"><a href="#" target="_blank">Projects</a></li>
+    <li class="navitem"><a href="#" target="_blank">Misc.</a></li>
+</ul>
+    <h2>Contact and links</h2>
+<ul>
+    <li class="navitem">E-mail: nil.mamano (at) gmail (dot) com</li>
+    <li class="navitem">E-mail for academic matters: nmamano (at) uci (dot) edu</li class="navitem">
+    <li class="navitem"><a href="" target="_blank">Resume</a></li>
+    <li class="navitem"><a href="https://github.com/nmamano" target="_blank">Github</a></li>
+    <li class="navitem"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ" target="_blank">Google scholar</a> (publication list, citations, ...)</li>
+    <li class="navitem">Linkedin: WIP</li>
+
+</ul>
+</nav>
+
 <footer>
-            <p>Last updated: Dec 2019</p>
+            <p>Last updated: Dec 2019. Made from scratch with "vanilla" html/css.</p>
 </footer>
+
+<div id="filler"></div>
 </body>
 
 </html>
