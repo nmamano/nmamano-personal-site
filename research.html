@@ -11,7 +11,9 @@
   <meta name="keywords" content="personal site,computer science">
   <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link href="/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/ae9fd68742.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/academicons.min.css"/>
 </head>
 
 <body id="researchpage">
@@ -24,14 +26,47 @@
     </ul>
     <h3>Contact &amp; links</h3>
     <ul id="links">
-      <li><strong>Email:</strong> nil (dot) mamano (at) gmail (dot) com</li>
-      <li><strong>Academic matters:</strong> nmamano (at) uci (dot) edu</li>
-      <li><a href="#" target="_blank">Resume</a></li>
-      <li><a href="https://github.com/nmamano" target="_blank">Github</a></li>
-      <li><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ" target="_blank">Google scholar</a>
-        (publication list, citations,
-        ...)</li>
-      <li><a href="#" target="_blank">LinkedIn</a></li>
+      <li>
+        <span class="long-form"><strong>Email:</strong><br>'nil.mamano'+@gmail.com</span>
+        <span class="short-form">
+          <button id="emailbtn"><i class="fas fa-envelope fa-2x"></i></button>
+          <div id="emailmodal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>'nil.mamano'+@gmail.com</p>
+            </div>
+          </div>
+        </span>
+      </li>
+      <li id="academic-email">
+        <span class="long-form">Academic matters:<br>'nmamano'+@uci.edu</span>
+        <span class="short-form"></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="#" target="_blank"><i class="fas fa-file-pdf"></i> Resume</i></a></span>
+        <span class="short-form"><a href="#" target="_blank"><img src="img/cv-icon.svg" alt="Resume" width="32px" height="32px"></a></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="https://github.com/nmamano" target="_blank">
+          <i class="fab fa-github"></i> Github</a></span>
+        <span class="short-form"><a href="https://github.com/nmamano" target="_blank">
+          <i class="fab fa-github fa-2x"></i></a></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="#" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn</a></span>
+        <span class="short-form"><a href="#" target="_blank">
+          <i class="fab fa-linkedin fa-2x"></i></a></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
+          target="_blank"><i class="ai ai-google-scholar-square ai"></i> Google scholar</a>
+          (publications &amp; citations)
+        </span>
+        <span class="short-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
+          target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+        </span>
+      </li>
     </ul>
   </nav>
 
@@ -113,4 +148,6 @@
       </li>
     </ul>
   </main>
+
+  <script src="js/emailmodal.js"></script>
 </body>

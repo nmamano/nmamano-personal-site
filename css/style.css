@@ -7,6 +7,10 @@
   --nav-hover-color: rgb(161, 183, 253);
   --anchor-bg-color: rgb(170, 206, 254);
   --nav-text-hover-color: rgb(233, 77, 20);
+
+  /* media queries */
+  /* --small-size: 730px; */
+  /* --large-size: 1200px; */
 }
 
 /* generics / defaults */
@@ -21,6 +25,12 @@ ul {
 li {
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
+}
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: inherit;
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -45,6 +55,62 @@ a:focus {
   color: rgb(251, 252, 253);
 } */
 
+/* collapsibles */
+.collapsible {
+  /* background-color: var(--nav-bg-color); */
+  /* padding: 0; */
+  /* width: 100%; */
+  /* border: none; */
+  /* text-align: center; */
+  /* outline: none; */
+  /* font-size: 15px; */
+}
+.active,
+.collapsible:hover {
+  /* background-color: var(--nav-hover-color); */
+}
+.content {
+  /* padding: 0 18px; */
+  display: none;
+  overflow: hidden;
+  background-color: var(--nav-hover-color);
+}
+
+/* modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2); /* Black w/ opacity */
+}
+.modal-content {
+  background-color: var(--bg-color);
+  margin: auto;
+  padding-left: 1rem;
+  border: 1px solid #888;
+  width: 300px;
+}
+
+.close {
+  color: #7a7a7a;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* CSS Grid layout */
 body {
   margin: 0;
@@ -66,6 +132,7 @@ body {
 }
 header {
   grid-area: header;
+  align-self: center;
 }
 nav {
   grid-area: nav;
@@ -83,7 +150,8 @@ main {
 }
 footer {
   grid-area: footer;
-  padding: 3rem 2rem 0rem 2rem;
+  align-self: flex-end;
+  padding: 3rem 2rem 1rem 2rem;
   margin-bottom: 0;
 }
 #pic {
@@ -102,6 +170,7 @@ header,
 footer {
   text-align: center;
 }
+
 
 /* Navigation */
 nav {
@@ -127,7 +196,7 @@ nav #menu .currenttab {
   border-top: solid 1px var(--nav-border-color);
 } */
 nav #menu a {
-  color: #333;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   display: block;
   border-bottom: solid 1px var(--nav-border-color);
@@ -138,14 +207,27 @@ nav #menu .currenttab a {
   color: var(--nav-text-hover-color);
   background: none;
 }
+nav #menu .currenttab a {
+  font-weight: bold;
+}
+
+/* Links */
 nav h3 {
   text-align: center;
 }
 nav #links {
-  padding-left: 1rem;
+  padding: 0 1rem 0 1rem;
   padding-top: 0;
   margin-top: 0;
 }
+nav #links .short-form {
+    display: none;
+}
+nav #links a {
+  color: black;
+  display: block;
+}
+
 
 @media (min-width: 1200px) {
   #homepage {
@@ -158,13 +240,17 @@ nav #links {
     #pic {
       padding-right: 1rem;
     }
+    h1 {
+      padding: 0;
+      margin: 0;
+    }
 }
 
-@media (max-width: 730px) {
+@media (max-width: 800px) {
   #homepage {
     grid-template-areas:
-      "header"
       "nav"
+      "header"
       "main"
       "pic"
       "footer";
@@ -176,9 +262,11 @@ nav #links {
       "nav"
       "main";
   }
-
-  main {
+  header {
     margin-top: 0.6rem;
+  }
+  main {
+    margin-top: 0rem;
   }
   nav {
     max-width: 100%;
@@ -190,9 +278,38 @@ nav #links {
     column-width: auto;
     column-count: 4;
     column-gap: 0px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
   }
   nav #menu a {
     border-left: solid 1px var(--nav-border-color);
+  }
+  nav #links .short-form {
+    display: unset;
+  }
+  nav #links .long-form {
+    display: none;
+  }
+  nav h3 {
+    display: none;
+  }
+  nav #academic-email {
+    display: none;
+  }
+  nav #links {
+    /* column-width: auto;
+    column-count: 5;
+    column-gap: 0; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    margin: 0;
+    justify-items: center;
+  }
+  nav #links ul {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  nav #links li {
+    padding: 0.4rem 0 0.4rem 0;
   }
 }
