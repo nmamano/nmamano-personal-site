@@ -71,83 +71,240 @@
   </nav>
 
   <main id="research">
-    <h2>Publications</h2>
-    <p>All the papers can be accessed freely by clicking the title.
-    </p>
+    <div id="preamble">
+      <h2>Publications</h2>
+      <p>Click the arrow next to a paper for summary of the paper. The full papers are freely available by clicking the title.
+      </p>
 
-    <p>Authors are in alphabetical order&mdash;the usual convention in CS
-      theory&mdash;except when marked with <q>*</q>.
-    </p>
-
+      <p>Authors are in alphabetical order&mdash;the usual convention in CS
+        theory&mdash;except when marked with <q>*</q>.
+      </p>
+    </div>
     <h4>In submission</h4>
     <ul>
-      <li>J.J. Besa, T. Johnson, N. Mamano, M.C. Osegueda, <q><a href="https://arxiv.org/pdf/1904.02824.pdf"
-            target="_blank">Taming
-            the Knight’s Tour:
-            Minimizing Turns and Crossings</a>,</q>
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1904.02824.pdf"
+              target="_blank">Taming
+              the Knight’s Tour:
+              Minimizing Turns and Crossings</a></q>
+              <br>
+              J.J. Besa, T. Johnson, N. Mamano, M.C. Osegueda
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Before this work, all the efficient algorithms for the <a href="https://en.wikipedia.org/wiki/Knight%27s_tour"></a>knight's tour problem on <i>n x n</i> boards were based a on divide-and-conquer strategy. We propose the first algorithm following a completely new approach, where the knight repeatedly crosses the entire board in long lines of moves in the same direction. In doing so, we prove the existence of knight's tours in <i>n x n</i> boards with only <i>O(n)</i> crossings (points where the knight crosses over its prior path). All prior algorithms have <i>O(n<sup>2</sup>)</i> crossings. We also extended our algorithm to 3D boards and giraffe tours, among other generalizations.</p>  
+            <div class="gallery">
+              <img class="svg2" src="img/knight/20x20.PNG" title="Our tour for a 20x20 board.">
+              <img class="svg2" src="img/knight/lowerbound.svg" title="A fractal construction from our lower bound proof.">
+            </div>
+            <div class="gallery">
+              <img class="svg3" src="img/knight/xing.svg" title="Counting crossings.">
+              <img class="svg3" src="img/knight/3d.svg" title="Illustration for our 3D tour.">
+              <img class="svg3" src="img/knight/giraffe.svg" title="Part of our giraffe tour.">
+            </div>
+            </div>
       </li>
     </ul>
 
     <h4>Conference publications</h4>
     <ul>
-      <li>* N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S.
-        Kobourov, P. Matias, V. Polishchuk, <q><a href="https://arxiv.org/pdf/1902.06875.pdf" target="_blank">Euclidean
-            TSP, Motorcycle Graphs, and Other New Applications of
-            Nearest-Neighbor Chains</a>,</q> ISAAC'19
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1902.06875.pdf" target="_blank">Euclidean
+              TSP, Motorcycle Graphs, and Other New Applications of
+              Nearest-Neighbor Chains</a>,</q> ISAAC'19
+              <br>
+              * N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S.
+    Kobourov, P. Matias, V. Polishchuk
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Greedy algorithms for combinatorial problems are appealing because of their simplicity: at each step, make the choice that appears to contribute the most toward a good solution. Even when greedy algorithms are not optimal, they often find good solutions. This paper is about speeding up four greedy algorithms for four different problems by following a similar technique: we relax the selection rule of the greedy algorithms to one that can be computed more efficiently, while showing that the final solution is unaffected. For instance, we improve the runtime of the <a href="https://en.wikipedia.org/wiki/Multi-fragment_algorithm">multi-fragment algorithm</a> for Euclidean TSP from <i>O(n<sup>2</sup>)</i> to <i>O(n log n).</i></p>
+          <div class="gallery">
+            <img class="pic2" src="img/nnc/TSP.PNG" title="Order in which our algorithm selects the edges to construct the multi-fragment tour.">
+            <img class="svg2" src="img/nnc/flowers.svg" title="Part of the analysis of a new geometric data structure we use in our Euclidean TSP algorithm.">
+          </div>
+        </div>
       </li>
 
-      <li>G. Barequet, D. Eppstein, M.T. Goodrich, and N. Mamano, <q><a href="https://arxiv.org/pdf/1804.09411.pdf"
-            target="_blank">Stable-Matching
-            Voronoi Diagrams: Combinatorial Complexity and Algorithms</a>,</q>
-        ICALP'18
+      <li>
+        <div id="smvd" class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1804.09411.pdf"
+              target="_blank">Stable-Matching
+              Voronoi Diagrams: Combinatorial Complexity and Algorithms</a>,</q> ICALP'18
+            <br>
+            G. Barequet, D. Eppstein, M.T. Goodrich, and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Imagine that you have a set of facilities in the plane, like post offices, and you want to assign a <q>service region</q> to each one with two constraints: first, each service region should be close to the corresponding facility. Second, all the service regions should have the same area. If we drop the second condition, we end up with the well known <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagram</a>.
+            Stable matching Voronoi diagrams are a generalization that addresses the second constraint by borrowing the notion of <a href="https://en.wikipedia.org/wiki/Stable_marriage_problem">stable matching</a> from market design to strike a fair assignment. In this paper, we give an algorithm to construct these diagrams and show that they may have a quadratic number of faces in the worst case.</p>
+          <div class="gallery">
+            <img class="pic3" src="img/smvd/example.png" title="A stable matching Voronoi diagram.">
+            <img class="pic3" src="img/smvd/cones.PNG" title="A SMVD can be visualized as the lower envelope of a set of 3D cones.">
+            <img class="pic3" src="img/smvd/lowerbound.png" title="Part of our lower bound construction.">
+          </div>
+        </div>
       </li>
 
-      <li>D. Eppstein, M.T. Goodrich, and N. Mamano, <q><a href="https://arxiv.org/pdf/1803.04555.pdf"
-            target="_blank">Reactive
-            Proximity Data Structures for Graphs</a>,</q> LATIN'18
+      <li> 
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1803.04555.pdf"
+              target="_blank">Reactive
+              Proximity Data Structures for Graphs</a>,</q> LATIN'18
+            <br>
+            D. Eppstein, M.T. Goodrich, and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>The problem in this paper is inspired by private-car services such as Uber or Lyft. We give a data structure that maintains a set of nodes in a graph (the drivers in a road network) subject to two operations: first, updates in the locations of the drivers. Second, queries asking for the closest driver to a given node (the location of a client requesting a ride). In the paper, we study how to strike a balance between the cost of updates and queries. Our technique is based on <a href="https://en.wikipedia.org/wiki/Vertex_separator">graph separators</a>: road networks can be split into two halves such that, if the closest driver to a client is in the other half, then it must pass through a small number of nodes.</p>
+          <div class="gallery">
+            <img class="pic2" src="img/road/roadnetwork.PNG">
+            <img class="svg2" src="img/road/sep.svg" title="Illustration of a graph separator.">
+          </div>
+        </div>
       </li>
 
-      <li>D. Eppstein, M.T. Goodrich, D. Korkmaz, and N. Mamano, <q><a href="https://arxiv.org/pdf/1706.09593.pdf"
-            target="_blank">Defining
-            Equitable Geographic Districts in Road Networks via Stable
-            Matching</a>,</q> short paper in SIGSPATIAL'17
+      <li> 
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1706.09593.pdf"
+              target="_blank">Defining
+              Equitable Geographic Districts in Road Networks via Stable
+              Matching</a>,</q> short paper in SIGSPATIAL'17
+            <br>
+            D. Eppstein, M.T. Goodrich, D. Korkmaz, and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>In theory, political districts should be balanced in population and should have compact shapes. <a href="https://en.wikipedia.org/wiki/Gerrymandering">Partisan gerrymandering</a> is the manipulation of district boundaries for political advantage. A potential solution is to use geometric <q>politically-agnostic</q> algorithms to draw fair districts. In this paper, we consider the use of <a href="https://en.wikipedia.org/wiki/Stable_marriage_problem">stable matching</a>, a concept from market design, to assign districts to district centers. Depending on the center locations, we found that the resulting districts from stable matching may be concave or not even connected.</p>
+          <div class="gallery">
+            <img class="pic2" src="img/maps/LA.jpg" title="Stable matching districts in Louisiana.">
+            <img class="pic2" src="img/maps/TX.jpg" title="Stable matching districts in Texas.">
+          </div>
+        </div>
       </li>
 
-      <li>D. Eppstein, M.T. Goodrich, and N. Mamano, <q><a href="https://arxiv.org/pdf/1704.02303.pdf"
-            target="_blank">Algorithms
-            for Stable Matching and Clustering in a Grid</a>,</q>
-        IWCIA'17
+      <li> 
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1704.02303.pdf"
+              target="_blank">Algorithms
+              for Stable Matching and Clustering in a Grid</a>,</q> IWCIA'17 
+            <br>
+            D. Eppstein, M.T. Goodrich, and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Whereas <a href="#smvd">our later paper</a> gives algorithms for stable-matching Voronoi diagrams in the plane, this paper gives algorithms for such diagrams in a pixelated setting.
+            It also considers the use these diagrams for clustering. We show that they can be used to find clusters that are both compact and equal-sized.</p>
+          <div class="gallery">
+            <img class="pic2" src="img/grid/random.png" title="Stable-matching Voronoi diagram before clustering.">
+            <img class="pic2" src="img/grid/cluster.png" title="Stable-matching Voronoi diagram after clustering.">
+          </div>
+        </div>
       </li>
 
-      <li>D. Eppstein, M.T. Goodrich, J. Lam, N. Mamano, M.
-        Mitzenmacher, and M. Torres, <q><a href="https://arxiv.org/pdf/1605.09425.pdf" target="_blank">Models and
-            algorithms for Graph
-            Watermarking</a>,</q> ISC'16
-        <!--. Best Student Paper Award.-->
+      <li> 
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1605.09425.pdf" target="_blank">Models and
+              Algorithms for Graph
+              Watermarking</a>,</q> ISC'16, best student paper award.
+            <br>
+            D. Eppstein, M.T. Goodrich, J. Lam, N. Mamano, M.
+        Mitzenmacher, and M. Torres
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Say that a company owns an (unlabeled) large graph representing, e.g., a social network. This company wants to share the graph with collaborators so that they can study the topology of social networks, but it does not want third-parties to leak the graph. This paper studies how we can modify the topology of the graph to embed indetectable subgraphs that act as a <q>watermark.</q> Third-parties should not be able to detect them or erase them by making small modifications to the graph (i.e., any modifications significant enough to erase it should also destroy any meaningful structure of the graph), and the original party should be able to recover it if one of the collaborators leaks it. I had a minor role in this paper, taking care of the experiments.</p>
+        </div>
       </li>
     </ul>
 
     <h4>Journal publications</h4>
     <ul>
-      <li>G. Barequet, D. Eppstein, M.T. Goodrich, and N. Mamano, <q><a href="https://arxiv.org/pdf/1804.09411.pdf"
-            target="_blank">Stable-Matching Voronoi Diagrams:
-            Combinatorial Complexity and Algorithms</a>,</q> Journal
-        of Computational Geometry, 2019
+      <li> 
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://arxiv.org/pdf/1804.09411.pdf"
+              target="_blank">Stable-Matching Voronoi Diagrams:
+              Combinatorial Complexity and Algorithms</a>,</q> JoCG'19
+            <br>
+            G. Barequet, D. Eppstein, M.T. Goodrich, and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>This is a journal version of the <a href="#smvd"> paper</a>. We extended our algorithm to work for other distance metrics, such as Manhattan distance.</p>
+          <div class="gallery">
+            <img class="pic2" src="img/smvd/manhattan.png">
+            <img class="pic2" src="img/smvd/king.png">
+          </div>
+        </div>
       </li>
 
-      <li>* W. Hayes and N. Mamano, <q><a href="https://academic.oup.com/bioinformatics/article/34/8/1345/4708230"
-            target="_blank">SANA NetGO: a combinatorial approach to
-            using Gene Ontology (GO) terms to score network alignments</a>,</q>
-        Bioinformatics: Oxford Journals, 2018
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            <q><a href="https://academic.oup.com/bioinformatics/article/34/8/1345/4708230"
+              target="_blank">SANA NetGO: a combinatorial approach to
+              using Gene Ontology (GO) terms to score network alignments</a>,</q>
+          Bioinformatics: Oxford Journals, 2018
+            <br>
+            * W. Hayes and N. Mamano
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>
+              This is a follow-up paper on <a href="#sana">our paper</a> on using simulated annealing for the alignment of PPI networks. We consider what is the best objective function for simulated annealing to optimize. In a typical PPI network, we do not know the exact identification of a node, but we have a list of properties or functions, called GO terms, known (or rather, suspected, since the data is noisy) to be associated with that node. Prior network alignment methods try to match pairs of proteins with matching GO terms. However, this fails to account for the frequency of GO terms: rare GO terms identify proteins more precisely.
+              We propose the first GO-centered measure (as opposed to protein-centered), which means that the score is computed as the sum of the contribution of each GO term, rather than the sum of the contribution of each pair of aligned proteins. We give each GO term one <q>unit</q> of score, and we distribute it equally among all possible alignments that align it correctly. For instance, mapping correctly a GO term that appears exactly once in both networks is twice as valuable as mapping correctly the two occurrences of a GO term that appears twice on each network (because there are two ways to map that GO term <q>correctly</q>). This GO-centered approach performed better with the data sets in our experiments. 
+            </p>
+        </div>
       </li>
 
-      <li>* N. Mamano and W. Hayes, <q><a href="https://academic.oup.com/bioinformatics/article/33/14/2156/2996219#"
-            target="_blank">SANA: Simulated Annealing far outperforms
-            many other search algorithms for biological network
-            alignment</a>,</q> Bioinformatics: Oxford Journals, 2017
+      <li>
+        <div id="sana" class="paper collapsible">
+          <div class="data">
+            <q><a href="https://academic.oup.com/bioinformatics/article/33/14/2156/2996219#"
+              target="_blank">SANA: Simulated Annealing far outperforms
+              many other search algorithms for biological network
+          alignment</a>,</q> Bioinformatics: Oxford Journals, 2017
+            <br>
+            * N. Mamano and W. Hayes
+          </div>
+          <button type="button" class="showmorebtn"><i class="fas fa-chevron-down fa-2x"></i></button>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p><a href="https://en.wikipedia.org/wiki/Protein%E2%80%93protein_interaction">Protein-protein interaction networks</a> are graphs where the nodes represent proteins and edges denote that two proteins can physically interact. Such graphs carry important biological insight, especially when we know the proteins associated to the nodes. However, in many cases, we have PPI networks with unlabeled nodes. In this paper, we attempt to transfer our knowledge about the PPI network from one specie to another via network alignment. The idea is that if we find nodes that are topologically similar in the PPI networks of, e.g., rat and mouse, they are statistically likely to be the same protein. Thus, network alignment is the problem of mapping the nodes of two graphs while preserving the edges as best as possible&dash;a generalization of the <a href="https://en.wikipedia.org/wiki/Graph_isomorphism">graph isomorphism</a> problem. Since the problem is NP-complete, we use the <a href="https://en.wikipedia.org/wiki/Simulated_annealing">simulated annealing metaheuristic</a>.</p>
+        </div>
       </li>
     </ul>
   </main>
 
   <script src="js/emailmodal.js"></script>
+  <script src="js/collapsible.js"></script>
 </body>
