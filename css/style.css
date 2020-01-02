@@ -308,15 +308,25 @@ nav #links a {
 
 /* Research / project cards */
 
+#research li {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+
 #research {
   padding: 0;
 }
 
 #research #preamble,
 #research h4,
-#research .paper,
-#research .details {
+#research h3,
+#research .details,
+#research .paper {
   padding: 0.1rem 1rem 0.1rem 1rem;
+}
+#research .paper {
+  padding-right: 0.4rem;
 }
 
 #research .paper {
@@ -326,7 +336,29 @@ nav #links a {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#research .data {
+  margin-right: auto;
+}
+
+#research .papericon {
+  padding: 0 0.7rem 0 0.7rem;
+}
+@media (max-width: 800px) {
+  #research .papericon {
+    padding: 0 0.4rem 0 0.4rem;
+  }
+}
+#research .papericon:focus,
+#research .papericon:hover {
+  border-bottom: none;
+  background: var(--anchor-bg-color);
+}
+#research .papericon:focus {
+  background: none;
 }
 
 #research .details {
