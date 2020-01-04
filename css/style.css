@@ -48,7 +48,9 @@ body {
   line-height: 1.4em;
   background-color: var(--bg-color);
 }
-
+p {
+  text-align: justify;
+}
 /* anchors */
 a {
   outline: none;
@@ -105,6 +107,7 @@ body {
   margin: 0;
   display: grid;
   grid-gap: 0em;
+  margin-right: 1rem;
 }
 #homepage {
   grid-template-areas:
@@ -134,15 +137,18 @@ nav {
 main {
   grid-area: main;
   align-self: flex-start;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 footer {
   grid-area: footer;
   align-self: flex-end;
   padding: 3rem 2rem 1rem 2rem;
   margin-bottom: 0;
-  font-size: 0.9rem;
+  font-size: 0.9rem;  
+}
+footer p {
+  text-align: center;
 }
 #pic {
   grid-area: pic;
@@ -218,6 +224,10 @@ nav #links a {
   display: block;
 }
 
+.mainpageheader {
+  margin-top: 2.5rem;
+}
+
 
 @media (min-width: 1200px) {
   #homepage {
@@ -229,6 +239,7 @@ nav #links a {
     }
     #pic {
       padding-right: 1rem;
+      align-self: center;
     }
     h1 {
       padding: 0;
@@ -360,13 +371,16 @@ nav #links a {
 .test-icon-size-2 {
   font-size: 30px !important;
 }
-
 #research .papericon {
   padding: 0 0.7rem 0 0.7rem;
 }
 @media (max-width: 800px) {
   #research .papericon {
     padding: 0 0.4rem 0 0.4rem;
+    font-size: 15px !important;
+  }
+  .test-icon-size-2 {
+    font-size: 30px !important;
   }
 }
 #research .papericon:focus,
