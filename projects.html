@@ -70,26 +70,83 @@
     </ul>
   </nav>
 
-  <main id="projects">
-    <h2>Projects</h2>
+  <main id="projects" class = "cards">
+    <div id="preamble">
+      <h2>Projects</h2>
+    </div>
     <ul>
-      <li>I contributed to the <a href="https://racso.lsi.upc.edu/juezwsgi/index" target="_blank">RACSO online
-          Judge</a>, a teaching tool for the subject «Theory of Computation». It contains a collection of
-        automatically-judged exercises asking to define recognizers / generators of formal languages (regular or
-        context-free), as well as exercises asking for reductions between problems (undecidable or NP-complete).
+
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            RACSO Online Judge (contribution).
+          </div>
+          <a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/SATReductionLang" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
+          <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>The RACSO online
+              Judge is a teaching tool for the subject of &#171;Theory of Computation&#187;. It contains a collection of
+            automatically-evaluated exercises asking to define recognizers/generators of formal languages (regular or
+            context-free), as well as exercises asking for reductions between problems (undecidable or NP-complete). The judge also contains exercises for a compilers course.</p> 
+          
+          <p>RACSO was develop at Polytechnic University of Catalonia, where it is used as homework and even for exams. After using it myself as a student, I started a working on expanding it. I contributed most of the exercises in the lists for <a href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=redsat">reductions to SAT</a> and <a href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=antlrsyn">syntax parsers</a>, and some exercises in other lists. I also helped write the interpreter for the language in which the SAT reductions are given (see github).</p> 
+            
+            <p>The interesting aspect of these judges is that the evaluation is not simply based on test cases. They employ more general and comprehensive algorithms to compare the students' solution to the correct solution given by the problem setter. Here is a <a href="https://upcommons.upc.edu/handle/2117/119781">technical report</a> about the inner works of the judge for evaluating syntax parsers.</p>
+          </div>
+        </div>
       </li>
 
-      <li><a href="http://sana.ics.uci.edu/" target="_blank">SANA</a>: a tool for aligning biological networks.
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            SANA: Simulated Annealing Network Aligner.
+          </div>
+          <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
+            <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
+            <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project yielded a series of papers, of which I am a coauthor on two of them (see <a href="research.html"></a>Research</a> tab), with a third one on the works.</p> 
+          </div>
+        </div>
       </li>
 
-      <li>A new solution to the <a href="https://www.ics.uci.edu/~nmamano/knightstour.html" target="_blank">knight's
-          tour problem</a>.
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            Two-list stable matching visualizer.
+          </div>
+          <a class="papericon" title="Try demo" href="https://nmamano.github.io/TwoListStableMatching/index.html" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/TwoListStableMatching" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
+          <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>The <q>two-list stable matching problem</q> is an open problem in the field of market design. This is an interactive visual exploration tool I made to assist in solving it. See <a href="https://github.com/nmamano/TwoListStableMatching">the github page</a> for a description of the problem and the tool.</p>  
+            <div class="gallery">
+              <img class="pic15" src="img/projects/twolist.PNG" title="Visualizer.">
+            </div>
+          </div>
+        </div>
       </li>
 
-      <li>Some other projects on my <a href="https://github.com/nmamano" target="_blank">Github</a>.
-      </li>
+
     </ul>
+
+    <div id="preamble">
+      <p>Some other projects on my <a href="https://github.com/nmamano" target="_blank">Github page</a>.
+      </p>
+    </div>
+    
   </main>
 
   <script src="js/emailmodal.js"></script>
+  <script src="js/collapsible.js"></script>
 </body>

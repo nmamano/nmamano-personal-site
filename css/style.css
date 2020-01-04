@@ -110,6 +110,7 @@ body {
   margin-right: 1rem;
 }
 #homepage {
+  grid-template-columns: 15rem auto;
   grid-template-areas:
     "nav header"
     "nav main"
@@ -119,6 +120,7 @@ body {
 #researchpage,
 #projectspage,
 #miscpage {
+  grid-template-columns: 15rem auto;
   grid-template-areas:
     "nav main"
 }
@@ -128,8 +130,8 @@ header {
 }
 nav {
   grid-area: nav;
-  max-width: 17rem;
-  min-width: 13rem;
+  /* max-width: 17rem;
+  min-width: 13rem; */
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -319,31 +321,31 @@ nav #links a {
 
 /* Research / project cards */
 
-#research li {
+.cards li {
+  width: auto;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
-  margin-bottom: 1.3rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
   /* border-bottom: solid 3px rgb(255, 255, 255); */
-
 }
 
-
-#research {
+.cards {
   padding: 0;
 }
 
-#research #preamble,
-#research h4,
-#research h3,
-#research .details,
-#research .paper {
+.cards #preamble,
+.cards h4,
+.cards h3,
+.cards .details,
+.cards .paper {
   padding: 0.1rem 1rem 0.1rem 1rem;
 }
-#research .paper {
+.cards .paper {
   padding-right: 0.4rem;
 }
 
-#research .paper {
+.cards .paper {
   border-top: none;
   border-bottom: none;
   box-shadow: none;
@@ -355,14 +357,14 @@ nav #links a {
   
 }
 
-#research .data {
+.cards .data {
   margin-right: auto;
   max-width: 70%;
   text-align: justify;
   padding-right: 1rem;
 }
 
-#research .author {
+.cards .author {
   font-style: italic;
   font-size: 0.9em;
   display:inline;
@@ -371,30 +373,36 @@ nav #links a {
 .test-icon-size-2 {
   font-size: 30px !important;
 }
-#research .papericon {
+.cards .papericon {
   padding: 0 0.7rem 0 0.7rem;
 }
 @media (max-width: 800px) {
-  #research .papericon {
+  .cards .data {
+    max-width: 75%;
+  }
+  .cards .papericon {
     padding: 0 0.4rem 0 0.4rem;
     font-size: 15px !important;
   }
-  .test-icon-size-2 {
-    font-size: 30px !important;
+  .cards .test-icon-size-2 {
+    font-size: 22px !important;
   }
 }
-#research .papericon:focus,
-#research .papericon:hover {
+
+.cards .papericon:focus,
+.cards .papericon:hover {
   border-bottom: none;
   background: var(--anchor-bg-color);
 }
-#research .papericon:focus {
+.cards .papericon:focus {
   background: none;
 }
 
-#research .details {
+.cards .details {
   clear: left;
   float: left;
+  border-bottom: 3px solid rgb(255, 255, 255);
+  margin-bottom: 1rem;
 }
 
 .collapsible {
@@ -441,6 +449,11 @@ nav #links a {
   border: 2px solid black;
   border-radius: 10px;
 }
+.pic15 {
+  width: 70%;
+  border: 2px solid black;
+  border-radius: 10px;
+}
 .svg2 {
   width: 48%;
 }
@@ -449,4 +462,10 @@ nav #links a {
   border: none;
   width: 702px;
   height: 702px;
+}
+
+
+#misc img {
+  margin-top: 2rem;
+  width: 50%;
 }
