@@ -311,6 +311,9 @@ nav #links a {
 #research li {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
+  margin-bottom: 1.3rem;
+  /* border-bottom: solid 3px rgb(255, 255, 255); */
+
 }
 
 
@@ -338,10 +341,24 @@ nav #links a {
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
+  
 }
 
 #research .data {
   margin-right: auto;
+  max-width: 70%;
+  text-align: justify;
+  padding-right: 1rem;
+}
+
+#research .author {
+  font-style: italic;
+  font-size: 0.9em;
+  display:inline;
+}
+
+.test-icon-size-2 {
+  font-size: 30px !important;
 }
 
 #research .papericon {
