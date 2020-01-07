@@ -251,6 +251,7 @@ nav #links a {
 
 @media (max-width: 800px) {
   #homepage {
+    grid-template-columns: unset;
     grid-template-areas:
       "nav"
       "header"
@@ -261,6 +262,7 @@ nav #links a {
   #researchpage,
   #projectspage,
   #miscpage {
+    grid-template-columns: unset;
     grid-template-areas:
       "nav"
       "main";
