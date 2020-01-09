@@ -129,7 +129,7 @@
           <div class="abstract">
             <p>Greedy algorithms for combinatorial problems are appealing because of their simplicity: at each step, make the choice that appears to contribute the most toward a good solution. Even when greedy algorithms are not optimal, they often find good solutions. This paper is about speeding up four greedy algorithms for four different problems by following a similar technique: we relax the selection rule of the greedy algorithms to one that can be computed more efficiently, while showing that the final solution is unaffected. For instance, we improve the runtime of the <a href="https://en.wikipedia.org/wiki/Multi-fragment_algorithm">multi-fragment algorithm</a> for Euclidean TSP from <i>O(n<sup>2</sup>)</i> to <i>O(n log n).</i></p>
           <div class="gallery">
-            <img class="pic2" src="img/nnc/TSP.PNG" title="Order in which our algorithm selects the edges to construct the multi-fragment tour.">
+            <img id="mftsppic" class="pic2" src="img/nnc/TSP.PNG" title="Order in which our algorithm selects the edges to construct the multi-fragment tour.">
             <img class="svg2" src="img/nnc/flowers.svg" title="Part of the analysis of a new geometric data structure we use in our Euclidean TSP algorithm (see paper for context).">
           </div>
         </div>
@@ -179,7 +179,7 @@
           <div class="abstract">
             <p>The problem in this paper is inspired by private-car services such as Uber or Lyft. We give a data structure that maintains a set of nodes in a graph (the drivers in a road network) subject to two operations: first, updates in the locations of the drivers. Second, queries asking for the closest driver to a given node (the location of a client requesting a ride). In the paper, we study how to strike a balance between the cost of updates and queries. Our technique is based on <a href="https://en.wikipedia.org/wiki/Vertex_separator">graph separators</a>: road networks can be split into two halves such that, if the closest driver to a client is in the other half, then it must pass through a small number of nodes.</p>
           <div class="gallery">
-            <img class="pic2" src="img/road/roadnetwork.PNG">
+            <img id="roadpic" class="pic2" src="img/road/roadnetwork.PNG">
             <img class="svg2" src="img/road/sep.svg" title="Illustration of a graph separator.">
           </div>
         </div>
@@ -204,8 +204,8 @@
           <div class="abstract">
             <p>In theory, political districts should be balanced in population and should have compact shapes. <a href="https://en.wikipedia.org/wiki/Gerrymandering">Partisan gerrymandering</a> is the manipulation of district boundaries for political advantage. A potential solution is to use geometric <q>politically-agnostic</q> algorithms to draw fair districts. In this paper, we consider the use of <a href="https://en.wikipedia.org/wiki/Stable_marriage_problem">stable matching</a>, a concept from market design, to assign districts to district centers. Depending on the center locations, we found that the resulting districts from stable matching may be concave or not even connected.</p>
           <div class="gallery">
-            <img class="pic2" src="img/maps/LA.jpg" title="Stable matching districts in Louisiana.">
-            <img class="pic2" src="img/maps/TX.jpg" title="Stable matching districts in Texas.">
+            <img class="small2pic" src="img/maps/LA.jpg" title="Stable matching districts in Louisiana.">
+            <img class="small2pic" src="img/maps/TX.jpg" title="Stable matching districts in Texas.">
           </div>
         </div>
       </li>
@@ -229,8 +229,8 @@
             <p>Whereas <a href="#smvd">our later paper</a> gives algorithms for stable-matching Voronoi diagrams in the plane, this paper gives algorithms for such diagrams in a pixelated setting.
             It also considers the use these diagrams for clustering. We show that they can be used to find clusters that are both compact and equal-sized.</p>
           <div class="gallery">
-            <img class="pic2" src="img/grid/random.png" title="Stable-matching Voronoi diagram before clustering.">
-            <img class="pic2" src="img/grid/cluster.png" title="Stable-matching Voronoi diagram after clustering.">
+            <img class="small2pic" src="img/grid/random.png" title="Stable-matching Voronoi diagram before clustering.">
+            <img class="small2pic" src="img/grid/cluster.png" title="Stable-matching Voronoi diagram after clustering.">
           </div>
         </div>
       </li>
@@ -278,8 +278,8 @@
           <div class="abstract">
             <p>This is a journal version of the <a href="#smvd"> paper</a>. We extended our algorithm to work for other distance metrics, such as Manhattan distance.</p>
           <div class="gallery">
-            <img class="pic2" src="img/smvd/manhattan.png">
-            <img class="pic2" src="img/smvd/king.png">
+            <img class="small2pic" src="img/smvd/manhattan.png">
+            <img class="small2pic" src="img/smvd/king.png">
           </div>
         </div>
       </li>

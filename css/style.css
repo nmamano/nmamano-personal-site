@@ -456,12 +456,12 @@ nav #links a {
   padding-bottom: 1rem;
 }
 .pic3 {
-  width: 30%;
+  width: 31%;
   border: 2px solid black;
   border-radius: 10px;
 }
 .svg3 {
-  width: 30%;
+  width: 31.7%;
   background-color: white;
   padding: 0.5rem;
   border: 2px solid black;
@@ -469,6 +469,17 @@ nav #links a {
 }
 .pic2 {
   width: 48%;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+#mftsppic {
+  width: 40%;
+}
+#roadpic {
+  width: 42%;
+}
+.small2pic {
+  width: 35%;
   border: 2px solid black;
   border-radius: 10px;
 }
