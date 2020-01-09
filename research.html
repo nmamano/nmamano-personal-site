@@ -12,8 +12,9 @@
   <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/ae9fd68742.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/academicons.min.css"/>
+
+  <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
 </head>
 
 <body id="researchpage">
@@ -27,19 +28,19 @@
     <h3>Contact &amp; links</h3>
     <ul id="links">
       <li>
-        <span class="long-form"><strong>Email:</strong><br>'nil.mamano'+@gmail.com</span>
+        <span class="long-form"><strong>Email:</strong><br>nil.mamano at gmail.com</span>
         <span class="short-form">
           <button id="emailbtn"><i class="fas fa-envelope fa-2x"></i></button>
           <div id="emailmodal" class="modal">
             <div class="modal-content">
               <span class="close">&times;</span>
-              <p>'nil.mamano'+@gmail.com</p>
+              <p>nil.mamano at gmail.com</p>
             </div>
           </div>
         </span>
       </li>
       <li id="academic-email">
-        <span class="long-form">Academic matters:<br>'nmamano'+@uci.edu</span>
+        <span class="long-form">Academic matters:<br>nmamano at uci.edu</span>
         <span class="short-form"></span>
       </li>
       <li>
@@ -48,9 +49,9 @@
       </li>
       <li>
         <span class="long-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github"></i> Github</a></span>
+          <i class="fab fa-github-square"></i> Github</a></span>
         <span class="short-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github fa-2x"></i></a></span>
+          <i class="fab fa-github-square fa-2x"></i></a></span>
       </li>
       <li>
         <span class="long-form"><a href="#" target="_blank">
@@ -73,8 +74,8 @@
   <main id="research" class="cards">
     <div id="preamble">
       <h2>Publications</h2>
-      <!-- <p>Click the + sign next to a paper for summary of the paper. The full papers are freely available by clicking the title.
-      </p> -->
+      <p>Click on a title for a brief summary.
+      </p>
 
     </div>
     <h3>In submission</h3>
@@ -90,14 +91,14 @@
           <a class="papericon" title="Try demo" href="https://nmamano.github.io/MinCrossingsKnightsTour/index.html" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
           <a class="papericon" title="Source code" href="https://github.com/nmamano/MinCrossingsKnightsTour" target="_blank"><i class="fab fa-github fa-2x"></i></a>
           <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-          <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+          <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
             <p>Before this work, all the efficient algorithms for the <a href="https://en.wikipedia.org/wiki/Knight%27s_tour"></a>knight's tour problem on <i>n x n</i> boards were based a on divide-and-conquer strategy. We propose the first algorithm following a completely new approach, where the knight repeatedly crosses the entire board in long lines of moves in the same direction. In doing so, we prove the existence of knight's tours in <i>n x n</i> boards with only <i>O(n)</i> crossings (points where the knight crosses over its prior path). All prior algorithms have <i>O(n<sup>2</sup>)</i> crossings. We also extended our algorithm to 3D boards and giraffe tours, among other generalizations.</p>  
             <div class="gallery">
               <img class="svg2" src="img/knight/20x20.PNG" title="Our tour for a 20x20 board.">
-              <img class="svg2" src="img/knight/lowerbound.svg" title="A fractal construction from our lower bound proof (see paper for context).">
+              <img class="svg2" src="img/knight/lowerbound.svg" title="A fractal from our lower bound proof (see paper for context).">
             </div>
             <div class="gallery">
               <img class="svg3" src="img/knight/xing.svg" title="Counting crossings.">
@@ -122,7 +123,7 @@
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1902.06875.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <!-- <a class="papericon" title="Source code" href="" target="_blank"><i class="fab fa-github fa-2x"></i></a> -->
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
         <div class="details collapsible-content">
           <div class="abstract">
@@ -146,7 +147,7 @@
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1804.09411.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <!-- <a class="papericon" title="Source code" href="" target="_blank"><i class="fab fa-github fa-2x"></i></a> -->
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -172,7 +173,7 @@
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <a class="papericon" title="Source code" href="https://github.com/nmamano/NearestNeighborInGraphs" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1803.04555.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -197,7 +198,7 @@
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <a class="papericon" title="Source code" href="https://github.com/nmamano/StableDistricting" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1706.09593.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -221,7 +222,7 @@
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <a class="papericon" title="Source code" href="https://github.com/nmamano/StableMatchingVoronoiDiagram" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1704.02303.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -248,7 +249,7 @@
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <a class="papericon" title="Source code" href="https://github.com/nmamano/GraphWatermarking" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1605.09425.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -271,7 +272,7 @@
         <!-- <a class="papericon" title="Try demo" href="" target="_blank"><i class="far fa-play-circle fa-2x"></i></a> -->
         <!-- <a class="papericon" title="Source code" href="" target="_blank"><i class="fab fa-github fa-2x"></i></a> -->
         <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1804.09411.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -295,7 +296,7 @@
         <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
         <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://academic.oup.com/bioinformatics/article/34/8/1345/4708230" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">
@@ -319,7 +320,7 @@
         <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
         <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
         <a class="papericon" title="Read paper" href="https://academic.oup.com/bioinformatics/article/33/14/2156/2996219#" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a>
-        <a class="papericon test-icon-size-2" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
       </div>
       <div class="details collapsible-content">
           <div class="abstract">

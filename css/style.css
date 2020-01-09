@@ -26,6 +26,7 @@
 /* generics / defaults */
 * {
   padding: 0;
+  /* margin: 0; */
   box-sizing: border-box;
   list-style: none;
 }
@@ -45,13 +46,15 @@ button {
 body {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
+  width: 100%;
+  height: 100%;
   line-height: 1.4em;
   background-color: var(--bg-color);
 }
 p {
   text-align: justify;
   text-justify: distribute;
-  text-align-last: left;
+  /* text-align-last: left; */
 }
 /* anchors */
 a {
@@ -109,7 +112,6 @@ body {
   margin: 0;
   display: grid;
   grid-gap: 0em;
-  margin-right: 1rem;
 }
 #homepage {
   grid-template-columns: 15rem auto;
@@ -242,7 +244,7 @@ nav #links a {
       margin-bottom: 0;
     }
     #pic {
-      padding-right: 1rem;
+      padding-right: 2rem;
       align-self: center;
     }
     h1 {
@@ -345,8 +347,10 @@ nav #links a {
 .cards .paper {
   padding: 0.1rem 1rem 0.1rem 1rem;
 }
-.cards .paper {
-  padding-right: 0.4rem;
+@media (max-width: 800px) {
+  .cards .paper {
+    padding-right: 0.6rem;
+  }
 }
 
 .cards .paper {
@@ -358,6 +362,8 @@ nav #links a {
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
+  z-index: 10;
+  position: relative;
   
 }
 
@@ -379,6 +385,9 @@ nav #links a {
 }
 .cards .papericon {
   padding: 0 0.7rem 0 0.7rem;
+}
+.cards .showmorebtn {
+  display: none;
 }
 @media (max-width: 800px) {
   .cards .data {
@@ -405,23 +414,23 @@ nav #links a {
 .cards .details {
   clear: left;
   float: left;
-  border-bottom: 3px solid rgb(255, 255, 255);
+  background-color: rgb(211, 221, 255);
+  z-index: 0;
+  position: relative;
+  /* border-bottom: 3px solid rgb(255, 255, 255); */
   margin-bottom: 1rem;
 }
 
-.collapsible {
+.cards .data {
   cursor: pointer;
 }
 
-.collapsible:hover {
-  background-color:var(--blue-1);
+.cards .data:hover {
+  background-color:var(--blue-2); 
+  /* var(--blue-1); */
 }
 
 .active {
-  background-color:var(--blue-2);
-}
-
-.active:hover {
   background-color:var(--blue-2);
 }
 
@@ -429,6 +438,8 @@ nav #links a {
   /* padding: 0 18px; */
   display: none;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
   /* background-color: #f1f1f1; */
 }
 
@@ -447,6 +458,10 @@ nav #links a {
 }
 .svg3 {
   width: 30%;
+  background-color: white;
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 .pic2 {
   width: 48%;
@@ -457,9 +472,15 @@ nav #links a {
   width: 70%;
   border: 2px solid black;
   border-radius: 10px;
+  padding: 0.5rem;
+  background-color: white;
 }
 .svg2 {
   width: 48%;
+  background-color: white;
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 #chessboard {
@@ -474,4 +495,9 @@ nav #links a {
 #misc img {
   margin-top: 2rem;
   width: 50%;
+}
+@media (max-width: 800px) {
+  #misc img {
+    width: 70%;
+  }
 }
