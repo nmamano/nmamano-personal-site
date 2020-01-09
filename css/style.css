@@ -60,11 +60,12 @@ p {
 a {
   outline: none;
   text-decoration: none;
-  padding: 2px 1px 0;
+  padding: 2px 1px;
 }
 a:hover,
 a:focus {
   border-bottom: 1px solid;
+  padding-bottom: 1px;
   background: var(--anchor-bg-color);
 }
 /* a:active {
@@ -212,6 +213,7 @@ nav #menu a:focus,
 nav #menu .currenttab a {
   color: var(--nav-text-hover-color);
   background: none;
+  padding-bottom: 2px;
 }
 nav #menu .currenttab a {
   font-weight: bold;
