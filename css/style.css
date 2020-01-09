@@ -457,53 +457,38 @@ nav #links a {
   align-content: flex-start;
   padding-bottom: 1rem;
 }
-.pic3 {
-  width: 31%;
+.gallerypic {
   border: 2px solid black;
   border-radius: 10px;
-}
-.svg3 {
-  width: 31.7%;
   background-color: white;
+
+}
+.svgpic {
   padding: 0.5rem;
-  border: 2px solid black;
-  border-radius: 10px;
 }
-.pic2 {
+.pic32 {
+  width: 31.7%;
+}
+.pic48 {
   width: 48%;
-  border: 2px solid black;
-  border-radius: 10px;
 }
-#mftsppic {
+.pic40 {
   width: 40%;
 }
-#roadpic {
+.pic42 {
   width: 42%;
 }
-.small2pic {
+.pic35 {
   width: 35%;
-  border: 2px solid black;
-  border-radius: 10px;
 }
-.pic15 {
+.pic70 {
   width: 70%;
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 0.5rem;
-  background-color: white;
 }
-.svg2 {
-  width: 48%;
-  background-color: white;
-  padding: 0.5rem;
-  border: 2px solid black;
-  border-radius: 10px;
+.pic80 {
+  width: 80.2%;
 }
-
-#chessboard {
-  border: none;
-  width: 702px;
-  height: 702px;
+#alignec {
+  padding: 1.6rem;
 }
 
 #projects .paper .data {

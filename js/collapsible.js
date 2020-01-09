@@ -1,10 +1,8 @@
 
 var coll = document.getElementsByClassName("data");
-var i;
 
-for (i = 0; i < coll.length; i++) {
+for (let i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
-    if (window.getSelection().toString()) return;
     this.parentElement.classList.toggle("active");
     var content = this.parentElement.nextElementSibling;
     if (content.style.display === "block") {

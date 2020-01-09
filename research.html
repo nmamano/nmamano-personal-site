@@ -54,9 +54,9 @@
           <i class="fab fa-github-square fa-2x"></i></a></span>
       </li>
       <li>
-        <span class="long-form"><a href="#" target="_blank">
+        <span class="long-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
           <i class="fab fa-linkedin"></i> LinkedIn</a></span>
-        <span class="short-form"><a href="#" target="_blank">
+        <span class="short-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
           <i class="fab fa-linkedin fa-2x"></i></a></span>
       </li>
       <li>
@@ -97,13 +97,13 @@
           <div class="abstract">
             <p>Before this work, all the efficient algorithms for the <a href="https://en.wikipedia.org/wiki/Knight%27s_tour"></a>knight's tour problem on <i>n x n</i> boards were based a on divide-and-conquer strategy. We propose the first algorithm following a completely new approach, where the knight repeatedly crosses the entire board in long lines of moves in the same direction. In doing so, we prove the existence of knight's tours in <i>n x n</i> boards with only <i>O(n)</i> crossings (points where the knight crosses over its prior path). All prior algorithms have <i>O(n<sup>2</sup>)</i> crossings. We also extended our algorithm to 3D boards and giraffe tours, among other generalizations.</p>  
             <div class="gallery">
-              <img class="svg2" src="img/knight/20x20.PNG" title="Our tour for a 20x20 board.">
-              <img class="svg2" src="img/knight/lowerbound.svg" title="A fractal from our lower bound proof (see paper for context).">
+              <img class="gallerypic pic48" src="img/knight/20x20.PNG" title="Our tour for a 20x20 board.">
+              <img class="gallerypic pic48 svgpic" src="img/knight/lowerbound.svg" title="A fractal from our lower bound proof (see paper for context).">
             </div>
             <div class="gallery">
-              <img class="svg3" src="img/knight/xing.svg" title="Counting crossings.">
-              <img class="svg3" src="img/knight/3d.svg" title="Illustration for our 3D tour.">
-              <img class="svg3" src="img/knight/giraffe.svg" title="Part of our giraffe tour.">
+              <img class="gallerypic svgpic pic32" src="img/knight/xing.svg" title="Counting crossings.">
+              <img class="gallerypic svgpic pic32" src="img/knight/3d.svg" title="Illustration for our 3D tour.">
+              <img class="gallerypic svgpic pic32" src="img/knight/giraffe.svg" title="Part of our giraffe tour.">
             </div>
             </div>
       </li>
@@ -129,8 +129,8 @@
           <div class="abstract">
             <p>Greedy algorithms for combinatorial problems are appealing because of their simplicity: at each step, make the choice that appears to contribute the most toward a good solution. Even when greedy algorithms are not optimal, they often find good solutions. This paper is about speeding up four greedy algorithms for four different problems by following a similar technique: we relax the selection rule of the greedy algorithms to one that can be computed more efficiently, while showing that the final solution is unaffected. For instance, we improve the runtime of the <a href="https://en.wikipedia.org/wiki/Multi-fragment_algorithm">multi-fragment algorithm</a> for Euclidean TSP from <i>O(n<sup>2</sup>)</i> to <i>O(n log n).</i></p>
           <div class="gallery">
-            <img id="mftsppic" class="pic2" src="img/nnc/TSP.PNG" title="Order in which our algorithm selects the edges to construct the multi-fragment tour.">
-            <img class="svg2" src="img/nnc/flowers.svg" title="Part of the analysis of a new geometric data structure we use in our Euclidean TSP algorithm (see paper for context).">
+            <img class="gallerypic pic40" src="img/nnc/TSP.PNG" title="Order in which our algorithm selects the edges to construct the multi-fragment tour.">
+            <img class="gallerypic svgpic pic48" src="img/nnc/flowers.svg" title="Part of the analysis of a new geometric data structure we use in our Euclidean TSP algorithm (see paper for context).">
           </div>
         </div>
       </li>
@@ -154,9 +154,9 @@
             <p>Imagine that you have a set of facilities in the plane, like post offices, and you want to assign a <q>service region</q> to each one with two constraints: first, each service region should be close to the corresponding facility. Second, all the service regions should have the same area. If we drop the second condition, we end up with the well known <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagram</a>.
             Stable matching Voronoi diagrams are a generalization that addresses the second constraint by borrowing the notion of <a href="https://en.wikipedia.org/wiki/Stable_marriage_problem">stable matching</a> from market design to strike a fair assignment. In this paper, we give an algorithm to construct these diagrams and show that they may have a quadratic number of faces in the worst case.</p>
           <div class="gallery">
-            <img class="pic3" src="img/smvd/example.png" title="A stable matching Voronoi diagram.">
-            <img class="pic3" src="img/smvd/cones.PNG" title="A SMVD can be visualized as the lower envelope of a set of 3D cones (see paper for context).">
-            <img class="pic3" src="img/smvd/lowerbound.png" title="Part of our lower bound construction (see paper for context).">
+            <img class="gallerypic pic32" src="img/smvd/example.png" title="A stable matching Voronoi diagram.">
+            <img class="gallerypic pic32" src="img/smvd/cones.PNG" title="A SMVD can be visualized as the lower envelope of a set of 3D cones (see paper for context).">
+            <img class="gallerypic pic32" src="img/smvd/lowerbound.png" title="Part of our lower bound construction (see paper for context).">
           </div>
         </div>
       </li>
@@ -179,8 +179,8 @@
           <div class="abstract">
             <p>The problem in this paper is inspired by private-car services such as Uber or Lyft. We give a data structure that maintains a set of nodes in a graph (the drivers in a road network) subject to two operations: first, updates in the locations of the drivers. Second, queries asking for the closest driver to a given node (the location of a client requesting a ride). In the paper, we study how to strike a balance between the cost of updates and queries. Our technique is based on <a href="https://en.wikipedia.org/wiki/Vertex_separator">graph separators</a>: road networks can be split into two halves such that, if the closest driver to a client is in the other half, then it must pass through a small number of nodes.</p>
           <div class="gallery">
-            <img id="roadpic" class="pic2" src="img/road/roadnetwork.PNG">
-            <img class="svg2" src="img/road/sep.svg" title="Illustration of a graph separator.">
+            <img class="gallerypic pic42" src="img/road/roadnetwork.PNG">
+            <img class="gallerypic svgpic pic48" src="img/road/sep.svg" title="Illustration of a graph separator.">
           </div>
         </div>
       </li>
@@ -204,8 +204,8 @@
           <div class="abstract">
             <p>In theory, political districts should be balanced in population and should have compact shapes. <a href="https://en.wikipedia.org/wiki/Gerrymandering">Partisan gerrymandering</a> is the manipulation of district boundaries for political advantage. A potential solution is to use geometric <q>politically-agnostic</q> algorithms to draw fair districts. In this paper, we consider the use of <a href="https://en.wikipedia.org/wiki/Stable_marriage_problem">stable matching</a>, a concept from market design, to assign districts to district centers. Depending on the center locations, we found that the resulting districts from stable matching may be concave or not even connected.</p>
           <div class="gallery">
-            <img class="small2pic" src="img/maps/LA.jpg" title="Stable matching districts in Louisiana.">
-            <img class="small2pic" src="img/maps/TX.jpg" title="Stable matching districts in Texas.">
+            <img class="gallerypic pic35" src="img/maps/LA.jpg" title="Stable matching districts in Louisiana.">
+            <img class="gallerypic pic35" src="img/maps/TX.jpg" title="Stable matching districts in Texas.">
           </div>
         </div>
       </li>
@@ -229,8 +229,8 @@
             <p>Whereas <a href="#smvd">our later paper</a> gives algorithms for stable-matching Voronoi diagrams in the plane, this paper gives algorithms for such diagrams in a pixelated setting.
             It also considers the use these diagrams for clustering. We show that they can be used to find clusters that are both compact and equal-sized.</p>
           <div class="gallery">
-            <img class="small2pic" src="img/grid/random.png" title="Stable-matching Voronoi diagram before clustering.">
-            <img class="small2pic" src="img/grid/cluster.png" title="Stable-matching Voronoi diagram after clustering.">
+            <img class="gallerypic pic35" src="img/grid/random.png" title="Stable-matching Voronoi diagram before clustering">
+            <img class="gallerypic pic35" src="img/grid/cluster.png" title="Stable-matching Voronoi diagram after clustering">
           </div>
         </div>
       </li>
@@ -278,8 +278,8 @@
           <div class="abstract">
             <p>This is a journal version of the <a href="#smvd"> paper</a>. We extended our algorithm to work for other distance metrics, such as Manhattan distance.</p>
           <div class="gallery">
-            <img class="small2pic" src="img/smvd/manhattan.png">
-            <img class="small2pic" src="img/smvd/king.png">
+            <img class="gallerypic pic35" src="img/smvd/manhattan.png" title="SMVD under Manhattan metric">
+            <img class="gallerypic pic35" src="img/smvd/king.png" title="SMVD under Chebyshev metric">
           </div>
         </div>
       </li>
@@ -301,7 +301,7 @@
       <div class="details collapsible-content">
           <div class="abstract">
             <p>
-              This is a follow-up paper on <a href="#sana">our paper</a> on using simulated annealing for the alignment of PPI networks. We consider what is the best objective function for simulated annealing to optimize. In a typical PPI network, we do not know the exact identification of a node, but we have a list of properties or functions, called GO terms, known (or rather, suspected, since the data is noisy) to be associated with that node. Prior network alignment methods try to match pairs of proteins with matching GO terms. However, this fails to account for the frequency of GO terms: rare GO terms identify proteins more precisely.
+              This is a follow-up paper on our paper below on using simulated annealing for the alignment of PPI networks. We consider what is the best objective function for simulated annealing to optimize. In a typical PPI network, we do not know the exact identification of a node, but we have a list of properties or functions, called GO terms, known (or rather, suspected, since the data is noisy) to be associated with that node. Prior network alignment methods try to match pairs of proteins with matching GO terms. However, this fails to account for the frequency of GO terms: rare GO terms identify proteins more precisely.
               We propose the first GO-centered measure (as opposed to protein-centered), which means that the score is computed as the sum of the contribution of each GO term, rather than the sum of the contribution of each pair of aligned proteins. We give each GO term one <q>unit</q> of score, and we distribute it equally among all possible alignments that align it correctly. For instance, mapping correctly a GO term that appears exactly once in both networks is twice as valuable as mapping correctly the two occurrences of a GO term that appears twice on each network (because there are two ways to map that GO term <q>correctly</q>). This GO-centered approach performed better with the data sets in our experiments. 
             </p>
         </div>
@@ -326,7 +326,14 @@
           <div class="abstract">
             <p><a href="https://en.wikipedia.org/wiki/Protein%E2%80%93protein_interaction">Protein-protein interaction networks</a> are graphs where the nodes represent proteins and edges denote that two proteins can physically interact. Such graphs carry important biological insight, especially when we know the proteins associated to the nodes. However, in many cases, we have PPI networks with unlabeled nodes. In this paper, we attempt to transfer our knowledge about the PPI network from one specie to another via network alignment. The idea is that if we find nodes that are topologically similar in the PPI networks of, e.g., rat and mouse, they are statistically likely to be the same protein. Thus, network alignment is the problem of mapping the nodes of two graphs while preserving the edges as best as possible&dash;a generalization of the <a href="https://en.wikipedia.org/wiki/Graph_isomorphism">graph isomorphism</a> problem. Since the problem is NP-complete, we use the <a href="https://en.wikipedia.org/wiki/Simulated_annealing">simulated annealing metaheuristic</a>.</p>
         </div>
-      </li>
+        <div class="gallery">
+          <img id="alignec" class="gallerypic svgpic pic35" src="img/sana/alignment.svg" title="An alignment between G1 and G2 that correctly aligns 4 edges">
+          <img class="gallerypic pic35" src="img/sana/temp3d.png" title="Grid search for the best parameters for the simulated annealing model">
+        </div>
+        <div class="gallery">
+          <img class="gallerypic pic80" src="img/sana/comp.PNG" title="Comparison between several state-of-the-art network aligners in terms of preserved topology (left) and biology (right), with SANA on top in both">
+        </div>
+    </li>
     </ul>
 
     <div id="preamble">
