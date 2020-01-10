@@ -1,2 +1,7 @@
 todo.txt
-resume_template.docx
+cv/resume_template.docx
+
+*.aux
+*.log
+*.out
+*.gz
