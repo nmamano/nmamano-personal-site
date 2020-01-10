@@ -169,8 +169,9 @@ footer p {
   margin-right: auto;
 }
 #profilepic {
+  /* original: 1205 x 782 */
   height: 574px;
-  width: 378px;
+  width: 372px;
 }
 
 header,
@@ -494,12 +495,23 @@ nav #links a {
 #projects .paper .data {
   text-align: left;
 }
-#misc img {
-  margin-top: 2rem;
+
+
+#miscfooterimg {
+  margin: 4rem 0rem 2rem 0rem;
   width: 50%;
 }
 @media (max-width: 800px) {
-  #misc img {
+  #miscfooterimg {
+    width: 70%;
+  }
+}
+#researchfooterimg {
+  margin: 2rem 0rem;
+  width: 50%;
+}
+@media (max-width: 800px) {
+  #researchfooterimg {
     width: 70%;
   }
 }
