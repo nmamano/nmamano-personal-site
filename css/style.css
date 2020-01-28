@@ -127,7 +127,7 @@ body {
 #miscpage {
   grid-template-columns: 15rem auto;
   grid-template-areas:
-    "nav main"
+    "nav main";
 }
 header {
   grid-area: header;
@@ -161,6 +161,7 @@ footer p {
   grid-area: pic;
 }
 
+#decopic img,
 #pic img {
   border: 1px solid black;
   border-radius: 5px;
@@ -248,16 +249,17 @@ nav #links a {
       "nav header header"
       "nav main pic"
       "nav footer footer";
-      margin-bottom: 0;
-    }
-    #pic {
-      padding-right: 2rem;
-      align-self: center;
-    }
-    h1 {
-      padding: 0;
-      margin: 0;
-    }
+    margin-bottom: 0;
+  }
+  .decopic,
+  #pic {
+    padding-right: 2rem;
+    align-self: center;
+  }
+  h1 {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 @media (max-width: 800px) {
