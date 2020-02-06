@@ -124,7 +124,8 @@ body {
 }
 #researchpage,
 #projectspage,
-#miscpage {
+#miscpage,
+#blogpage {
   grid-template-columns: 15rem auto;
   grid-template-areas:
     "nav main";
@@ -274,7 +275,8 @@ nav #links a {
   }
   #researchpage,
   #projectspage,
-  #miscpage {
+  #miscpage,
+  #blogpage {
     grid-template-columns: unset;
     grid-template-areas:
       "nav"
@@ -294,7 +296,7 @@ nav #links a {
   }
   nav #menu {
     column-width: auto;
-    column-count: 4;
+    column-count: 5;
     column-gap: 0px;
     margin-bottom: 0rem;
   }
@@ -516,12 +518,13 @@ nav #links a {
   text-align: left;
 }
 
-
+#blogfooterimg,
 #miscfooterimg {
   margin: 4rem 0rem 2rem 0rem;
   width: 50%;
 }
 @media (max-width: 800px) {
+  #blogfooterimg,
   #miscfooterimg {
     width: 70%;
   }
@@ -535,4 +538,46 @@ nav #links a {
     width: 70%;
     margin: 4rem 0 2rem 0;
   }
+}
+
+#bloglist {
+  margin-bottom: 6rem;
+}
+.blogdate {
+  font-weight: bold;
+}
+
+.blogpost {
+  padding-left: 0;
+  padding-right: 0;
+}
+.blogreturn p {
+  margin: 0;
+}
+.blogreturn {
+  padding: 14px 20px 14px 20px;
+  background-color: var(--nav-bg-color);
+  margin-bottom: 0;
+}
+#mdToHtml {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 50px;
+}
+
+.blogpostpage ul li {
+  list-style: initial;
+  margin-left: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.blogpostpage ol li {
+  list-style-type: decimal;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: 20px;
+}
+.blogpostpage h1 {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

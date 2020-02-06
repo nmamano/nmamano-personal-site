@@ -5,27 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Nil Mamano | Personal site</title>
+  <title>Nil Mamano | Blog</title>
   <meta name="person" content="Nil Mamano">
   <meta name="sortname" content="Mamano, Nil">
-  <meta name="keywords" content="personal site,computer science,software engineer">
+  <meta name="keywords" content="personal site,computer science,blog">
   <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="css/academicons.min.css"/>
 
-  <!-- Fast icon load: -->
   <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
-
 </head>
 
-<body id="homepage">
+<body id="blogpage">
   <nav>
     <ul id="menu">
-      <li class="currenttab"><a href="index.html">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="research.html">Research</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li class="currenttab"><a href="blog.html">Blog</a></li>
       <li><a href="misc.html">Personal</a></li>
     </ul>
     <h3>Contact &amp; links</h3>
@@ -74,50 +72,28 @@
     </ul>
   </nav>
 
-  <header>
-    <h1>Nil Mamano</h1>
-  </header>
-
-  <aside id="pic">
-    <img id="profilepic" src="img/nil.jpg" alt="profile picture">
-  </aside>
-
   <main>
-    <h2>Hello!</h2>
-    <p>I am a computer scientist specialized in algorithm design. I received a PhD as part of the <a
-        href="http://www.ics.uci.edu/~theory" target="_blank">CS Theory group</a> at <a href="http://www.uci.edu"
-        target="_blank">UCI</a>. I was fortunate to be advised by Professors <a href="https://www.ics.uci.edu/~eppstein/"
-        target="_blank">David Eppstein</a> and <a href="http://www.ics.uci.edu/~goodrich/" target="_blank">Michael
-        Goodrich</a>.
+    <h2>Blog</h2>
+
+    <!-- <h3>On Coding</h3> -->
+    <p>My takes on how to learn / practice algorithms, from teaching and practicing for coding interviews. 
     </p>
 
-    <p>Before that, I got a bachelor's degree in CS from <a href="https://www.fib.upc.edu/en" target="_blank">UPC</a> in
-      my hometown of Barcelona. I visited UCI as an undergrad to conduct my
-      senior thesis under Professor Wayne Hayes.
-    </p>
+    <ul id="bloglist">
+      <li class="blogentry">
+        <div class="blogdate">February 5, 2020</div>
+        <a href="blog/dynamic/dynamic.html">Breaking Down Dynamic Programming</a>
+      </li>
+      <li class="blogentry">
+        <div class="blogdate">February 4, 2020</div>
+        <a href="blog/iterativetreetraversal/iterativetreetraversal.html">Iterative Tree Traversals: A Practical Guide</a>
+      </li>
+    </ul>
 
-    <h2 class="mainpageheader">Research</h2>
-    <p>My research involves graph algorithms and
-      computational geometry. My dissertation, <a href="thesis/nilthesis.pdf" target="_blank"><q>New Applications of the Nearest-neighbor
-          Chain Algorithm</q></a> (<a href="thesis/thesisslides.pdf" target="_blank">slides</a>)
-      studies how to <q>relax</q> the selection rule of greedy algorithms without affecting the final
-      solution. This idea, paired with an algorithmic technique called <q>nearest-neighbor chain</q>, allows
-      us to speed up greedy algorithms for several problems such as TSP.
-    </p>
-
-    <p>See <a href="research.html">Research</a> for more.
-    </p>
+    <div id="decopic">
+      <img id="blogfooterimg" src="img/cat.jpg">
+    </div>
   </main>
 
-  <footer>
-    <p>Last updated: Jan 2020. Made from scratch with <q>vanilla</q> html/css.
-    </p>
-  </footer>
-
-
-
-  <script src="js/emailmodal.js"></script> 
-    
+  <script src="js/emailmodal.js"></script>
 </body>
-
-</html>
