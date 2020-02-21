@@ -170,7 +170,7 @@ Here is an animation of the LG algorithm. The dashed red loops highlight all the
 
 The final cycle will be the same regardless of the choices we make:
 
-![GLE for TSP](gleTSP.PNG =40%x40%)
+![GLE for TSP](gleTSP.png =40%x40%)
 
 ## Shortest Common Superstring
 
