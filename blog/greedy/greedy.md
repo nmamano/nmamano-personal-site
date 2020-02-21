@@ -1,4 +1,4 @@
-# Why Many Greedy Algorithms Are Pickier Than They Need To
+# Why Many Greedy Algorithms Are Pickier Than They Need To Be
 
 ## Introduction
 
@@ -29,7 +29,7 @@ Here is an example execution of the Greedy for MWM in a geometric setting. Nodes
 
 ## Local Greedy
 
-As mentioned, only two ingridients are necessary to design a greedy algorithm: a way to construct a valid solution by making a sequence of choices, and an evaluation function to rank the choices at each step.
+As mentioned, only two ingredients are necessary to design a greedy algorithm: a way to construct a valid solution by making a sequence of choices, and an evaluation function to rank the choices at each step.
 
 Using these same two elements, we will design a variant of the greedy strategy that we call *local greedy*. As in a greedy algorithm, a local greedy algorithm constructs a solution by making an irrevocable choice at each step. However, we *relax* the condition that we must pick the best choice at each step. In order to define the new criteria for picking a choice, we need one more ingredient: a notion of *interaction* between the available choices at each step. Two choices can interact in two ways. First, in terms of validity: often, making a choice means that another choice stops being compatible with a valid solution. Second, in terms of *utility*: making a choice might make another one less or more desirable according to the evaluation function. Since not all pairs of choices necessarily interact, this relationship defines an *interaction graph*: a graph with the set of valid choices as nodes and where edges represent interaction.
 
@@ -69,7 +69,7 @@ I claimed I wouldn't get into proofs, but the proof of GLE for the MWM Greedy is
 
 Since any two runs of LG find the same solution, and GG is a special case of LG, it follows that every run of LG finds the same solution as GG.
 
-I'll take a quick detour into the story of GLE for MWM. Before it was discovered, LG was proposed as a "new" algorithm and it was proven that it achieves a 1/2 approximation ratio, just like Greedy (of course, they achieve the same approximation ratio because they find the same solution). A funny thing I found is that there is a paper doing an empirical comparison of the solution quality of different MWM algorithms, and it includes the traditional Greedy and LG as different algorithms. **They compared two things mathematically proven to be the same.** In the experiment, they actually obtain slightly different results for the two, which must come down to handling ties differently. Had they used consistent tie-breaking rules in both implementations, they would have got the exact same numbers, probably causing some perplexion. Here is the table from their paper (LG is labeled LAM):
+I'll take a quick detour into the story of GLE for MWM. Before it was discovered, LG was proposed as a "new" algorithm and it was proven that it achieves a 1/2 approximation ratio, just like Greedy (of course, they achieve the same approximation ratio because they find the same solution). A funny thing I found is that there is a paper doing an empirical comparison of the solution quality of different MWM algorithms, and it includes the traditional Greedy and LG as different algorithms. **They compared two things mathematically proven to be the same.** In the experiment, they actually obtain slightly different results for the two, which must come down to handling ties differently. Had they used consistent tie-breaking rules in both implementations, they would have got the exact same numbers, probably rising some questions. Here is the table from their paper (LG is labeled LAM):
 
 ![Comparison of MWM algorithms](empiricalcomp.PNG =35%x35%) 
 
@@ -145,7 +145,7 @@ crosses.
 
 They found that there is no GLE if a new cluster resulting from a merge can be closer to other clusters than both of the original clusters before the merge. For instance, in the example above, the centroid of *c* and *d* is closer to *b* than both *c* and *d*. This is why there is no GLE. In contrast, using minimum-distance instead, a new cluster is as far from the other clusters as one of the original clusters were. Thus, we get GLE.
 
-The intuition is the same as we saw for combinatorial optimization problems: if new clusters cannot get closer to other clusters, then the merges done by the algorith cannot "break" existing mutual nearest-neighbors, and they will *eventually* be picked. MNN are like locally-dominant pairs of clusters.
+The intuition is the same as we saw for combinatorial optimization problems: if new clusters cannot get closer to other clusters, then the merges done by the algorithm cannot "break" existing mutual nearest-neighbors, and they will *eventually* be picked. MNN are like locally-dominant pairs of clusters.
 
 Unfortunately, this line of work on GLE died out in the 80's and never branched out beyond hierarchical clustering. In parallel, GLE was discovered for specific combinatorial problems like MWM, but no connection was drawn between the two.
 
@@ -162,7 +162,7 @@ Here is an animation of the multi-fragment algorithm. The gray nodes are those t
 ![Greedy for TSP](greedyTSP.gif =30%x30%)
 
 This algorithm is very reminiscent of agglomerative hierarchical clustering.
-We can say that two fragments are MNN if they they are closer to each other than to any third fragment. Then, we can define a local greedy alternative algorithm which connects *any* pair of fragments which are MNN. Note that when we connect two fragments, the resulting fragment cannot be closer to a third fragment than either of the original fragments were. Thus, by a similar argument as we saw for hierarchical clustering, we have GLE.
+We can say that two fragments are MNN if they are closer to each other than to any third fragment. Then, we can define a local greedy alternative algorithm which connects *any* pair of fragments which are MNN. Note that when we connect two fragments, the resulting fragment cannot be closer to a third fragment than either of the original fragments were. Thus, by a similar argument as we saw for hierarchical clustering, we have GLE.
 
 Here is an animation of the LG algorithm. The dashed red loops highlight all the MNN that we *could* connect at each step. One of them is chosen arbitrarily.
 
@@ -176,7 +176,7 @@ The final cycle will be the same regardless of the choices we make:
 
 Shortest Common Superstring (SCS) is an optimization problem over strings: given a set of strings, find the shortest string that is a superstring of all of them. A string is a superstring of another if it contains it consecutively, that is, without additional characters intertwined.
 
-One of the killer applications of SCS is DNA sequencing. My (limited) understainding is that biologists have methods to *sample* short segments of a much longer DNA sequence, but they cannot pinpoint exactly where in the sequence the sample was extracted.
+One of the killer applications of SCS is DNA sequencing. My (limited) understanding is that biologists have methods to *sample* short segments of a much longer DNA sequence, but they cannot pinpoint exactly where in the sequence the sample was extracted.
 
 ![SCS instance](scs.PNG =45%x45%)
 
