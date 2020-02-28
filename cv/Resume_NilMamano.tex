@@ -1,0 +1,168 @@
+%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper,10pt,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{sectsty}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!80!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+\sectionfont{\Large}
+\subsectionfont{\normalsize}
+\usepackage{titlesec}
+
+\renewcommand\labelitemi{--}
+
+\titlespacing*{\section}
+{0pt}{8px}{5px}
+
+\usepackage[left=0.4in, right=0.4in, bottom=0.35in, top=0.35in]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+\pagenumbering{gobble}
+
+%\newcommand{\note}[1]{\textcolor{red}{\,(#1)}}
+\newcommand{\note}[1]{}
+%\newcommand{\alt}[1]{\textcolor{blue}{\\Or: #1}}
+\newcommand{\alt}[1]{}
+
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{0.9} 
+
+\input{glyphtounicode}
+
+\pdfgentounicode=1
+
+\begin{document}
+{\raggedleft
+
+\begin{minipage}[c]{0.28\textwidth}
+	\begin{flushleft}
+	\href{mailto:nil.mamano@gmail.com}{nil.mamano@gmail.com}\\
+	1710 Dunlavy St\\
+	Houston, TX 77006, US\\
+	832-212-3511
+	\end{flushleft}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.3\textwidth}
+	\begin{center}
+		\Huge{\textbf{Nil Mamano}}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.3\textwidth}
+	\begin{flushright}
+	\href{http://www.nmamano.com}{nmamano.com} \\
+	\href{http://www.github.com/nmamano}{github.com/nmamano} \\
+	\href{http://www.linkedin.com/in/nmamano}{linkedin.com/in/nmamano}
+	\end{flushright}
+\end{minipage}\\
+\vspace{5px}
+\hrulefill
+}
+
+\section*{Education}
+\paragraph*{PhD + Masters in Computer Science} University of California Irvine, GPA 3.83/4 \hfill Dec 2019
+\begin{itemize}[leftmargin=15px]
+	\item Contributed to the field of Algorithms by co-authoring 8 peer-reviewed papers on graph algorithms and computational geometry.  	
+\end{itemize}
+\vspace*{-10px}
+\paragraph*{B.E. in Computer Science} Polytechnic University of Catalonia, GPA 9.5/10 \hfill Jul 2015
+\begin{itemize}[leftmargin=15px]
+	\item 2nd highest GPA in a cohort of 400+ students.
+\end{itemize}
+
+\section*{Skills}
+\textbf{Languages:} C++, Python, Java, C, HTML, CSS, Javascript, Typescript, Bash.~
+\textbf{Tools:} Git, Github, Linux, Oracle Grid Engine.
+
+\section*{Experience}
+\paragraph*{PhD Graduate Researcher} University of California Irvine \hfill Sep 2015 -- Dec 2019
+\begin{itemize}[leftmargin=15px]
+\item Proved that a class of Greedy algorithms can be distributed/parallelized, and used that to design faster algorithms even in the sequential setting. Example: improved the multi-fragment algorithm for Euclidean TSP from $O(n^2)$ to $O(n\log n)$ time.
+\item Designed a dynamic nearest neighbor data structure for road networks that allows to maintain a set of moving  ``drivers'' and match clients to the closest driver as they appear.
+	\begin{itemize}[leftmargin=15px,topsep=0px]
+		\item Leveraged the structure of road maps to decompose them into subregions, improving the query runtime from $O(n)$ to $O(\sqrt{n})$.\note{should I use big O notation in a resume?}
+		\item Java implementation that scales to statewide networks with 100000+ edges. \note{quantification}      
+	\end{itemize}
+\item Started \& led a project where we invented a new algorithm for the knight's tour problem. Built an interactive visualizer in Javascript.
+\item Designed efficient algorithms for a variant of Voronoi Diagrams that allows to cluster data into clusters of prescribed sizes.
+	\begin{itemize}[leftmargin=15px,topsep=0px]
+		\item Used it in an automatic districting algorithm (in Java) that partitions a geographic region into compact and equal-population districts to prevent gerrymandering.\note{context}
+		\item Implemented an interactive visualizer in Javascript and a standalone application in C++ and OpenGL.\note{keywords}
+	\end{itemize}
+\item Implemented an algorithm in Python for embedding hidden ``watermarks'' in large graphs by hiding information in the structure of the graphs, allowing companies to share data encoded as graphs such as social networks without the risk of it being leaked.\note{context}
+\end{itemize}
+
+\paragraph*{Undergrad Visiting Researcher} University of California Irvine \hfill Feb -- Jul 2015
+\begin{itemize}[leftmargin=15px]
+	\item Developed SANA, a network alignment software in C++ for protein-protein interaction networks that aids in transferring biological knowledge across species. Outperformed the leading algorithms in a fraction of the time. Ran
+	large-scale experiments in a computing cluster to fine-tune the algorithm.
+	The project has 30+ collaborators on Github and our paper got 30+ citations in 2 years.	 
+\end{itemize}
+\paragraph*{Research Intern} Polytechnic University of Catalonia, Spain \hfill Jan -- Oct 2014
+\begin{itemize}[leftmargin=15px]
+\item Contributed to RACSO, a free online judge (automatic grading tool) for compiler and automata theory courses.
+	\begin{itemize}[leftmargin=15px,topsep=0px]
+		\item Built an interpreter (in C++) for a C-like language used by the students to write their solutions, following TDD.
+		\item Prepared 70+ online exercises, and exams taken by 100+ students.
+	\end{itemize}
+\end{itemize}
+\paragraph*{Teaching Assistant} University of California Irvine\hfill 2017 -- 2018
+\begin{itemize}[leftmargin=15px]
+	%\item Courses: design and analysis of algorithms (twice), graph algorithms (twice), and formal languages and automata theory.
+	\item 100+ discussions in large classrooms explaining algorithms, graph theory, and complexity theory, with excellent student evaluations.
+	\item Championed the use of online automatic graders to improve the students' experience and reduce the grading load, and led a study with 100+ students to evaluate their effectiveness.
+%	\item Volunteered to give guest lectures at UCI and Pomona College.
+\end{itemize}
+
+%\section*{Awards and Honors}
+%\begin{itemize}
+%	\item Balsells Graduate Fellowship\hfill 2015 -- 2016
+%	\item Balsells Fellowship---Undergraduate Mobility Program\hfill 2014
+%	\item Formula Santander International Scholarship \hfill 2014
+%\end{itemize}
+
+\section*{Selected publications}
+%Full list: \href{http://www.scholar.google.com/citations?user=LIuIigEAAAAJ}{scholar.google.com/citations?user=LIuIigEAAAAJ}
+\begin{itemize}[leftmargin=15px]
+\item ``Euclidean TSP, Motorcycle Graphs, and Other New Applications of Nearest-Neighbor Chains'' N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S. Kobourov, P. Matias, V. Polishchuk, ISAAC 2019
+\item ``Stable-Matching Voronoi Diagrams: Combinatorial Complexity and Algorithms'' G. Barequet, D. Eppstein, M. T. Goodrich, and N. Mamano, ICALP 2018
+\item ``Reactive Proximity Data Structures for Graphs'' D. Eppstein, M.T. Goodrich, and N. Mamano, LATIN 2018
+\item ``SANA: Simulated Annealing far outperforms many other search algorithms for biological network alignment'' N. Mamano and W. Hayes, Bioinformatics: Oxford Journals 2017\\
+%\item[C3.] D. Eppstein, M.T. Goodrich, D. Korkmaz, and N. Mamano, ``\href{https://arxiv.org/pdf/1706.09593.pdf}{Defining Equitable Geographic Districts in Road Networks via Stable Matching}'', SIGSPATIAL 2017 (short paper)
+%\item[C2.] D. Eppstein, M.T. Goodrich, and N. Mamano, ``\href{https://arxiv.org/pdf/1704.02303.pdf}{Algorithms for Stable Matching and Clustering in a Grid}'', IWCIA 2017
+%\item[C1.] D. Eppstein, M.T. Goodrich, J. Lam, N. Mamano, M. Mitzenmacher, and M. Torres, ``\href{https://arxiv.org/pdf/1605.09425.pdf}{Models and Algorithms for Graph Watermarking}'', ISC 2016 \textit{Best Student Paper Award}\\
+\end{itemize}
+%\subsection*{Journal Publications}
+%\begin{description}
+%\item[J3.] G. Barequet, D. Eppstein, M.T. Goodrich, and N. Mamano, ``\href{https://arxiv.org/pdf/1804.09411.pdf}{Stable-Matching Voronoi Diagrams: Combinatorial Complexity and Algorithms}'', JoCG 2020\\
+%\item[J2.] W. Hayes and N. Mamano, ``\href{https://academic.oup.com/bioinformatics/article/34/8/1345/4708230}{SANA NetGO: a combinatorial approach to using Gene Ontology (GO) terms to score network alignments}'', Bioinformatics: Oxford Journals, 2018\\
+%\end{description}
+%\subsection*{In Submission}
+%\begin{description}
+%	\item[S1.] J.J. Besa, T. Johnson, N. Mamano, M.C. Osegueda ``\href{https://arxiv.org/pdf/1904.02824.pdf}{Taming the Knight’s Tour: Minimizing Turns and Crossings}'', Preprint available on arXiv.\\
+%\end{description}
+%\subsection*{Posters}
+%\begin{description}
+%	\item[P1.] J. J. Besa, T. Johnson, N. Mamano, and M. Osegueda ``Taming the Knight’s Tour: Minimizing Turns and Crossings'', Graph Drawing 2018\\
+%\end{description}
+%\subsection*{Other Publications \normalfont{(not peer-reviewed)}}
+%\begin{description}
+%	\item[O1.] C. Creus, P. Fernández Durán, G. Godoy, N. Mamano
+%	 ``\href{https://upcommons.upc.edu/bitstream/handle/2117/119781/Automatic\%20evaluation\%20of\%20top-down\%20predictive\%20parsing.pdf?sequence=1\&isAllowed=y}{Automatic evaluation of top-down predictive parsing}'', Research Report, UPCommons, 2016\\
+%\end{description}
+%\subsection*{Guest Lectures}
+%\begin{itemize}
+%	\item ``Graph Separators'', for ``Graph Algorithms and Applications'' at Pomona College\hfill Fall 2018
+%	\item ``Euler Tours'', for ``Graph Algorithms'' at UCI\hfill Spring 2018
+%	\item ``Stable Matching'', for ``Graph Algorithms'' at UCI\hfill Spring 2017
+%	\item ``Graph Coloring'',  for ``Graph Algorithms'' at UCI\hfill Spring 2017
+%\end{itemize}
+
+\end{document}
