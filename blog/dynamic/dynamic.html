@@ -10,6 +10,13 @@
   <meta name="sortname" content="Mamano, Nil">
   <meta name="keywords" content="personal site,computer science,blog">
   <meta name="description" content="Breaking Down Dynamic Programming.">
+
+  <meta property="og:title" content="Nil Mamano | Blog" />
+  <meta property="og:description" content="Breaking Down Dynamic Programming." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://nmamano.com/blog/dynamic/dynamic.html" />
+  <meta property="og:image" content="http://nmamano.com/blog/dynamic/thumbnail.png" />
+
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="../../css/academicons.min.css"/>
@@ -31,54 +38,11 @@
   </main>
 
   <iframe id="frmFile" src="dynamic.md" onload="LoadFile();" style="display: none;"></iframe>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-  <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-  <script type="text/javascript">
 
-    function LoadFile() {
-      // taken from: https://github.com/showdownjs/showdown/issues/577#issuecomment-417181311 
-      showdown.extension('highlight', function () {
-        return [{
-          type: "output",
-          filter: function (text, converter, options) {
-            var left = "<pre><code\\b[^>]*>",
-                right = "</code></pre>",
-                flags = "g";
-            var replacement = function (wholeMatch, match, left, right) {
-              var lang = (left.match(/class=\"([^ \"]+)/) || [])[1];
-              left = left.slice(0, 18) + 'hljs ' + left.slice(18);
-              match = match
-              .replace(/&amp;/g, '&')
-              .replace(/&lt;/g, '<')
-              .replace(/&gt;/g, '>')
-              if (lang && hljs.getLanguage(lang)) {
-                return left + hljs.highlight(lang, match).value + right;
-              } else {
-                return left + hljs.highlightAuto(match).value + right;
-              }
-            };
-            return showdown.helper.replaceRecursiveRegExp(text, replacement, left, right, flags);
-          }
-        }];
-      });
-
-      var oFrame = document.getElementById("frmFile");
-      var text = oFrame.contentWindow.document.body.childNodes[0].innerText;
-      var target = document.getElementById('mdToHtml');
-      var converter = new showdown.Converter({
-        extensions: ['highlight']
-      });
-      converter.setOption('parseImgDimensions', true);
-      converter.setOption('simplifiedAutoLink', true);
-      converter.setOption('ghCodeBlocks', true);
-      // converter.setOption('smoothLivePreview', true);
-      converter.setFlavor('github');
-      target.innerHTML = converter.makeHtml(text);
-    }
-  </script>
-
+  <script src="../external/showdown.min.js"></script>
+  <link rel="stylesheet" href="../external/default.min.css">
+  <script src="../external/highlight.min.js"></script>
+  <script src="../mdToHtml.js"></script>
 
 </body>
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demistify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in this article/tutorial. To complement the explanations, there are links to problems on [leetcode.com](https://leetcode.com/), in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.
+When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demistify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in detail here. To complement the explanations, there are links to problems on [leetcode.com](https://leetcode.com/), in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.
 
 ## Overview: Recursive vs Iterative DP
 

@@ -64,7 +64,7 @@ I claimed I wouldn't get into proofs, but the proof of GLE for the MWM Greedy is
 
 **Proof:** Assume, for a contradiction, that *M1* differs from *M2*. Let *e* be the heaviest edge in one (without loss of generality, *M1*) but not the other (*M2*). During the course of the algorithm, every edge is either added to the matching or invalidated because a heavier neighbor was picked. Since *e* is not in *M2*, *M2* contains a neighbor edge *e'* of *e* that is heavier than *e* (see the figure below). However, *e'* cannot be in *M1* because *e* is in *M1*. This contradicts the assumption that *e* was the heaviest edge in only one of the matchings. &#8718;
 
-![Local Greedy for Maximum-weight matching](proofGleMatching.PNG =35%x35%) 
+![Local Greedy for Maximum-weight matching](proofGleMatching.png =35%x35%) 
 <!--  =40%x40% -->
 
 Since any two runs of LG find the same solution, and GG is a special case of LG, it follows that every run of LG finds the same solution as GG.
@@ -103,7 +103,7 @@ Thinking in terms of the interaction graph, picking a node changes the evaluatio
 
 However, this local greedy does *not* necessarily produce the same solution as the Greedy. The next example proves that this Greedy does not have GLE:
 
-![Maximum-weight Independent Set Instance](mis.PNG =30%x30%)
+![Maximum-weight Independent Set Instance](mis.png =30%x30%)
 
 The nodes are labeled with their weights. The edges of the graph are shown in black, and the edges of the interaction graph are shown dashed in blue. Below each node, their initial evaluation is shown in red. Initially, the locally-dominant nodes are the ones with weight 5 and 8. GG chooses the node with weight 8 first, and then (after readjusting the evaluations), the node with weight 6. In contrast, LG could start by picking the node with weight 5, resulting in a different final solution, *{5, 8}*.
 
@@ -141,7 +141,7 @@ Our work on GLE was inspired by previous work on agglomerative hierarchical clus
 For example, we have GLE with single-linkage and complete-linkage, but not with centroid distance, as shown in the example below. The hierarchies found by GG and a possible run of LG for the point set on the left, using centroid distance, differ. The points *a* and *b* are the closest pair, while *c* and *d* are MNN. The centroids of the inner clusters are indicated with red
 crosses. 
 
-![Hierarchical Clustering with centroid metric](noglehc.PNG =50%x50%)
+![Hierarchical Clustering with centroid metric](noglehc.png =50%x50%)
 
 They found that there is no GLE if a new cluster resulting from a merge can be closer to other clusters than both of the original clusters before the merge. For instance, in the example above, the centroid of *c* and *d* is closer to *b* than both *c* and *d*. This is why there is no GLE. In contrast, using minimum-distance instead, a new cluster is as far from the other clusters as one of the original clusters were. Thus, we get GLE.
 
