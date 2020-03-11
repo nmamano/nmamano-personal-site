@@ -82,6 +82,23 @@
       <li>
         <div class="paper collapsible">
           <div class="data">
+            SANA: Simulated Annealing Network Aligner.
+          </div>
+          <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
+            <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
+            <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project yielded a series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>), with a third one on the works.</p> 
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
             RACSO Online Judge (contribution).
           </div>
           <a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
@@ -106,16 +123,19 @@
       <li>
         <div class="paper collapsible">
           <div class="data">
-            SANA: Simulated Annealing Network Aligner.
+            LRU + TTL Cache
           </div>
-          <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
-            <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
-            <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-            <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+          <!--<a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>-->
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/ttlcache" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <!-- <a class="papericon" title="Read paper" href="https://arxiv.org/pdf/1904.02824.pdf" target="_blank"><i class="far fa-file-pdf fa-2x"></i></a> -->
+          <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project yielded a series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>), with a third one on the works.</p> 
+            <p>An in-memory hash table that acts as a Cache for a Key-Value storage. It is inspired by Redis and Memcached. It has an LRU (least recently used) eviction mechanism, and it also supports timeouts: entries expire after a certain TTL (<q>time-to-live</q>). The project focuses on how to handle expired entries. They can be handled in two ways: 1) passively, when they are <q>discovered</q> through read/write operations. 2) actively, by searching for them.
+            </p> 
+
+            <p>Using only passive removal may result in the LRU mechanism evicting entries that are still <q>alive</q> while the cache is poluted by expired entries. Memcached uses a <a href="https://memcached.org/blog/modern-lru/">segmented LRU mechanism</a> which takes TTL's into account. It can be considered as a type of passive removal. In contrast, Redis implements an active <a href="https://redis.io/commands/expire">probabilistic algorithm</a> to keep the fraction of expired entries low, which I implemented in this project. In the future, this project may serve as a testbed for comparing different algorithms for handling expired entries.</p>
           </div>
         </div>
       </li>
