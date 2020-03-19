@@ -544,14 +544,13 @@ nav #links a {
   margin-bottom: 6rem;
 }
 .blogdate {
-  font-weight: bold;
+  font-style: italic;
 }
-#blogpage h3 {
+#blogpage main h3 {
   margin-bottom: 0.3rem;
 }
 .blogsectiondescription{
   margin-top: 0rem;
-  font-style: italic;
 }
 .blogpost {
   padding-left: 0;
