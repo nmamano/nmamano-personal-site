@@ -1,3 +1,7 @@
+document.getElementById('frmFile').onload = function() {
+  LoadFile();
+};
+
 function LoadFile() {
   // taken from: https://github.com/showdownjs/showdown/issues/577#issuecomment-417181311 
   showdown.extension('highlight', function () {
