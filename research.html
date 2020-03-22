@@ -93,7 +93,7 @@
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>See the <a href="thesis/nilthesis.pdf" target="_blank">document</a> and the <a href="thesis/thesisslides.pdf" target="_blank">slides</a> from the defense. I have also written <a href="blog/greedy/greedy.html">a blog post</a> with some of the ideas in my thesis.</p>
+            <p>See the <a href="thesis/nilthesis.pdf" target="_blank">full thesis</a> and the <a href="thesis/thesisslides.pdf" target="_blank">slides</a> from the defense. I have also written <a href="blog/greedy/greedy.html">a blog post</a> introducing one of the essential ideas in my thesis.</p>
 
             <p>The <em>nearest-neighbor chain algorithm</em> was proposed in the eighties as a way to speed up certain clustering algorithms.
             We show that its application is not limited to clustering: we adapt it to speed up several greedy algorithms for geometric and combinatorial problems.</p>
@@ -102,18 +102,26 @@
             
             <p>Our technique for speeding up greedy algorithms consists of two steps. First, we <em>weaken</em> the selection rule of the greedy algorithm so that it may select <q>suboptimal</q> choices according to the criteria, but then we prove that the final solution is the same nonetheless. In a sense (formalized in the thesis), our algorithms make <em>locally-optimal</em> choices rather than <em>globally-optimal</em> ones. Second, we use NNC-based algorithms to navigate to these locally-optimal choices faster than the original greedy algorithm can find the globally-optimal ones. With these two ingridients, we obtain alternative algorithms that are faster and produce the same solution.</p>  
 
-            <p>The thesis also has a second part about stable-matching Voronoi diagrams (see paper [J5] below). Overall, the thesis is based on papers [J2,J3,J4,J5,J6,C3] below.</p>
+            <p>The thesis also has a second part about stable-matching Voronoi diagrams (see paper [J5] below). Overall, the thesis contains papers [J2,J3,J4,J5,J6,C3] below as well as unpublished results.</p>
+            <div class="gallery">
+              <img class="gallerypic pic48" src="blog/greedy/greedyTSP.gif" title="The multi-fragment algorithm for TSP.">
+              <img class="gallerypic pic48" src="blog/greedy/localGreedyTSPcrop.gif" title="Our algorithm with a weakened selection rule that finds the same solution">
+            </div>
           </div>
         </div>
       </li>
     </ul>
 
-    <h3>In submission</h3>
+    <!--<h3>In submission</h3>
+    <ul>
+    </ul>-->
+
+    <h3>Conference publications</h3>
     <ul>
       <li>
         <div class="paper collapsible">
           <div class="data">
-            [S1] Taming the Knight’s Tour: Minimizing Turns and Crossings.
+            [J7] Taming the Knight’s Tour: Minimizing Turns and Crossings, FUN'20.
             <div class="author">
             J.J. Besa, T. Johnson, N. Mamano, M.C. Osegueda
           </div>
@@ -139,10 +147,6 @@
             </div>
             </div>
       </li>
-    </ul>
-
-    <h3>Conference publications</h3>
-    <ul>
       <li>
         <div class="paper collapsible">
         <div class="data">

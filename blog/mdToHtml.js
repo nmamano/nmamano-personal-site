@@ -1,6 +1,15 @@
 document.getElementById('frmFile').onload = function() {
+  wait(300);
   LoadFile();
 };
+
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
+ }
+}
 
 function LoadFile() {
   // taken from: https://github.com/showdownjs/showdown/issues/577#issuecomment-417181311 
