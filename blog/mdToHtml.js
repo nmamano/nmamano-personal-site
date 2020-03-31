@@ -1,18 +1,8 @@
-document.getElementById('frmFile').onload = function() {
-  wait(300);
-  LoadFile();
-};
+$(document).ready(function() {
 
-function wait(ms){
-  var start = new Date().getTime();
-  var end = start;
-  while(end < start + ms) {
-    end = new Date().getTime();
- }
-}
+$('#frmFile').on('load', function(){
 
-function LoadFile() {
-  // taken from: https://github.com/showdownjs/showdown/issues/577#issuecomment-417181311 
+  //extension source: https://github.com/showdownjs/showdown/issues/577#issuecomment-417181311 
   showdown.extension('highlight', function () {
     return [{
       type: "output",
@@ -38,9 +28,6 @@ function LoadFile() {
     }];
   });
 
-  var oFrame = document.getElementById("frmFile");
-  var text = oFrame.contentWindow.document.body.childNodes[0].innerText;
-  var target = document.getElementById('mdToHtml');
   var converter = new showdown.Converter({
     extensions: ['highlight']
   });
@@ -49,5 +36,16 @@ function LoadFile() {
   converter.setOption('ghCodeBlocks', true);
   // converter.setOption('smoothLivePreview', true);
   converter.setFlavor('github');
-  target.innerHTML = converter.makeHtml(text);
-}
+
+  var oFrame = document.getElementById("frmFile");
+  var text = oFrame.contentWindow.document.body.childNodes[0].innerText;
+  if (text == "") {
+    console.log("failed to load markdown from iframe");
+    document.getElementById('mdToHtml').innerHTML = "Blog post did not load correctly. Try reloading the page.";
+  } else {
+    document.getElementById('mdToHtml').innerHTML = converter.makeHtml(text);
+  }
+
+});
+
+});
