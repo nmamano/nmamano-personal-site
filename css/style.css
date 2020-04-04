@@ -514,6 +514,10 @@ nav #links a {
   text-align: left;
 }
 
+#thesistitle {
+  font-weight: bold;
+}
+
 #blogfooterimg,
 #miscfooterimg {
   margin: 4rem 0rem 2rem 0rem;

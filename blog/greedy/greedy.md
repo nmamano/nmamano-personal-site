@@ -2,7 +2,13 @@
 
 ## Introduction
 
-This article takes a look at greedy algorithms and how it is often possible to design alternative algorithms (what I will call local greedy algorithms below) with "weaker" selection rules that somehow still end up with the same solution. The meaning of this will become clear during the article. This observation changed my understanding of greedy algorithms and led to many of the results in my research. That is why I dedicated chapter 2 of [my thesis](http://nmamano.com/thesis/nilthesis.pdf) to it. This article presents the main takeaways from that chapter and illustrates them with plenty of examples without getting into the technical details.
+The image below shows four problems from completely different domains. A possible solution to each is shown in red.
+
+![Greedy for Maximum-weight matching](gleexamples.PNG =50%x50%)
+
+The solutions in red are not just any solution. They are the results of well known greedy algorithms for each of these problems. Greedy algorithms, soon to be covered in detail, follow intuitive rules: in clustering, cluster together the two closest points, in routing, use the shortest edge in your route. In shorest superstring, combine the two strings that overlap the most. In matching, assign together the worker and task with the cheapest cost. 
+
+This article is not about any of these algorithms in particular, but about something they have in common. We will take a look at greedy algorithms like those above and how it is often possible to design alternative algorithms (what I will call local greedy algorithms below) with "weaker" selection rules that somehow still end up with the same solution. The meaning of this will become clear in time. This observation changed my understanding of greedy algorithms and led to many of the results in my research. I dedicated chapter 2 of [my thesis](http://nmamano.com/thesis/nilthesis.pdf) to it. This article presents the main takeaways from that chapter and illustrates them with plenty of examples without getting into the weeds.
 
 **Scope:** this article is intended for people interested in algorithm design. It only requires a basic understanding of algorithms, as I tried to keep it self-contained *except for the references*, which can be found in my thesis (Disclaimer: I will shamelessly not include any references here). The article begins explaining greedy algorithms and this idea of "weakening" their selection rules. We will then look at standard greedy algorithms for 6 different problems, analyze their selection rules, and find ways to weaken them. Half-way through, once we have built some intuition, I explain the necessary conditions for this to be possible. Since the greedy algorithms I consider are not new, I will not get into their runtimes or approximation ratios here. This, again, can be found in the references. I hope you find it interesting!
 
@@ -12,15 +18,11 @@ Greedy algorithms are perhaps the most common way to approach optimization probl
 
 We focus on problems of this type. A classic example is the [*maximum-weight matching problem*](https://en.wikipedia.org/wiki/Matching_(graph_theory)#Maximum-weight_matching) (MWM): Given an undirected graph with weighted edges, find a matching (a pairing of the nodes such that each node is in at most one pair) of maximum weight.
 
-Greedy algorithms are often employed for this kind of combinatorial problems because they have
-an exponential number of potential solutions. For instance, the number of different subsets of a set of *n* elements is *2<sup>n</sup>*, while the number of orderings is *n!*. Thus, brute force search is too expensive.
+Greedy algorithms are often employed for this kind of combinatorial problems because they have an exponential number of potential solutions. For instance, the number of different subsets of a set of *n* elements is *2<sup>n</sup>*, while the number of orderings is *n!*. Thus, brute force search is too expensive.
 
-The greedy approach is to construct a solution one component at a time. At each step, we consider a set of legal choices that allow us to make progress towards a solution. Among those, we choose the one that seems best according to an *evaluation function*. This function, which the algorithm designer must devise, should evaluate the utility of each choice, i.e., how “desirable”
-it appears in terms of reaching a good solution. Using the right evaluation function is key
-for the success of a greedy algorithm. The name *greedy* comes from the fact that once a choice is made, that choice is permanent; in algorithmic terms, there is no backtracking. Given its nature, a greedy algorithm should only consider “legal” choices in the sense that they should always lead to a final solution that is valid. However, a choice that seem best at an early stage (according to the evaluation function) may turn out to be suboptimal. This is why, in general, greedy algorithms are not guaranteed to find the optimal solution. 
+The greedy approach is to construct a solution one component at a time. At each step, we consider a set of legal choices that allow us to make progress towards a solution. Among those, we choose the one that seems best according to an *evaluation function*. This function, which the algorithm designer must devise, should evaluate the utility of each choice, i.e., how “desirable” it appears in terms of reaching a good solution. Using the right evaluation function is key for the success of a greedy algorithm. The name *greedy* comes from the fact that once a choice is made, that choice is permanent; in algorithmic terms, there is no backtracking. Given its nature, a greedy algorithm should only consider “legal” choices in the sense that they should always lead to a final solution that is valid. However, a choice that seem best at an early stage (according to the evaluation function) may turn out to be suboptimal. This is why, in general, greedy algorithms are not guaranteed to find the optimal solution. 
 
-In the MWM example, a greedy algorithm constructs a matching one edge at a time. At each step, it chooses the edge with the maximum weight among the
-valid edges (edges that do not connect already matched nodes). While this greedy algorithm is not optimal, its approximation factor is 1/2, meaning that the weight of the resulting matching is guaranteed to be at least half the weight of the optimal one.
+In the MWM example, a greedy algorithm constructs a matching one edge at a time. At each step, it chooses the edge with the maximum weight among the valid edges (edges that do not connect already matched nodes). While this greedy algorithm is not optimal, its approximation factor is 1/2, meaning that the weight of the resulting matching is guaranteed to be at least half the weight of the optimal one.
 
 Here is an example execution of the Greedy for MWM in a geometric setting. Nodes are points in the plane and every pair of points is connected by an edge with weight proportional to their proximity (closer nodes have higher weight). The greedy algorithm repeatedly matches the closest available pair.
 
@@ -37,8 +39,7 @@ In the greedy for MWM, two edges interact if they share an endpoint, because pic
 
 Given the interaction graph, we can define the local greedy algorithm. For simplicity, assume that there are no ties in the evaluations of the choices. We call the choice with the highest evaluation *globally dominant*. We call a choice *locally dominant* if it has a higher evaluation than its neighbors in the interaction graph. Whereas the standard greedy algorithm makes the globally-dominant choice at each step, local greedy makes *any* of the locally-dominant choices. Note that there is a unique globally-dominant choice, while there can be multiple locally-dominant ones. The globally-dominant choice is also locally dominant, but the converse is not necessarily true. Henceforth, we refer to the standard greedy algorithm as global greedy (GG) to distinguish it from local greedy (LG).
 
-Even if GG and LG operate over the same set of choices and with the same evaluation function,
-they have two remarkable differences: first, local greedy is non-deterministic. If there are multiple locally-dominant choices, any of them can be chosen. Thus, one can entertain different strategies for finding locally-dominant choices. In fact, GG is one such strategy, so GG is a special case of LG. The second difference, naturally, is its locality: to implement GG, one needs to know every choice in order to determine the globally-dominant one. In contrast, LG can make a choice while being only aware of its neighbors. The extra freedom and locality are promising angles of attack for the design of algorithms, particularly in distributed and parallelized settings.
+Even if GG and LG operate over the same set of choices and with the same evaluation function, they have two remarkable differences: first, local greedy is non-deterministic. If there are multiple locally-dominant choices, any of them can be chosen. Thus, one can entertain different strategies for finding locally-dominant choices. In fact, GG is one such strategy, so GG is a special case of LG. The second difference, naturally, is its locality: to implement GG, one needs to know every choice in order to determine the globally-dominant one. In contrast, LG can make a choice while being only aware of its neighbors. The extra freedom and locality are promising angles of attack for the design of algorithms, particularly in distributed and parallelized settings.
 
 We can turn the Greedy algorithm that we saw for MWM into LG: at each step, choose any edge *e={u,v}* such that *e* is heavier than any other edge touching *u* or *v*. Repeat until no more edges can be added.
 
@@ -186,8 +187,7 @@ The problem is NP-hard, but some approximation algorithms are known. The most fa
 
 ![Greedy for SCS](greedySCS.PNG =45%x45%)
 
-This algorithm is similar to the multi-fragment algorithm for TSP, and, indeed, GLE also holds.
-Here, LG repeatedly merges *any* two strings which overlap more with each other than with any third string. It is harder to see, but we proved that the resulting merged strings do not overlap more with other strings than the original strings did before the merge.
+This algorithm is similar to the multi-fragment algorithm for TSP, and, indeed, GLE also holds. Here, LG repeatedly merges *any* two strings which overlap more with each other than with any third string. It is harder to see, but we proved that the resulting merged strings do not overlap more with other strings than the original strings did before the merge.
 
 ![Local Greedy for SCS](localGreedySCS.PNG =45%x45%)
 
