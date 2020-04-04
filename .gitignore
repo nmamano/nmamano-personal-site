@@ -7,3 +7,6 @@ cv/old/
 *.gz
 
 blog/greedy/animations.ipe
+blog/generator/node_modules
+blog/generator/package-lock.json
+blog/generator/test.md
