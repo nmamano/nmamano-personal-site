@@ -308,7 +308,7 @@ nav #links a {
   nav h3 {
     display: none;
   }
-  nav #academic-email {
+  nav .only_long_nav {
     display: none;
   }
   nav #links {
