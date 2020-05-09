@@ -31,11 +31,11 @@
       <h2 id="what-are-tree-traversals">What are Tree Traversals</h2>
       <p>Mathematically, trees are just connected acyclic graphs. However, in the context of tree traversals, we are usually working with <strong>rooted trees</strong> represented with a recursive structure such as the following (which is the default definition in Leetcode for binary trees). A leaf is a node with two null pointers as children:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> {</span>
-            <span class="hljs-keyword">int</span> val;
-            TreeNode *left;
-            TreeNode *right;
-            TreeNode(<span class="hljs-keyword">int</span> x) : val(x), left(<span class="hljs-literal">NULL</span>), right(<span class="hljs-literal">NULL</span>) {}
-          };</code></pre>
+      <span class="hljs-keyword">int</span> val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode(<span class="hljs-keyword">int</span> x) : val(x), left(<span class="hljs-literal">NULL</span>), right(<span class="hljs-literal">NULL</span>) {}
+    };</code></pre>
       <p>A tree traversal is an algorithm that visits every node in a tree in a specific order (and does some computation with them, depending on the problem). For binary trees specifically, there are three important orders:</p>
       <ul>
       <li><strong>Preorder:</strong> root before children. As we will see, this is the simplest to implement.</li>
@@ -45,25 +45,25 @@
       <p><img src="traversals.svg" alt="Tree traversals" width="50%" height="50%" /></p>
       <p>Because rooted trees are recursive data structures, algorithms on trees are most naturally expressed recursively. Here are the three traversals. I use the function <code>process(node)</code> as a placeholder for whatever computation the problem calls for.</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
-            <span class="hljs-built_in">process</span>(root);
-            preorderTraversal(root-&gt;left);
-            preorderTraversal(root-&gt;right);
-          }
-      
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
-            inorderTraversal(root-&gt;left);
-            <span class="hljs-built_in">process</span>(root);
-            inorderTraversal(root-&gt;right);
-          }
-      
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
-            postorderTraversal(root-&gt;left);
-            postorderTraversal(root-&gt;right);
-            <span class="hljs-built_in">process</span>(root);
-          }</code></pre>
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
+      <span class="hljs-built_in">process</span>(root);
+      preorderTraversal(root-&gt;left);
+      preorderTraversal(root-&gt;right);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
+      inorderTraversal(root-&gt;left);
+      <span class="hljs-built_in">process</span>(root);
+      inorderTraversal(root-&gt;right);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
+      postorderTraversal(root-&gt;left);
+      postorderTraversal(root-&gt;right);
+      <span class="hljs-built_in">process</span>(root);
+    }</code></pre>
       <p>Sidenote: in C++, pointers are implicitly converted to booleans: a pointer evaluates to true if and only if it is not null. So, in the code above, "<code>if (!root)</code>" is equivalent to "<code>if (root == NULL)</code>".</p>
       <h3 id="traversal-problems-on-leetcode">Traversal problems on leetcode</h3>
       <ul>
@@ -86,32 +86,32 @@
       <p>The main approach for converting recursive implementations to iterative ones is to "simulate" the call stack with an actual stack where we push and pop the nodes explicitly. This works great "out-of-the-box" with preorder traversal.</p>
       <p>Incidentally, when implementing tree traversals we need to make an implementation choice about how to handle NULL pointers. We can be eager and filter them out before adding them to the stack, or we can be lazy and detect them once we extract them from the stack. Both are fine&mdash;what matters is to be deliberate and consistent about which approach we are using. I prefer the latter as it yields slightly shorter code, so I will use it in all the following examples. For comparison, here is the iterative preorder traversal with both approaches:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-comment">//eager NULL checking</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
-            <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
-            stk.push(root);
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top();
-              stk.pop();
-              <span class="hljs-built_in">process</span>(node);
-              <span class="hljs-keyword">if</span> (node-&gt;right) stk.push(node-&gt;right);
-              <span class="hljs-keyword">if</span> (node-&gt;left) stk.push(node-&gt;left);
-            }
-          }
-      
-          <span class="hljs-comment">//lazy NULL checking</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
-            stk.push(root);
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top();
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-built_in">process</span>(node);
-              stk.push(node-&gt;right);
-              stk.push(node-&gt;left);
-            }
-          }</code></pre>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
+      stk.push(root);
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top();
+        stk.pop();
+        <span class="hljs-built_in">process</span>(node);
+        <span class="hljs-keyword">if</span> (node-&gt;right) stk.push(node-&gt;right);
+        <span class="hljs-keyword">if</span> (node-&gt;left) stk.push(node-&gt;left);
+      }
+    }
+
+    <span class="hljs-comment">//lazy NULL checking</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
+      stk.push(root);
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top();
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-built_in">process</span>(node);
+        stk.push(node-&gt;right);
+        stk.push(node-&gt;left);
+      }
+    }</code></pre>
       <p>Note that <strong>the right child is pushed to the stack before the left one</strong>. This is because we want the left child to be above in the stack so that it is processed first.</p>
       <h3 id="preorder-traversal-practice-problems">Preorder traversal practice problems</h3>
       <ul>
@@ -120,20 +120,20 @@
       </ul>
       <p>This problem asks to find the depth of a binary tree (follow the link for the description and examples). It requires passing information from each node to its children. We can do this by changing the stack to <code>stack&lt;pair&lt;TreeNode*, int&gt;&gt;</code>, so that we can pass an <code>int</code> to each child, as in the solution below:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({root, <span class="hljs-number">1</span>}); <span class="hljs-comment">//node, depth</span>
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  <span class="hljs-keyword">auto</span> node = stk.top().first;
-                  <span class="hljs-keyword">int</span> depth = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-                  res = <span class="hljs-built_in">max</span>(res, depth);
-                  stk.push({node-&gt;left, depth+<span class="hljs-number">1</span>});
-                  stk.push({node-&gt;right, depth+<span class="hljs-number">1</span>});
-              }
-              <span class="hljs-keyword">return</span> res;
-          }</code></pre>
+      <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">1</span>}); <span class="hljs-comment">//node, depth</span>
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        <span class="hljs-keyword">auto</span> node = stk.top().first;
+        <span class="hljs-keyword">int</span> depth = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        res = <span class="hljs-built_in">max</span>(res, depth);
+        stk.push({node-&gt;left, depth+<span class="hljs-number">1</span>});
+        stk.push({node-&gt;right, depth+<span class="hljs-number">1</span>});
+      }
+      <span class="hljs-keyword">return</span> res;
+    }</code></pre>
       <p>In the code above, the <code>{}</code> notation is used to create pairs (e.g., <code>{root, 0}</code>). If one is not familiar with pairs in C++, or is using a language without the equivalent, a simple alternative is to use two separate stacks, one for the nodes and one for the info. </p>
       <p>The next two problems are similar:</p>
       <ul>
@@ -143,104 +143,104 @@
       </ul>
       <p>A solution for the last one, this time using a stack with a pair of nodes:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, TreeNode*&gt;&gt; stk;
-              stk.push({root-&gt;left, root-&gt;right});
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  TreeNode* l = stk.top().first;
-                  TreeNode* r = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!l <span class="hljs-keyword">and</span> !r) <span class="hljs-keyword">continue</span>;
-                  <span class="hljs-keyword">if</span> (!l <span class="hljs-keyword">or</span> !r <span class="hljs-keyword">or</span> l-&gt;val != r-&gt;val) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                  stk.push({l-&gt;left, r-&gt;right});
-                  stk.push({l-&gt;right, r-&gt;left});
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          }</code></pre>
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, TreeNode*&gt;&gt; stk;
+      stk.push({root-&gt;left, root-&gt;right});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* l = stk.top().first;
+        TreeNode* r = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!l <span class="hljs-keyword">and</span> !r) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (!l <span class="hljs-keyword">or</span> !r <span class="hljs-keyword">or</span> l-&gt;val != r-&gt;val) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        stk.push({l-&gt;left, r-&gt;right});
+        stk.push({l-&gt;right, r-&gt;left});
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }</code></pre>
       <h2 id="a-nametechniqueaiterative-postorder-and-inorder-traversal"><a name="technique"></a>Iterative Postorder and Inorder Traversal</h2>
       <p>While iterative preorder traversal is straightforward, with postorder and inorder we run into a complication: we cannot simply swap the order of the lines as with the recursive implementation. In other words, the following does <em>not</em> yield a postorder traversal:</p>
       <pre><code class="hljs C++ language-C++">        ...
-              stk.push(node-&gt;right);
-              stk.push(node-&gt;left);
-              <span class="hljs-built_in">process</span>(node);
-              ...</code></pre>
+        stk.push(node-&gt;right);
+        stk.push(node-&gt;left);
+        <span class="hljs-built_in">process</span>(node);
+        ...</code></pre>
       <p>The node is still processed before its children, which is not what we want.</p>
       <p><strong>The workaround, once again emulating the recursive implementation, is to visit each node twice.</strong> We consider postorder traversal first. In the first visit, we only push the children onto the stack. In the second visit, we do the actual processing.<br />
       The simplest way to do this is to enhance the stack with a <strong>"visit number flag"</strong>. Implementation-wise, we change the stack to <code>stack&lt;pair&lt;TreeNode*, int&gt;&gt;</code> so that we can pass the flag along with each node. The iterative postorder looks like this:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk; <span class="hljs-comment">//node, visit #</span>
-            stk.push({root, <span class="hljs-number">0</span>});
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top().first;
-              <span class="hljs-keyword">int</span> visit = stk.top().second;
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                stk.push({node, <span class="hljs-number">1</span>});
-                stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-              } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
-                <span class="hljs-built_in">process</span>(node);
-              }
-            }
-          }</code></pre>
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk; <span class="hljs-comment">//node, visit #</span>
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
+          <span class="hljs-built_in">process</span>(node);
+        }
+      }
+    }</code></pre>
       <p>Note the order in which the nodes are added to the stack when <code>visit == 0</code>. The parent ends up under its children, with the left child on top. Since it is the first time that the children are added to the stack, their visit-number flag is 0. For the parent, it is 1.<br />
       For simplicity, I also follow the convention to always immediately call pop after extracting the top element from the stack.</p>
       <p>The same approach also works for inorder traversal (that's the point). Here is a version where we visit each node three times: one to push the left child, one to process the node, and one to push the right child.</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-comment">//3-visit version</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk;
-            stk.push({root, <span class="hljs-number">0</span>});
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top().first;
-              <span class="hljs-keyword">int</span> visit = stk.top().second;
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                stk.push({node, <span class="hljs-number">1</span>});
-                stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-              } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">1</span>) {
-                stk.push({node, <span class="hljs-number">2</span>});
-                <span class="hljs-built_in">process</span>(node);
-              } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 2</span>
-                stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-              }
-            }
-          }</code></pre>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">1</span>) {
+          stk.push({node, <span class="hljs-number">2</span>});
+          <span class="hljs-built_in">process</span>(node);
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 2</span>
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+        }
+      }
+    }</code></pre>
       <p>In fact, the second and third visits can be merged together: processing the node does not modify the stack, so the two visits are followed one after the other anyway. Here is my preferred version:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-comment">//2-visit version</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk;
-            stk.push({root, <span class="hljs-number">0</span>});
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top().first;
-              <span class="hljs-keyword">int</span> visit = stk.top().second;
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                stk.push({node, <span class="hljs-number">1</span>});
-                stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-              } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
-                <span class="hljs-built_in">process</span>(node);
-                stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-              }
-            }
-          }</code></pre>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
+          <span class="hljs-built_in">process</span>(node);
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+        }
+      }
+    }</code></pre>
       <p>For completeness, here is the version found in most of my top Google hits (see <a href="https://www.techiedelight.com/inorder-tree-traversal-iterative-recursive/">this</a> for a nice explanation):</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{ 
-              <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk; 
-              TreeNode* curr = root; 
-              <span class="hljs-keyword">while</span> (curr <span class="hljs-keyword">or</span> !stk.empty()) { 
-                  <span class="hljs-keyword">while</span> (curr) { 
-                      stk.push(curr); 
-                      curr = curr-&gt;left; 
-                  } 
-                  curr = stk.top(); 
-                  stk.pop();
-                  <span class="hljs-built_in">process</span>(curr); 
-                  curr = curr-&gt;right; 
-              }
-          } </code></pre>
+      <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk; 
+      TreeNode* curr = root; 
+      <span class="hljs-keyword">while</span> (curr <span class="hljs-keyword">or</span> !stk.empty()) { 
+        <span class="hljs-keyword">while</span> (curr) { 
+          stk.push(curr); 
+          curr = curr-&gt;left; 
+        } 
+        curr = stk.top(); 
+        stk.pop();
+        <span class="hljs-built_in">process</span>(curr); 
+        curr = curr-&gt;right; 
+      }
+    } </code></pre>
       <p>While it is shorter, it cannot be easily converted to postorder traversal, so it is not as flexible. Also, I find it easier to follow the execution flow with the visit-number flag.</p>
       <h3 id="inorder-traversal-practice-problems">Inorder traversal practice problems</h3>
       <ul>
@@ -248,77 +248,77 @@
       </ul>
       <p>A solution (follow the link for the statement and examples):</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">kthSmallest</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">int</span> k)</span> </span>{
-              <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({root, <span class="hljs-number">0</span>});
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  <span class="hljs-keyword">auto</span> node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
-                      <span class="hljs-keyword">if</span> (count == k) <span class="hljs-keyword">return</span> node-&gt;val;
-                      count++;
-                      stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                  }
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
-          }</code></pre>
+      <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
+          <span class="hljs-keyword">if</span> (count == k) <span class="hljs-keyword">return</span> node-&gt;val;
+          count++;
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    }</code></pre>
       <ul>
       <li><a href="https://leetcode.com/problems/validate-binary-search-tree/">https://leetcode.com/problems/validate-binary-search-tree/</a></li>
       </ul>
       <p>A solution:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-keyword">int</span> lastVal;
-              <span class="hljs-keyword">bool</span> init = <span class="hljs-literal">false</span>;
-      
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({root, <span class="hljs-number">0</span>});
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  TreeNode* node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//second visit</span>
-                      <span class="hljs-keyword">if</span> (!init) {
-                          init = <span class="hljs-literal">true</span>;
-                          lastVal = node-&gt;val;
-                      } <span class="hljs-keyword">else</span> {
-                          <span class="hljs-keyword">if</span> (node-&gt;val &lt;= lastVal) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                          lastVal = node-&gt;val;
-                      }
-                      stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                  }
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          }</code></pre>
+      <span class="hljs-keyword">int</span> lastVal;
+      <span class="hljs-keyword">bool</span> init = <span class="hljs-literal">false</span>;
+
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//second visit</span>
+          <span class="hljs-keyword">if</span> (!init) {
+            init = <span class="hljs-literal">true</span>;
+            lastVal = node-&gt;val;
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (node-&gt;val &lt;= lastVal) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            lastVal = node-&gt;val;
+          }
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }</code></pre>
       <h3 id="postorder-traversal-practice-problems">Postorder traversal practice problems</h3>
       <ul>
       <li><a href="https://leetcode.com/problems/balanced-binary-tree/">https://leetcode.com/problems/balanced-binary-tree/</a></li>
       </ul>
       <p>This problem asks to check if a binary tree is balanced. It requires passing information back from the children to the parent node in a postorder traversal. Passing information from the children to the parent is easy with recursion. It can be done both with return values or with parameters passed by reference. For this problem we need to pass two things: a <code>bool</code> indicating if the subtree is balanced, and an <code>int</code> indicating its height. I use a referece parameter for the latter (returning a <code>pair&lt;bool,int&gt;</code> would be cleaner).</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalancedRec</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">int</span>&amp; <span class="hljs-built_in">height</span>)</span> </span>{
-            <span class="hljs-keyword">if</span> (!root) {
-              <span class="hljs-built_in">height</span> = <span class="hljs-number">0</span>;
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-            }
-            <span class="hljs-keyword">int</span> lHeight, rHeight;
-            <span class="hljs-keyword">bool</span> lBal = isBalancedRec(root-&gt;left, lHeight);
-            <span class="hljs-keyword">bool</span> rBal = isBalancedRec(root-&gt;right, rHeight);
-            <span class="hljs-built_in">height</span> = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
-            <span class="hljs-keyword">return</span> lBal &amp;&amp; rBal &amp;&amp; <span class="hljs-built_in">abs</span>(lHeight - rHeight) &lt;= <span class="hljs-number">1</span>;
-          }
-      
-          <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;
-            <span class="hljs-keyword">return</span> isBalancedRec(root, <span class="hljs-built_in">height</span>);
-          }</code></pre>
+      <span class="hljs-keyword">if</span> (!root) {
+        <span class="hljs-built_in">height</span> = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+      <span class="hljs-keyword">int</span> lHeight, rHeight;
+      <span class="hljs-keyword">bool</span> lBal = isBalancedRec(root-&gt;left, lHeight);
+      <span class="hljs-keyword">bool</span> rBal = isBalancedRec(root-&gt;right, rHeight);
+      <span class="hljs-built_in">height</span> = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">return</span> lBal &amp;&amp; rBal &amp;&amp; <span class="hljs-built_in">abs</span>(lHeight - rHeight) &lt;= <span class="hljs-number">1</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;
+      <span class="hljs-keyword">return</span> isBalancedRec(root, <span class="hljs-built_in">height</span>);
+    }</code></pre>
       <p>Passing information from the children to the parent in an interative implementation is more intricate. There are three general approaches:</p>
       <ol>
       <li>Use a hash table mapping each node to the information.</li>
@@ -326,140 +326,140 @@
       <p>This is the easiest way, but also the most expensive.<br />
       While the asymptotic runtime is still linear, hash tables generally have significant constant factors.</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({root, <span class="hljs-number">0</span>});
-      
-              <span class="hljs-built_in">unordered_map</span>&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">height</span>;
-              <span class="hljs-built_in">height</span>[<span class="hljs-literal">NULL</span>] = <span class="hljs-number">0</span>;
-      
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  TreeNode* node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                      stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
-                      <span class="hljs-keyword">int</span> lHeight = <span class="hljs-built_in">height</span>[node-&gt;left], rHeight = <span class="hljs-built_in">height</span>[node-&gt;right];
-                      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                      <span class="hljs-built_in">height</span>[node] = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
-                  }
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          }</code></pre>
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+
+      <span class="hljs-built_in">unordered_map</span>&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt; <span class="hljs-built_in">height</span>;
+      <span class="hljs-built_in">height</span>[<span class="hljs-literal">NULL</span>] = <span class="hljs-number">0</span>;
+
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
+          <span class="hljs-keyword">int</span> lHeight = <span class="hljs-built_in">height</span>[node-&gt;left], rHeight = <span class="hljs-built_in">height</span>[node-&gt;right];
+          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+          <span class="hljs-built_in">height</span>[node] = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }</code></pre>
       <ol start="2">
       <li>Add a field to the definition of the node structure for the information needed.</li>
       </ol>
       <p>Then, we can read it from the parent node by traversing the children's pointers.<br />
       In Leetcode we cannot modify the <code>TreeNode</code> data structure so, to illustrate this approach, I build a new tree first with a new struct:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MyNode</span> {</span>
-              <span class="hljs-keyword">int</span> val;
-              <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;
-              MyNode *left;
-              MyNode *right;
-              MyNode(TreeNode* node): val(node-&gt;val), <span class="hljs-built_in">height</span>(<span class="hljs-number">-1</span>), left(<span class="hljs-literal">NULL</span>), right(<span class="hljs-literal">NULL</span>) {
-                  <span class="hljs-keyword">if</span> (node-&gt;left) left = <span class="hljs-keyword">new</span> MyNode(node-&gt;left);
-                  <span class="hljs-keyword">if</span> (node-&gt;right) right = <span class="hljs-keyword">new</span> MyNode(node-&gt;right);
-              }
-          };
-      
-          <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-              MyNode* myRoot = <span class="hljs-keyword">new</span> MyNode(root);
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;MyNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({myRoot, <span class="hljs-number">0</span>});
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  MyNode* node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                      stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
-                      <span class="hljs-keyword">int</span> lHeight = <span class="hljs-number">0</span>, rHeight = <span class="hljs-number">0</span>;
-                      <span class="hljs-keyword">if</span> (node-&gt;left) lHeight = node-&gt;left-&gt;<span class="hljs-built_in">height</span>;
-                      <span class="hljs-keyword">if</span> (node-&gt;right) rHeight = node-&gt;right-&gt;<span class="hljs-built_in">height</span>;
-                      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                      node-&gt;<span class="hljs-built_in">height</span> = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
-                  }
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          }</code></pre>
+      <span class="hljs-keyword">int</span> val;
+      <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;
+      MyNode *left;
+      MyNode *right;
+      MyNode(TreeNode* node): val(node-&gt;val), <span class="hljs-built_in">height</span>(<span class="hljs-number">-1</span>), left(<span class="hljs-literal">NULL</span>), right(<span class="hljs-literal">NULL</span>) {
+        <span class="hljs-keyword">if</span> (node-&gt;left) left = <span class="hljs-keyword">new</span> MyNode(node-&gt;left);
+        <span class="hljs-keyword">if</span> (node-&gt;right) right = <span class="hljs-keyword">new</span> MyNode(node-&gt;right);
+      }
+    };
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      MyNode* myRoot = <span class="hljs-keyword">new</span> MyNode(root);
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;MyNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({myRoot, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        MyNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
+          <span class="hljs-keyword">int</span> lHeight = <span class="hljs-number">0</span>, rHeight = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">if</span> (node-&gt;left) lHeight = node-&gt;left-&gt;<span class="hljs-built_in">height</span>;
+          <span class="hljs-keyword">if</span> (node-&gt;right) rHeight = node-&gt;right-&gt;<span class="hljs-built_in">height</span>;
+          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+          node-&gt;<span class="hljs-built_in">height</span> = <span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>;
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }</code></pre>
       <ol start="3">
       <li>Pass the information through an additional stack.</li>
       </ol>
       <p>This is the most efficient, but one must be careful to keep both stacks in synch. When processing a node, that node first pops the information from its children, and then pushes its own info for its parent. Here is a solution (with eager NULL-pointer detection):</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalanced</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-              stk.push({root, <span class="hljs-number">0</span>});
-      
-              <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; heights;
-      
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  TreeNode* node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      <span class="hljs-keyword">if</span> (node-&gt;right) stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                      <span class="hljs-keyword">if</span> (node-&gt;left) stk.push({node-&gt;left, <span class="hljs-number">0</span>});   
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
-                      <span class="hljs-keyword">int</span> rHeight = <span class="hljs-number">0</span>, lHeight = <span class="hljs-number">0</span>;
-                      <span class="hljs-keyword">if</span> (node-&gt;right) {
-                          rHeight = heights.top();
-                          heights.pop();
-                      }
-                      <span class="hljs-keyword">if</span> (node-&gt;left) {
-                          lHeight = heights.top();
-                          heights.pop();
-                      }
-                      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                      heights.push(<span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>);
-                  }
-              }
-              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          }</code></pre>
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+
+      <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; heights;
+
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          <span class="hljs-keyword">if</span> (node-&gt;right) stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+          <span class="hljs-keyword">if</span> (node-&gt;left) stk.push({node-&gt;left, <span class="hljs-number">0</span>});   
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// visit == 1</span>
+          <span class="hljs-keyword">int</span> rHeight = <span class="hljs-number">0</span>, lHeight = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">if</span> (node-&gt;right) {
+            rHeight = heights.top();
+            heights.pop();
+          }
+          <span class="hljs-keyword">if</span> (node-&gt;left) {
+            lHeight = heights.top();
+            heights.pop();
+          }
+          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">abs</span>(lHeight - rHeight) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+          heights.push(<span class="hljs-built_in">max</span>(lHeight, rHeight) + <span class="hljs-number">1</span>);
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }</code></pre>
       <ul>
       <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/">https://leetcode.com/problems/diameter-of-binary-tree/</a></li>
       </ul>
       <p>This problem also requires passing information from the children to the parent in a postorder traversal. Here is a solution using the third approach again, but this time with lazy NULL-pointer detection. Note that we push a 0 to the <code>dephts</code> stack when we extract a NULL pointer from the main stack, and during processing we always do two pops regardless of the number of non-NULL children:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">diameterOfBinaryTree</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-              <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk; 
-              stk.push({root, <span class="hljs-number">0</span>});
-      
-              <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; depths;
-              <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
-      
-              <span class="hljs-keyword">while</span> (!stk.empty()) {
-                  TreeNode* node = stk.top().first;
-                  <span class="hljs-keyword">int</span> visit = stk.top().second;
-                  stk.pop();
-                  <span class="hljs-keyword">if</span> (!node) {
-                      depths.push(<span class="hljs-number">0</span>);
-                      <span class="hljs-keyword">continue</span>;
-                  }
-                  <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
-                      stk.push({node, <span class="hljs-number">1</span>});
-                      stk.push({node-&gt;right, <span class="hljs-number">0</span>});
-                      stk.push({node-&gt;left, <span class="hljs-number">0</span>});
-                  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
-                      <span class="hljs-keyword">int</span> rDepth = depths.top();
-                      depths.pop();
-                      <span class="hljs-keyword">int</span> lDepth = depths.top();
-                      depths.pop();
-                      <span class="hljs-keyword">int</span> depth = <span class="hljs-built_in">max</span>(lDepth, rDepth) + <span class="hljs-number">1</span>;
-                      depths.push(depth);
-                      <span class="hljs-keyword">int</span> dia = lDepth + rDepth;
-                      res = <span class="hljs-built_in">max</span>(res, dia);
-                  }
-              }
-              <span class="hljs-keyword">return</span> res;
-          }</code></pre>
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk; 
+      stk.push({root, <span class="hljs-number">0</span>});
+
+      <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; depths;
+      <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) {
+          depths.push(<span class="hljs-number">0</span>);
+          <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-keyword">if</span> (visit == <span class="hljs-number">0</span>) {
+          stk.push({node, <span class="hljs-number">1</span>});
+          stk.push({node-&gt;right, <span class="hljs-number">0</span>});
+          stk.push({node-&gt;left, <span class="hljs-number">0</span>});
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">//visit == 1</span>
+          <span class="hljs-keyword">int</span> rDepth = depths.top();
+          depths.pop();
+          <span class="hljs-keyword">int</span> lDepth = depths.top();
+          depths.pop();
+          <span class="hljs-keyword">int</span> depth = <span class="hljs-built_in">max</span>(lDepth, rDepth) + <span class="hljs-number">1</span>;
+          depths.push(depth);
+          <span class="hljs-keyword">int</span> dia = lDepth + rDepth;
+          res = <span class="hljs-built_in">max</span>(res, dia);
+        }
+      }
+      <span class="hljs-keyword">return</span> res;
+    }</code></pre>
       <ul>
       <li><a href="https://leetcode.com/problems/binary-tree-tilt/">https://leetcode.com/problems/binary-tree-tilt/</a></li>
       <li><a href="https://leetcode.com/problems/most-frequent-subtree-sum/">https://leetcode.com/problems/most-frequent-subtree-sum/</a></li>
@@ -468,40 +468,40 @@
       <h2 id="traversals-in-n-ary-trees">Traversals in n-ary Trees</h2>
       <p>So far, we have looked at binary trees. In an n-ary tree, each node has an arbitrary number of children.</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> {</span>
-              <span class="hljs-keyword">int</span> val;
-              <span class="hljs-built_in">vector</span>&lt;Node*&gt; children;
-              Node(<span class="hljs-keyword">int</span> val): val(val), children(<span class="hljs-number">0</span>) {}
-          };</code></pre>
+      <span class="hljs-keyword">int</span> val;
+      <span class="hljs-built_in">vector</span>&lt;Node*&gt; children;
+      Node(<span class="hljs-keyword">int</span> val): val(val), children(<span class="hljs-number">0</span>) {}
+    };</code></pre>
       <p>For n-ary trees, preorder traversal is also straightforward, and inorder traversal is not defined.</p>
       <p>For postorder traversal, we can use a visit-number flag again. Two visits suffice for each node: one to push all the children into the stack, and another to process the node itself. I do not include the code here because it is very similar to the binary tree case.</p>
       <p>Consider a more complicated setting where we need to compute something at the node after visiting each child. Let's call this "interleaved traversal". I use <code>process(node, i)</code> as placeholder for the computation done before visiting the i-th child. Here is the recursive implementation and the corresponding iterative one using visit-number flags.</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-comment">//recursive</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">interleavedTraversal</span><span class="hljs-params">(Node* root)</span> </span>{
-            <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
-            <span class="hljs-keyword">int</span> n = root-&gt;children.<span class="hljs-built_in">size</span>();
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
-              <span class="hljs-built_in">process</span>(root, i);
-              interleavedTraversal(root-&gt;children[i]);
-            }
-          }
-      
-          <span class="hljs-comment">//iterative</span>
-          <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">interleavedTraversal</span><span class="hljs-params">(Node* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
-            stk.push({root, <span class="hljs-number">0</span>});
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top().first;
-              <span class="hljs-keyword">int</span> visit = stk.top().second;
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-keyword">int</span> n = node-&gt;children.<span class="hljs-built_in">size</span>();
-              <span class="hljs-keyword">if</span> (visit &lt; n) {
-                stk.push({node, visit+<span class="hljs-number">1</span>});
-                <span class="hljs-built_in">process</span>(node, visit);
-                stk.push({node-&gt;children[visit], <span class="hljs-number">0</span>});
-              }
-            }
-          }</code></pre>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">interleavedTraversal</span><span class="hljs-params">(Node* root)</span> </span>{
+      <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;
+      <span class="hljs-keyword">int</span> n = root-&gt;children.<span class="hljs-built_in">size</span>();
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+        <span class="hljs-built_in">process</span>(root, i);
+        interleavedTraversal(root-&gt;children[i]);
+      }
+    }
+
+    <span class="hljs-comment">//iterative</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">interleavedTraversal</span><span class="hljs-params">(Node* root)</span> </span>{
+      <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*, <span class="hljs-keyword">int</span>&gt;&gt; stk;
+      stk.push({root, <span class="hljs-number">0</span>});
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top().first;
+        <span class="hljs-keyword">int</span> visit = stk.top().second;
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">int</span> n = node-&gt;children.<span class="hljs-built_in">size</span>();
+        <span class="hljs-keyword">if</span> (visit &lt; n) {
+          stk.push({node, visit+<span class="hljs-number">1</span>});
+          <span class="hljs-built_in">process</span>(node, visit);
+          stk.push({node-&gt;children[visit], <span class="hljs-number">0</span>});
+        }
+      }
+    }</code></pre>
       <h3 id="n-ary-tree-practice-problems">N-ary tree practice problems</h3>
       <ul>
       <li><a href="https://leetcode.com/problems/n-ary-tree-preorder-traversal/">https://leetcode.com/problems/n-ary-tree-preorder-traversal/</a></li>
@@ -510,23 +510,23 @@
       <h2 id="an-alternative-way-of-passing-the-visit-flag">An Alternative Way of Passing the Visit Flag</h2>
       <p>The common framework to all our solutions has been to pass a visit-number flag along with the nodes on the stack. User "heiswyd" on Leetcode posted <a href="https://leetcode.com/problems/binary-tree-postorder-traversal/discuss/45582/A-real-Postorder-Traversal-.without-reverse-or-insert-4ms">here</a> an alternative way to pass the flag implicitly: initially, it pushes each node on the stack twice. Then, it can distinguish between the first visit and the second visit by checking whether the node that has just been extracted from the stack matches the node on top of the stack. This happens only when we extract the first of the two occurrences. Post-order traversal looks like this:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>{
-            <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
-            stk.push(root);
-            stk.push(root);
-            <span class="hljs-keyword">while</span> (!stk.empty()) {
-              TreeNode* node = stk.top();
-              stk.pop();
-              <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
-              <span class="hljs-keyword">if</span> (!stk.empty() <span class="hljs-keyword">and</span> stk.top() == node) {
-                stk.push(node-&gt;right);
-                stk.push(node-&gt;right);
-                stk.push(node-&gt;left);
-                stk.push(node-&gt;left);
-              } <span class="hljs-keyword">else</span> {
-                <span class="hljs-built_in">process</span>(node);
-              }
-            }
-          }</code></pre>
+      <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt; stk;
+      stk.push(root);
+      stk.push(root);
+      <span class="hljs-keyword">while</span> (!stk.empty()) {
+        TreeNode* node = stk.top();
+        stk.pop();
+        <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> (!stk.empty() <span class="hljs-keyword">and</span> stk.top() == node) {
+          stk.push(node-&gt;right);
+          stk.push(node-&gt;right);
+          stk.push(node-&gt;left);
+          stk.push(node-&gt;left);
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-built_in">process</span>(node);
+        }
+      }
+    }</code></pre>
       <p>It is cool, but I prefer passing the flag explicitly for clarity.</p>
 
     </div>
