@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nil Mamano | Blog</title>
+  <meta name="person" content="Nil Mamano">
+  <meta name="sortname" content="Mamano, Nil">
+  <meta name="keywords" content="personal site,computer science,blog">
+  <meta name="description" content="Reachability Problems and DFS">
+
+  <meta property="og:title" content="Nil Mamano | Blog" />
+  <meta property="og:description" content="Reachability Problems and DFS" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://nmamano.com/blog/dfs/dfs.html"/>
+  <!-- <meta property="og:image" content="http://nmamano.com/blog/NAME/THUMBNAIL **********************" /> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/default.min.css">
+
+</head>
+
+<body class="blogpostpage">
+  <main class="blogpost">
+    <div class="blogreturn">
+      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+    </div>
+    
+    <div id="mdToHtml">
+      <h1 id="reachability-problems-and-dfs">Reachability Problems and DFS</h1>
+      <h2 id="introduction">Introduction</h2>
+      <p>Depth-first search, or DFS, is a fundamental graph algorithm that can be used to solve <strong>reachability</strong> problems. This post shows how to adapt the basic DFS template to solve several problems of this kind. Reachability problems are often easier in undirected graphs. Below, we specify if the algorithm works for undirected graphs, directed graphs, or both.</p>
+      <h3 id="prerequisites">Prerequisites</h3>
+      <p>We assume that the reader is already familiar with the concept of DFS. <a href="https://www.youtube.com/watch?v=7fujbpJ0LB4">Here</a> is an excellent video introducing DFS with step-by-step animations. We also assume that the reader is familiar with the adjacency list representation of a graph.</p>
+      <h3 id="coding-conventions">Coding conventions</h3>
+      <p>The algorithms below are in Python. <code>n</code> denotes the number of nodes. Nodes are identified with integers in the range <code>0..n-1</code>. The graph <code>G</code> is a graph stored as an adjacency list: <code>G</code> is a list of <code>n</code> lists. For each <code>v</code> between <code>0</code> and <code>n-1</code>, <code>G[v]</code> is the list of neighbors of <code>G</code>.</p>
+      <p>If the graph is given as an edge list instead, we can initialize it as follows:</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">makeAdjList</span><span class="hljs-params">(edgeList)</span>:</span>
+    n = max(max(edge) <span class="hljs-keyword">for</span> edge <span class="hljs-keyword">in</span> edgeList) + <span class="hljs-number">1</span>
+    G = [[] <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n)]
+    <span class="hljs-keyword">for</span> u,v <span class="hljs-keyword">in</span> edgeList:
+        G[u].append(v)
+        G[v].append(u) <span class="hljs-comment">#omit this for directed graphs</span>
+    <span class="hljs-keyword">return</span> G</code></pre>
+      <p>If the graph is given as an adjacency matrix, we can iterate through the rows of the adjacency matrix instead of through the adjacency lists. To iterate through the neighbors of a node <code>v</code>, instead of </p>
+      <pre><code class="hljs python language-python">    <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+        ...</code></pre>
+      <p>we do</p>
+      <pre><code class="hljs python language-python">    <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">if</span> adjMatrix[v][u]:
+            <span class="hljs-comment">#u is a nbr of v</span>
+            ...</code></pre>
+      <p>Note that using an adjacency matrix affects the runtime analysis of DFS (<code>O(n^2)</code> instead of <code>O(m)</code>).</p>
+      <h2 id="which-nodes-can-be-reached-from-node-s">Which nodes can be reached from node s?</h2>
+      <p>This is the simplest question that can be answered with DFS. The primary data structure in DFS is a list of booleans to keep track of already visited nodes (we call it <code>vis</code>). If we start a DFS search from a node <code>s</code>, the reachable nodes will be the ones for which <code>vis</code> is true.</p>
+      <p>For this <code>G</code> can be directed or undirected. We make use of a nested function in Python so that we do not need to pass <code>G</code> and <code>vis</code> as parameters (in Python nested functions have visibility over the variables in the scope where they are defined).</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reachableNodes</span><span class="hljs-params">(G, s)</span>:</span> <span class="hljs-comment">#G is directed or undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    vis[s] = <span class="hljs-literal">True</span>
+
+    <span class="hljs-comment">#invariant: v is marked as visited when calling visit(v)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                visit(nbr) 
+
+    visit(s)
+    <span class="hljs-keyword">return</span> [v <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n) <span class="hljs-keyword">if</span> vis[v]]</code></pre>
+      <p>DFS runs in <code>O(m)</code> time and <code>O(n)</code> space, where <code>m</code> is the number of edges. This is because each edge is considered twice, once from each endpoint, if the endpoints end up being visited, or zero times if the endpoints are not visited.</p>
+      <h3 id="iterative-version">Iterative version</h3>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reachableNodes</span><span class="hljs-params">(G, s)</span>:</span> <span class="hljs-comment">#G is directed or undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    stk = [s]
+    <span class="hljs-comment">#mark nodes as visited when removed from the stack, not when added</span>
+    <span class="hljs-keyword">while</span> stk:
+        v = stk.pop()
+        <span class="hljs-keyword">if</span> vis[v]: <span class="hljs-keyword">continue</span>
+        vis[v] = <span class="hljs-literal">True</span> 
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                stk.append(nbr)
+    <span class="hljs-keyword">return</span> [v <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n) <span class="hljs-keyword">if</span> vis[v]]</code></pre>
+      <p>The iterative version takes <code>O(m)</code> space instead of <code>O(n)</code> because nodes can be inserted into the stack multiple times (up to one time for each incident edge). Alternatively, we can mark the nodes as visited when we add them to the stack instead of when we remove them. This change reduces the space usage to the usual <code>O(n)</code>. However, with this change, the algorithm is no longer DFS. It still works for answering reachability questions because the set visited nodes is the same, but the order in which they are visited is no longer consistent with a depth-first search order (it is closer to a BFS (breath-first search) order, but also not exactly a BFS order).</p>
+      <p>The difference between marking nodes when they added vs removed from the stack is discussed in detail <a href="https://11011110.github.io/blog/2013/12/17/stack-based-graph-traversal.html">here</a>. Since the recursive version is shorter and optimal in terms of space, we favor it from now on. That said, it should be easy to adapt the iterative version above to the problems below.</p>
+      <h2 id="can-node-s-reach-node-t">Can node s reach node t?</h2>
+      <p>We use the same code from before, but we add early termination as soon as we see <code>t</code>. Now, the recursive function has a return value.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">canReachNode</span><span class="hljs-params">(G, s, t)</span>:</span> <span class="hljs-comment">#G is directed or undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    vis[s] = <span class="hljs-literal">True</span>
+
+    <span class="hljs-comment">#returns True if the search reaches t</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">if</span> v == t: <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                <span class="hljs-keyword">if</span> visit(nbr): <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span> 
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    <span class="hljs-keyword">return</span> visit(s)</code></pre>
+      <p>Adding the early termination can make the DFS faster, but in the worst-case the time/space complexity is the same.</p>
+      <h2 id="find-a-path-from-s-to-t">Find a path from s to t</h2>
+      <p>The edges "traversed" in a DFS search form a tree called the "DFS tree". The DFS tree changes depending on where we start the search. The starting node is called the root. We can construct the DFS tree by keeping track of the predecessor of each node in the search (the root has no predecessor). If we construct the DFS tree rooted at <code>s</code>, we can follow the sequence of predecessors from <code>t</code> to <code>s</code> to find a path from <code>s</code> to <code>t</code> in reverse order.</p>
+      <p>Instead of using the list <code>vis</code> to keep track of visited nodes, we know a node is unvisited if it has no predecessor yet. We indicate that a node has no predecessor with the special value <code>-1</code>.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">findPath</span><span class="hljs-params">(G, s, t)</span>:</span> <span class="hljs-comment">#G is directed or undirected</span>
+    n = len(G)
+    pred = n * [<span class="hljs-number">-1</span>]
+    pred[s] = <span class="hljs-literal">None</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> pred[nbr] == <span class="hljs-number">-1</span>:
+                pred[nbr] = v
+                visit(nbr) 
+    visit(s) <span class="hljs-comment">#builds DFS tree</span>
+    path = [t]
+    <span class="hljs-keyword">while</span> path[<span class="hljs-number">-1</span>] != s:
+        p = pred[path[<span class="hljs-number">-1</span>]]
+        <span class="hljs-keyword">if</span> p == <span class="hljs-number">-1</span>: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span> <span class="hljs-comment">#cannot reach t from s</span>
+        path.append(p)
+    path.reverse()
+    <span class="hljs-keyword">return</span> path</code></pre>
+      <p>Note that DFS does <em>not</em> find the shortest path form <code>s</code> to <code>t</code>. For that, we can use BFS (breath-first search). It just returns any path without repeated nodes.</p>
+      <h2 id="is-the-graph-connected">Is the graph connected?</h2>
+      <p>For undirected graphs, this is almost the same question as the first question ("which nodes can be reached by <code>s</code>?") because of the following property:</p>
+      <p><em>An undirected graph is connected if and only if every node can be reached from <code>s</code>, where <code>s</code> is any of the nodes.</em></p>
+      <p>Thus, the code is exactly the same as for the first question, with two differences: 1) we choose <code>s</code> to be <code>0</code> (could be anything), and 2) we change the last line to check if every entry in <code>vis</code> is true.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isConnected</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    vis[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                visit(nbr) 
+    visit(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> all(vis)</code></pre>
+      <p>For directed graphs, we need to take into account the direction of the edges. A directed graph is <strong>strongly connected</strong> if every node can reach every other node. We can use the following property:</p>
+      <p><em>A directed graph is strongly connected if and only if <code>s</code> can reach every node and every node can reach <code>s</code>, where <code>s</code> is any of the nodes.</em></p>
+      <p>We already know how to use DFS to check if <code>s</code> can reach every node. To check if every node can reach <code>s</code>, we can do a DFS starting from <code>s</code>, <strong>but in the reverse graph of G</strong>. The reverse graph of <code>G</code> is like <code>G</code> but reversing the directions of all the edges.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">isConnected</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is directed</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    vis[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span> <span class="hljs-comment">#use 0 for start node</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(G, v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                visit(G, nbr) 
+    visit(G, <span class="hljs-number">0</span>) <span class="hljs-comment">#nodes reachable from s</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> all(vis): <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    Greverse = [[] <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n)]
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            Greverse[nbr].append(v)
+    vis = n * [<span class="hljs-literal">False</span>] <span class="hljs-comment">#reset vis for the second search</span>
+    vis[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span>
+    visit(Greverse, <span class="hljs-number">0</span>) <span class="hljs-comment">#nodes that can reach s</span>
+    <span class="hljs-keyword">return</span> all(vis)</code></pre>
+      <p>The runtime is still <code>O(m)</code>, but the space is now <code>O(m)</code> because we need to create and store the reverse graph. There are alternative algorithms (like Tarjan's algorithm) which can do this in <code>O(n)</code> space.</p>
+      <h2 id="how-many-connected-components-are-there">How many connected components are there?</h2>
+      <p>We can use the typical DFS to answer this question for undirected graphs. We use a common pattern in DFS algorithms: an outer loop through all the nodes where we launch a search for every yet-unvisited node.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">numConnectedComponents</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                visit(nbr) 
+    numCCs = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[v]:
+            numCCs += <span class="hljs-number">1</span>
+            vis[v] = <span class="hljs-literal">True</span>
+            visit(v)
+    <span class="hljs-keyword">return</span> numCCs</code></pre>
+      <p>The runtime is now <code>O(n+m)</code> because, if <code>m &lt; n</code>, we still spend <code>O(n)</code> time iterating through the loop at the end.</p>
+      <p>For directed graphs, instead of connected components, we talk about <strong>strongly connected components</strong>. A strongly connected component is a maximal subset of nodes where every node can reach every other node. </p>
+      <p>If we want to find the number of strongly connected components, we can use something like <a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">Tarjan's algorithm</a>, a DFS-based algorithm that requires some additional data structures.</p>
+      <h3 id="practice-problems">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/">https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/</a> (Premium only)</li>
+      <li><a href="https://leetcode.com/problems/number-of-islands/">https://leetcode.com/problems/number-of-islands/</a></li>
+      <li><a href="https://leetcode.com/problems/friend-circles/">https://leetcode.com/problems/friend-circles/</a></li>
+      </ul>
+      <h2 id="which-nodes-are-in-the-same-connected-components">Which nodes are in the same connected components?</h2>
+      <p>This question is more general than the previous two. We label each node <code>v</code> with a number <code>CC[v]</code> so that nodes with the same number belong to the same CC. Instead of having a list <code>CC</code> in addition to <code>vis</code>, we use the CC number <code>-1</code> to indicate unvisited nodes. This way, we do not need <code>vis</code></p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">connectedComponents</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected</span>
+    n = len(G)
+    CC = n * [<span class="hljs-number">-1</span>]
+
+    <span class="hljs-comment">##invariant: v is labeled with CC i&gt;=0</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v, i)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> CC[nbr] == <span class="hljs-number">-1</span>:
+                CC[nbr] = i
+                visit(nbr, i) 
+
+    i = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">if</span> CC[v] == <span class="hljs-number">-1</span>:
+            CC[v] = i
+            visit(v, i)
+            i += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> CC</code></pre>
+      <p>For directed graphs, again we need Tarjan's algorithm or an equivalent algorithm.</p>
+      <h3 id="practice-problems-1">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/max-area-of-island/">https://leetcode.com/problems/max-area-of-island/</a></li>
+      <li><a href="https://leetcode.com/problems/sentence-similarity-ii/">https://leetcode.com/problems/sentence-similarity-ii/</a></li>
+      </ul>
+      <h2 id="is-the-graph-acyclic">Is the graph acyclic?</h2>
+      <p>For undirected graphs, this question is simple. First, we consider the problem in each CC independently. This is very common pattern in graph problems. We do this with an outer loop through all the nodes where we launch a search for every yet-unvisited node.</p>
+      <p>During the DFS search in each CC, if we find an edge to an already visited node that is not the predecessor in the search (the node we just came from), there is a cycle. Such edges in a DFS search are called <strong>back edges</strong>. We add one parameter to the recursive function <code>visit</code> to know the predecessor node.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hasCycles</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+
+    <span class="hljs-comment">#returns True if the search finds a back edge</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v, p)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> vis[nbr] <span class="hljs-keyword">and</span> nbr != p: <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                <span class="hljs-keyword">if</span> visit(nbr, v): <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[v]:
+            vis[v] = <span class="hljs-literal">True</span>
+            <span class="hljs-comment">#the root of the search has no predecessor</span>
+            <span class="hljs-keyword">if</span> visit(v, <span class="hljs-number">-1</span>): <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></code></pre>
+      <p>For directed graphs, it is not as simple: the fact that a neighbor <code>nbr</code> is already visited during the DFS search does not mean that <code>nbr</code> can reach the current node. To check if a directed graph is acyclic, we can use the linear-time <a href="https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm">peel-off algorithm</a> for finding a topological ordering. This algorithm detects if the graph is acyclic and finds a topological ordering if so, though we are only interested in the first part.</p>
+      <h3 id="practice-problems-2">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/redundant-connection/">https://leetcode.com/problems/redundant-connection/</a></li>
+      </ul>
+      <h2 id="is-the-graph-a-tree">Is the graph a tree?</h2>
+      <p>Usually, we ask this question for undirected graphs. We can use this characterization of trees:</p>
+      <p><em>An undirected graph is a tree if and only if it is connected and has exactly <code>n-1</code> edges.</em></p>
+      <p>We already saw how to check if the graph is connected with DFS, and counting the number of edges is straightforward:</p>
+      <pre><code class="hljs python language-python">    <span class="hljs-comment">#for undirected graphs:</span>
+    m = sum(len(G[v]) <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n)) / <span class="hljs-number">2</span>
+    <span class="hljs-comment">#for directed graphs:</span>
+    m = sum(len(G[v]) <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n))</code></pre>
+      <h3 id="practice-problems-3">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/graph-valid-tree/">https://leetcode.com/problems/graph-valid-tree/</a></li>
+      </ul>
+      <h2 id="is-the-graph-bipartite">Is the graph bipartite?</h2>
+      <p>This is exactly the same question as whether the graph can be two-colored, so see the next section.</p>
+      <h2 id="can-the-graph-be-two-colored">Can the graph be two-colored?</h2>
+      <p>Two-coloring a graph means assigning colors to the nodes such that no two adjacent nodes have the same color, using only two colors. Usually, we consider coloring question for undirected graphs.</p>
+      <p>We consider whether each CC can be colored independently from the others. We can color each CC using DFS. We use values <code>0</code> and <code>1</code> for the colors. The color of the start node can be anything, so we set it to <code>0</code>. For the remaining nodes, the color has to be different from the parent, so we only have one option.</p>
+      <p>Instead of having a <code>vis</code> array, we use the special color <code>-1</code> to denote unvisited nodes. </p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">is2Colorable</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected</span>
+    n = len(G)
+    color = n * [<span class="hljs-literal">None</span>]
+
+    <span class="hljs-comment">#returns True if we can color all the nodes reached from v</span>
+    <span class="hljs-comment">#invariant: v has an assigned color</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> color[nbr] == color[v]: <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span> 
+            <span class="hljs-keyword">if</span> color[nbr] == <span class="hljs-number">-1</span>:
+                color[nbr] = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> color[v] == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> visit(nbr): <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+        <span class="hljs-keyword">if</span> color[v] == <span class="hljs-number">-1</span>:
+            color[v] = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> visit(v): <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></code></pre>
+      <p>With 3 or more colors, the problem becomes <a href="https://en.wikipedia.org/wiki/Graph_coloring#Algorithms">a lot harder</a>.</p>
+      <h3 id="practice-problems-4">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/is-graph-bipartite/">https://leetcode.com/problems/is-graph-bipartite/</a></li>
+      </ul>
+      <h2 id="what-is-the-distance-from-a-node-s-to-every-other-node-in-a-tree">What is the distance from a node s to every other node in a tree?</h2>
+      <p>We cannot use DFS to find the distance between nodes in a graph which can have cycles, because DFS is not guaranteed to follow the shortest path from the root to the other nodes. For that, BFS is more suitable (if the graph is unweighted). However, since trees are acyclic, there is a unique path between any two nodes, so DFS must use the unique path, which, by necessity, is the shortest path. Thus, we can use DFS to find distances in a tree.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getDistances</span><span class="hljs-params">(G, s)</span>:</span> <span class="hljs-comment">#G is undirected and a tree</span>
+    n = len(G)
+    dists = n * [<span class="hljs-number">-1</span>]
+    dists[s] = <span class="hljs-number">0</span>
+
+    <span class="hljs-comment">#invariant: v has an assigned distance</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-comment">#check nbr is not the predecessor</span>
+            <span class="hljs-keyword">if</span> dists[nbr] != <span class="hljs-number">-1</span>: <span class="hljs-keyword">continue</span>
+            dists[nbr] = dists[v] + <span class="hljs-number">1</span>
+            visit(nbr)
+    visit(s)
+    <span class="hljs-keyword">return</span> dists</code></pre>
+      <h3 id="practice-problems-5">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/time-needed-to-inform-all-employees/">https://leetcode.com/problems/time-needed-to-inform-all-employees/</a></li>
+      </ul>
+      <h2 id="find-a-spanning-tree">Find a spanning tree</h2>
+      <p>A spanning tree of a connected, undirected graph <code>G</code> is a subgraph which has the same nodes as <code>G</code> that is a tree. <br />
+      The edges traversed by a DFS search on a connected graph form a spanning tree (sometimes called a DFS tree). Thus, we do DFS and add the traversed edges to the resulting tree.</p>
+      <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spanningTree</span><span class="hljs-params">(G)</span>:</span> <span class="hljs-comment">#G is undirected and connected</span>
+    n = len(G)
+    vis = n * [<span class="hljs-literal">False</span>]
+    vis[<span class="hljs-number">0</span>] = <span class="hljs-literal">True</span>
+    T = [[] <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n)]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(v)</span>:</span>
+        <span class="hljs-keyword">for</span> nbr <span class="hljs-keyword">in</span> G[v]:
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[nbr]:
+                vis[nbr] = <span class="hljs-literal">True</span>
+                T[v].append(nbr)
+                T[nbr].append(v)
+                visit(nbr)
+    visit(s)
+    <span class="hljs-keyword">return</span> T</code></pre>
+      <h2 id="conclusions">Conclusions</h2>
+      <p>DFS is the footprint for many algorithms, from simple to . We showed how to make minor modifications to the DFS template to answer reachability and connectivity questions.</p>
+      <p>If you know of other problems that can be solved with DFS, let me know!</p>
+      <p>After DFS, the next algorithm to learn would be BFS (breath-first search). Like DFS, it can answer reachability questions. On top of that, it can also answer questions about distance in undirected graphs.</p>
+    </div>
+
+    <div class="blogreturn">
+      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+    </div>
+  </main>
+
+</body>
+
