@@ -2,7 +2,7 @@
 
 ## Introduction
 
-When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demistify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in detail here. To complement the explanations, there are links to problems on [leetcode.com](https://leetcode.com/), in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.
+When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demystify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in detail here. To complement the explanations, there are links to problems on [leetcode.com](https://leetcode.com/), in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.
 
 ## Overview: Recursive vs Iterative DP
 
@@ -43,7 +43,7 @@ We start with the code which is a literal translation of the recurrence equation
 ```
 
 There are three changes in the code above: 
-1. declaring our dictonary for storing results, `memo` outside the recursive function (memo comes "memorization" or "memoization", a name used in the literature).
+1. declaring our dictionary for storing results, `memo` outside the recursive function (memo comes "memorization" or "memoization", a name used in the literature).
 2. before computing the result, we check if the solution has already been computed. This check can be done before or after the base case.
 3. before returning, we save the result in the `memo` table.
 
@@ -361,7 +361,7 @@ Thus, we actually give a recurrence equation for a slightly modified type of sub
     LIS2(i) = 1 + max(LIS2(j)) over all j < i such that L[j] < L[i]
 ```
 
-In short, since we know that the LIS ends at `L[i]`, we consider all candidate predecesors, which are the numbers smaller than it, and get the best one by using `max`. Crucially, this recurrence works for `LIS2(i)` but not for `LIS(i)`.
+In short, since we know that the LIS ends at `L[i]`, we consider all candidate predecessors, which are the numbers smaller than it, and get the best one by using `max`. Crucially, this recurrence works for `LIS2(i)` but not for `LIS(i)`.
 Here is a full solution:
 
 ```python

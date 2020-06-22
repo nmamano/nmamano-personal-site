@@ -40,7 +40,7 @@
       <ul>
       <li><strong>Preorder:</strong> root before children. As we will see, this is the simplest to implement.</li>
       <li><strong>Inorder:</strong> left child, then root, then right child. This traversal is most often used on <em>binary search trees</em> (BST). A BST is a rooted binary tree with the additional property that every node in the left subtree has a smaller value than the root, and every node in the right subtree has a larger value than the root. This traversal is called "inorder" because, when used on a BST, it will visit the nodes from smallest to largest.</li>
-      <li><strong>Postorder:</strong> children before root. It comes up in problems where we have to aggreate information about the entire subtree rooted at each node. Classic examples are computing the size, the height, or the sum of values of the tree.</li>
+      <li><strong>Postorder:</strong> children before root. It comes up in problems where we have to aggregate information about the entire subtree rooted at each node. Classic examples are computing the size, the height, or the sum of values of the tree.</li>
       </ul>
       <p><img src="traversals.svg" alt="Tree traversals" width="50%" height="50%" /></p>
       <p>Because rooted trees are recursive data structures, algorithms on trees are most naturally expressed recursively. Here are the three traversals. I use the function <code>process(node)</code> as a placeholder for whatever computation the problem calls for.</p>
@@ -64,7 +64,7 @@
       postorderTraversal(root-&gt;right);
       <span class="hljs-built_in">process</span>(root);
     }</code></pre>
-      <p>Sidenote: in C++, pointers are implicitly converted to booleans: a pointer evaluates to true if and only if it is not null. So, in the code above, "<code>if (!root)</code>" is equivalent to "<code>if (root == NULL)</code>".</p>
+      <p>Side-note: in C++, pointers are implicitly converted to booleans: a pointer evaluates to true if and only if it is not null. So, in the code above, "<code>if (!root)</code>" is equivalent to "<code>if (root == NULL)</code>".</p>
       <h3 id="traversal-problems-on-leetcode">Traversal problems on leetcode</h3>
       <ul>
       <li><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">https://leetcode.com/problems/binary-tree-preorder-traversal/</a></li>
@@ -302,7 +302,7 @@
       <ul>
       <li><a href="https://leetcode.com/problems/balanced-binary-tree/">https://leetcode.com/problems/balanced-binary-tree/</a></li>
       </ul>
-      <p>This problem asks to check if a binary tree is balanced. It requires passing information back from the children to the parent node in a postorder traversal. Passing information from the children to the parent is easy with recursion. It can be done both with return values or with parameters passed by reference. For this problem we need to pass two things: a <code>bool</code> indicating if the subtree is balanced, and an <code>int</code> indicating its height. I use a referece parameter for the latter (returning a <code>pair&lt;bool,int&gt;</code> would be cleaner).</p>
+      <p>This problem asks to check if a binary tree is balanced. It requires passing information back from the children to the parent node in a postorder traversal. Passing information from the children to the parent is easy with recursion. It can be done both with return values or with parameters passed by reference. For this problem we need to pass two things: a <code>bool</code> indicating if the subtree is balanced, and an <code>int</code> indicating its height. I use a reference parameter for the latter (returning a <code>pair&lt;bool,int&gt;</code> would be cleaner).</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isBalancedRec</span><span class="hljs-params">(TreeNode* root, <span class="hljs-keyword">int</span>&amp; <span class="hljs-built_in">height</span>)</span> </span>{
       <span class="hljs-keyword">if</span> (!root) {
         <span class="hljs-built_in">height</span> = <span class="hljs-number">0</span>;
@@ -319,7 +319,7 @@
       <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>;
       <span class="hljs-keyword">return</span> isBalancedRec(root, <span class="hljs-built_in">height</span>);
     }</code></pre>
-      <p>Passing information from the children to the parent in an interative implementation is more intricate. There are three general approaches:</p>
+      <p>Passing information from the children to the parent in an iterative implementation is more intricate. There are three general approaches:</p>
       <ol>
       <li>Use a hash table mapping each node to the information.</li>
       </ol>
@@ -427,7 +427,7 @@
       <ul>
       <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/">https://leetcode.com/problems/diameter-of-binary-tree/</a></li>
       </ul>
-      <p>This problem also requires passing information from the children to the parent in a postorder traversal. Here is a solution using the third approach again, but this time with lazy NULL-pointer detection. Note that we push a 0 to the <code>dephts</code> stack when we extract a NULL pointer from the main stack, and during processing we always do two pops regardless of the number of non-NULL children:</p>
+      <p>This problem also requires passing information from the children to the parent in a postorder traversal. Here is a solution using the third approach again, but this time with lazy NULL-pointer detection. Note that we push a 0 to the <code>depths</code> stack when we extract a NULL pointer from the main stack, and during processing we always do two pops regardless of the number of non-NULL children:</p>
       <pre><code class="hljs C++ language-C++">    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">diameterOfBinaryTree</span><span class="hljs-params">(TreeNode* root)</span> </span>{
       <span class="hljs-built_in">stack</span>&lt;pair&lt;TreeNode*,<span class="hljs-keyword">int</span>&gt;&gt; stk; 
       stk.push({root, <span class="hljs-number">0</span>});

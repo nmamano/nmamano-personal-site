@@ -33,7 +33,7 @@
 
       <h1 id="breaking-down-dynamic-programming">Breaking Down Dynamic Programming</h1>
       <h2 id="introduction">Introduction</h2>
-      <p>When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demistify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in detail here. To complement the explanations, there are links to problems on <a href="https://leetcode.com/">leetcode.com</a>, in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.</p>
+      <p>When I was a TA for "Algorithm Design and Analysis", the students struggled with dynamic programming. To simplify/demystify it, I tried to break it down into a logical sequence of steps, each of which should not feel too intimidating on its own. This is explained in detail here. To complement the explanations, there are links to problems on <a href="https://leetcode.com/">leetcode.com</a>, in case the reader wants to practice. The code snippets are in Python, but Leetcode accepts most popular languages.</p>
       <h2 id="overview-recursive-vs-iterative-dp">Overview: Recursive vs Iterative DP</h2>
       <p>In short, dynamic programming (DP) is a technique for problems that seem hard to solve as a whole, but become easy if we know the solution to smaller subproblems. More technically, we can use it in problems where the (value of the) solution can be expressed as an equation which is a function of the input, and is expressed in terms of itself with smaller inputs. This is called a <em>recurrence equation</em>. The classic example is the Fibonacci recurrence: <code>Fib(n) = Fib(n-1) + Fib(n-2)</code>.</p>
       <ul>
@@ -60,7 +60,7 @@
       <span class="hljs-keyword">return</span> res</code></pre>
       <p>There are three changes in the code above: </p>
       <ol>
-      <li>declaring our dictonary for storing results, <code>memo</code> outside the recursive function (memo comes "memorization" or "memoization", a name used in the literature).</li>
+      <li>declaring our dictionary for storing results, <code>memo</code> outside the recursive function (memo comes "memorization" or "memoization", a name used in the literature).</li>
       <li>before computing the result, we check if the solution has already been computed. This check can be done before or after the base case.</li>
       <li>before returning, we save the result in the <code>memo</code> table.</li>
       </ol>
@@ -299,7 +299,7 @@
              LIS(i<span class="hljs-number">-1</span>)       otherwise</code></pre>
       <p>Thus, we actually give a recurrence equation for a slightly modified type of subproblems: let <code>LIS2(i)</code> be the length of the LIS <strong>ending at index i</strong>. This constraint makes it easier to give a recurrence equation:</p>
       <pre><code class="hljs python language-python">    LIS2(i) = <span class="hljs-number">1</span> + max(LIS2(j)) over all j &lt; i such that L[j] &lt; L[i]</code></pre>
-      <p>In short, since we know that the LIS ends at <code>L[i]</code>, we consider all candidate predecesors, which are the numbers smaller than it, and get the best one by using <code>max</code>. Crucially, this recurrence works for <code>LIS2(i)</code> but not for <code>LIS(i)</code>.<br />
+      <p>In short, since we know that the LIS ends at <code>L[i]</code>, we consider all candidate predecessors, which are the numbers smaller than it, and get the best one by using <code>max</code>. Crucially, this recurrence works for <code>LIS2(i)</code> but not for <code>LIS(i)</code>.<br />
       Here is a full solution:</p>
       <pre><code class="hljs python language-python">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">LIS</span><span class="hljs-params">(L)</span>:</span>
       n = len(L)

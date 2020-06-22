@@ -22,7 +22,7 @@ A tree traversal is an algorithm that visits every node in a tree in a specific 
 
 * **Preorder:** root before children. As we will see, this is the simplest to implement.
 * **Inorder:** left child, then root, then right child. This traversal is most often used on *binary search trees* (BST). A BST is a rooted binary tree with the additional property that every node in the left subtree has a smaller value than the root, and every node in the right subtree has a larger value than the root. This traversal is called "inorder" because, when used on a BST, it will visit the nodes from smallest to largest.
-* **Postorder:** children before root. It comes up in problems where we have to aggreate information about the entire subtree rooted at each node. Classic examples are computing the size, the height, or the sum of values of the tree.
+* **Postorder:** children before root. It comes up in problems where we have to aggregate information about the entire subtree rooted at each node. Classic examples are computing the size, the height, or the sum of values of the tree.
 
 ![Tree traversals](traversals.svg =50%x50%)
 
@@ -51,7 +51,7 @@ Because rooted trees are recursive data structures, algorithms on trees are most
     }
 ```
 
-Sidenote: in C++, pointers are implicitly converted to booleans: a pointer evaluates to true if and only if it is not null. So, in the code above, "`if (!root)`" is equivalent to "`if (root == NULL)`".
+Side-note: in C++, pointers are implicitly converted to booleans: a pointer evaluates to true if and only if it is not null. So, in the code above, "`if (!root)`" is equivalent to "`if (root == NULL)`".
 
 ### Traversal problems on leetcode
 * https://leetcode.com/problems/binary-tree-preorder-traversal/
@@ -334,7 +334,7 @@ A solution:
 
 * https://leetcode.com/problems/balanced-binary-tree/
 
-This problem asks to check if a binary tree is balanced. It requires passing information back from the children to the parent node in a postorder traversal. Passing information from the children to the parent is easy with recursion. It can be done both with return values or with parameters passed by reference. For this problem we need to pass two things: a `bool` indicating if the subtree is balanced, and an `int` indicating its height. I use a referece parameter for the latter (returning a `pair<bool,int>` would be cleaner).
+This problem asks to check if a binary tree is balanced. It requires passing information back from the children to the parent node in a postorder traversal. Passing information from the children to the parent is easy with recursion. It can be done both with return values or with parameters passed by reference. For this problem we need to pass two things: a `bool` indicating if the subtree is balanced, and an `int` indicating its height. I use a reference parameter for the latter (returning a `pair<bool,int>` would be cleaner).
 
 ```C++
     bool isBalancedRec(TreeNode* root, int& height) {
@@ -355,7 +355,7 @@ This problem asks to check if a binary tree is balanced. It requires passing inf
     }
 ```
 
-Passing information from the children to the parent in an interative implementation is more intricate. There are three general approaches:
+Passing information from the children to the parent in an iterative implementation is more intricate. There are three general approaches:
 
 1. Use a hash table mapping each node to the information.
 
@@ -472,7 +472,7 @@ This is the most efficient, but one must be careful to keep both stacks in synch
 
 * https://leetcode.com/problems/diameter-of-binary-tree/
 
-This problem also requires passing information from the children to the parent in a postorder traversal. Here is a solution using the third approach again, but this time with lazy NULL-pointer detection. Note that we push a 0 to the `dephts` stack when we extract a NULL pointer from the main stack, and during processing we always do two pops regardless of the number of non-NULL children:
+This problem also requires passing information from the children to the parent in a postorder traversal. Here is a solution using the third approach again, but this time with lazy NULL-pointer detection. Note that we push a 0 to the `depths` stack when we extract a NULL pointer from the main stack, and during processing we always do two pops regardless of the number of non-NULL children:
 
 ```C++
     int diameterOfBinaryTree(TreeNode* root) {

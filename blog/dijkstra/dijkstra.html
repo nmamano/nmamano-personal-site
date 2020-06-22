@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nil Mamano | Blog</title>
+  <meta name="person" content="Nil Mamano">
+  <meta name="sortname" content="Mamano, Nil">
+  <meta name="keywords" content="personal site,computer science,blog">
+  <meta name="description" content="Actually Implementing Dijkstra's Algorithm">
+
+  <meta property="og:title" content="Nil Mamano | Blog" />
+  <meta property="og:description" content="Actually Implementing Dijkstra's Algorithm" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://nmamano.com/blog/dijkstra/dijkstra.html **********************" />
+  <!-- <meta property="og:image" content="http://nmamano.com/blog/NAME/THUMBNAIL **********************" /> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/default.min.css">
+
+</head>
+
+<body class="blogpostpage">
+  <main class="blogpost">
+    <div class="blogreturn">
+      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+    </div>
+    
+    <div id="mdToHtml">
+      <h1 id="actually-implementing-dijkstras-algorithm">Actually Implementing Dijkstra's Algorithm</h1>
+      <h2 id="introduction">Introduction</h2>
+      <p>Dijkstra's algorithm for the shortest-path problem is one of the most important graph algorithms, so it is often covered in algorithm classes. However, going from the pseudocode to an actual implementation is made difficult by the fact that it relies on a priority queue with a "decrease key" operation. While most programming languages offer a priority queue data structure as part of their standard library, this operation is generally not supported (e.g., in C++, Java or Python). In this blog, we go over the different ways to implement Dijkstra's algorithm with and without this operation, and the implications of using each. All in all, we consider 5 versions of Dijkstra:</p>
+      <ul>
+      <li><strong>Textbook Dijkstra</strong>: the version commonly taught in textbooks where we assume that we have a priority queue with the "decrease key" operation. As we said, this often does not hold true in reality.</li>
+      <li><strong>Linear-search Dijkstra</strong>: the most naive implementation, but which is actually optimal for dense graphs.</li>
+      <li><strong>Lazy Dijkstra</strong>: practical version which does not use the "decrease key" operation at all, at the cost of using some extra space.</li>
+      <li><strong>BST Dijkstra</strong>: version which uses a self-balancing binary search tree to implement the priority queue functionality, including the "decrease key" operation.</li>
+      <li><strong>Theoretical Dijkstra</strong>: version that uses a Fibonacci heap for the priority queue in order to achieve the fastest possible runtime in terms of big-O notation. This is actually impractical due to the complexity and high constant factors of the Fibonacci heap.</li>
+      </ul>
+      <p>We provide implementations in Python and C++. The initial sections are mostly background. If you are already familiar with Dijkstra's algorithm, you can skip to the code snippets.</p>
+      <h2 id="the-shortest-path-problem">The shortest-path problem</h2>
+      <p>The input consists of a graph <code>G</code> and a special node <code>s</code>. The edges of <code>G</code> are directed and have non-negative weights. The edge weights represent the "lengths" of the edges. The goal is to find the distance from <code>s</code> to every other node in <code>G</code>. The distance from <code>s</code> to another node is the length of the shortest path from <code>s</code> to that node, and the length of a path is the sum of the lengths of its edges. If a node is unreachable from <code>s</code>, then we say that the distance is infinite.</p>
+      <p>More precisely, this is known as the "single-source shortest-path" (SSSP) problem, because we find the distance from one node to every other node. Related problems include the "all-pairs shortest paths" problem and the single-source single-destination problem. Dijkstra's algorithm is a really efficient algorithm for the SSSP problem when the edges are non-negative. Dijkstra's algorithm does not work in the presence of negative edges (zero-weight edges are fine). If <code>G</code> contains negative edges, we should use the Bellman-Ford algorithm instead.</p>
+      <p>The constraint that the edges are directed is not important: if <code>G</code> is undirected, we can simply replace every undirected edge <code>{u,v}</code> with a pair of directed edges <code>(u,v)</code> and <code>(v,u)</code> in opposite directions and with the weight of the original edge. </p>
+      <p>To simplify things, we make a couple of assumptions that do not make any actual difference:</p>
+      <ul>
+      <li>Nodes not reachable by <code>s</code> play no role in the algorithm, so we assume that <code>s</code> can reach every node. This is so that, in the analysis, we can assume that <code>n=O(m)</code>, where <code>n</code> is the number of nodes and <code>m</code> the number of edges.</li>
+      <li>We assume that the distance from <code>s</code> to every node is unique. This allows us to talk about "the" shortest path to a node, when in general there could be many.</li>
+      </ul>
+      <h2 id="the-graphs-representation">The graph's representation</h2>
+      <p>A graph is a mathematical concept. In the context of graph algorithms, we need to specify how the graph is represented as a data structure. For Dijkstra's algorithm, the most convenient representation is the adjacency list. The valuable thing about the adjacency list representation is that it allows us to iterate through the out-going edges of a node efficiently.</p>
+      <p>In the version of the adjacency list that we use, each node is identified with an index from <code>0</code> to <code>n-1</code>, where <code>n</code> is the number of nodes. The adjacency list contains one list for each node. For each node <code>u</code> between <code>0</code> and <code>n-1</code>, the list <code>G[u]</code> contains one entry for each neighbor of <code>u</code>. In a directed graph, if we have an edge <code>(u,v)</code> from <code>u</code> to <code>v</code>, we say that <code>v</code> is a neighbor of <code>u</code>, but <code>u</code> is not a neighbor of <code>v</code>. Since the graph is weighted, the entry for each neighbor <code>v</code> consists of a pair of values, <code>(v, l)</code>: the destination node <code>v</code>, and the length <code>l</code> of the edge <code>(u,v)</code>.</p>
+      <h2 id="dijkstras-algorithm-idea">Dijkstra's algorithm idea</h2>
+      <p>One of the data structures that we maintain is a list <code>dist</code> where <code>dist[u]</code> is the best distance known for <code>u</code> so far. At the beginning, <code>dist[s] = 0</code>, and for every other node <code>dist[u] = infinity</code>. These distances improve during the algorithm as we consider new paths. Our goal is to get to the point where <code>dist</code> contains the correct distance for every node.</p>
+      <p>During the algorithm, the <code>dist</code> list is only updated through an operation called "relaxing" an edge.</p>
+      <pre><code class="hljs Python language-Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">relax</span><span class="hljs-params">(u,v,l)</span>:</span> <span class="hljs-comment">#l is the length of the edge (u,v)</span>
+    <span class="hljs-keyword">if</span> dist[u] + l &lt; dist[v]:
+        dist[v] = dist[u] + l</code></pre>
+      <p>In words, relaxing an edge <code>(u,v)</code> means checking if going to <code>u</code> first and then using the edge <code>(u,v)</code> is shorter than the best distance known for <code>v</code>. If it is shorter, then we update <code>dist[v]</code> to the new, better value.</p>
+      <p>Dijkstra's algorithm is based on the following observations:</p>
+      <ul>
+      <li>if <code>dist[u]</code> is correct <strong>and</strong> the shortest path from <code>s</code> to <code>v</code> ends in the edge <code>(u,v)</code>, then if we relax the edge <code>(u,v)</code>, we will find the correct distance to <code>v</code>. If either of the conditions are not satisfied, relaxing <code>(u,v)</code> may improve <code>dist[v]</code>, but it will not be the correct distance.</li>
+      <li>To find the correct distance to <code>v</code>, we need to relax all the edges in the shortest path from <code>s</code> to <code>v</code>, in order. If we do it in order, each node in the path will have the correct distance when we relax the edge to the next node, satisfying the conditions.</li>
+      </ul>
+      <p>Dijkstra's algorithm is efficient because every edge is relaxed only once (unlike other algorithms like Bellman-Ford, which relaxes the edges multiple times). To relax every edge only once, we must relax the out-going edges of each node only after we have found the correct distance for that node.</p>
+      <p>At the beginning, only <code>s</code> has the correct distance, so we relax its edges. This updates the entries in <code>dist</code> for its neighbors. The neighbor of <code>s</code> that is closest to <code>s</code>, say, <code>x</code>, has the correct distance at this point. This is because every other path from <code>s</code> to <code>x</code> starts with a longer edge, and, since the graph does not have negative-weight edges, additional edges can only increase the distance. Next, since <code>x</code> has the correct distance, we can relax its out-going edges. After that, the node <code>y</code> with the 3rd smallest distance in <code>dist</code> (after <code>s</code> and <code>x</code>) has the correct distance because the node before <code>y</code> in the shortest path from <code>s</code> to <code>y</code> must be either <code>s</code> or <code>x</code>. It cannot be any other node because simply reaching any node that is not <code>s</code> or <code>x</code> is already more expensive than the distance we have found for <code>y</code>. We continue relaxing the out-going edges of nodes, always taking the next node with the smallest found distance. By generalizing the argument above, when we relax the out-going edges of each node, that node already has the correct distance. We finish after we have gone through all the nodes. At that point, <code>dist</code> contains the correct distance for every node.</p>
+      <pre><code class="hljs Python language-Python">High-level pseudocode of Dijkstra's algorithm
+
+dijkstra(G, s):
+    dist = list of length n initialized with INF everywhere except for a 0 at position s
+    mark every node as unvisited
+    <span class="hljs-keyword">while</span> there are unvisited nodes:
+        u = unvisited node with smallest distance in dist
+        mark u as visited
+        <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> edge (u,v):
+            relax((u,v))</code></pre>
+      <p>In order to implement Dijkstra's algorithm, we need to decide the data structures used to find the unvisited node with the smallest distance at each iteration.</p>
+      <h2 id="priority-queues">Priority queues</h2>
+      <p>Priority queues are data structures that are useful in many applications, including Dijkstra's algorithm.</p>
+      <p>In a normal queue, we can insert new elements and extract the oldest element. A priority queue is similar, but we can associate a priority with each element. Then, instead of extracting the oldest element, we extract the one with highest priority. Depending on the context, "highest priority" can mean the element with the smallest or largest priority value. In this context, we will consider that the highest priority is the element with the smallest priority value.</p>
+      <p>A priority queue is an <em>abstract</em> data structure. That means that it only specifies which operations it supports, but not how they are implemented. There actually exist many ways to implement a priority queue. To make matters more confusing, different priority queues implementations support different sets of operations. The only agreed part is that they must support two basic operations:</p>
+      <ul>
+      <li><code>insert(e, k)</code>: insert element <code>e</code> with priority <code>k</code>.</li>
+      <li><code>extract_min()</code>: remove and return the element with the smallest priority value.</li>
+      </ul>
+      <p>For Dijkstra's algorithm, we can use a priority queue to maintain the nodes, using <code>dist[u]</code> as the priority for a node <code>u</code>. Then, at each iteration we can extract the unvisited node with the smallest distance. However, there is a problem: when we relax an edge, the value <code>dist[u]</code> may decrease. Thus, we need the priority queue to support a third operation which is not commonly supported:</p>
+      <ul>
+      <li><code>change_priority(e, k)</code>: set the priority of <code>e</code> to <code>k</code> (assuming that <code>e</code> is in the priority queue).</li>
+      </ul>
+      <p>A related operation is removing elements that are not the most prioritary:</p>
+      <ul>
+      <li><code>remove(e)</code>: remove <code>e</code> (assuming that <code>e</code> is in the priority queue).</li>
+      </ul>
+      <p>If a priority queue implements remove, we can use it to obtain the same functionality as <code>change-priority(e, k)</code>: we can first call <code>remove(e)</code> and then reinsert the element with the new key by calling <code>insert(e, k)</code>.</p>
+      <h2 id="pseudocode-with-a-priority-queue">Pseudocode with a priority queue</h2>
+      <p>Assuming that we have a priority queue data structure that supports <code>insert</code>, <code>extract-min</code>, and <code>change-priority</code>, Dijkstra's pseudocode would be as follows.</p>
+      <p>The priority queue contains the unvisited nodes, prioritized by distance from <code>s</code>. At the beginning, the priority queue contains all the nodes, and they are removed as they are visited.</p>
+      <pre><code class="hljs Python language-Python">Dijkstra pseudocode (with a priority queue)
+      
+dijkstra(G, s):
+    dist = list of length n initialized with INF everywhere except for a 0 at position s
+    PQ = empty priority queue
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> node u: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>insert(u, dist[<span class="hljs-identifier">u</span>])
+    <span class="hljs-keyword">while</span> not <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>empty():
+        u = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>extract<span class="hljs-constructor">_min()</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> edge (u,v) of length l:
+            <span class="hljs-keyword">if</span> dist[<span class="hljs-identifier">u</span>]+l &lt; dist[<span class="hljs-identifier">v</span>]:
+                dist[<span class="hljs-identifier">v</span>] = dist[<span class="hljs-identifier">u</span>]+l
+                <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>change<span class="hljs-constructor">_priority(<span class="hljs-params">v</span>, <span class="hljs-params">dist</span>[<span class="hljs-params">v</span>])</span></code></pre>
+      <p>A common variation is to add them to the priority queue when they are reached for the first time, instead of adding all the nodes at the beginning. The only change is how the priority queue is initialized and the if-else cases at the end:</p>
+      <pre><code class="hljs Python language-Python">Dijkstra pseudocode (with deferred insertions to the PQ)
+      
+dijkstra(G, s):
+    dist = list of length n initialized with INF everywhere except for a 0 at position s
+    PQ = empty priority queue
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>insert(s, 0)
+    <span class="hljs-keyword">while</span> not <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>empty():
+        u = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>extract<span class="hljs-constructor">_min()</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> edge (u,v) of length l:
+            <span class="hljs-keyword">if</span> dist[<span class="hljs-identifier">u</span>]+l &lt; dist[<span class="hljs-identifier">v</span>]:
+                dist[<span class="hljs-identifier">v</span>] = dist[<span class="hljs-identifier">u</span>]+l
+                <span class="hljs-keyword">if</span> v in PQ: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>change<span class="hljs-constructor">_priority(<span class="hljs-params">v</span>, <span class="hljs-params">dist</span>[<span class="hljs-params">v</span>])</span>
+                <span class="hljs-keyword">else</span>: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>insert(v, dist[<span class="hljs-identifier">v</span>])</code></pre>
+      <p>It does not change the runtime or space complexity, but there is also no downside to deferring insertions to the PQ. On average, the PQ will contains fewer elements.</p>
+      <h2 id="analysis-of-dijkstras-algorithm">Analysis of Dijkstra's algorithm</h2>
+      <p>Let <code>n</code> be the number of nodes and <code>m</code> the number of edges.</p>
+      <p>Usually, we analyze the algorithms <em>after</em> implementing them. However, in order to choose the best data structure for the priority queue, we need to analyze how much we use each type of operation.<br />
+      Thus, it is convenient to define the runtime in terms of the priority queue operations, without specifying yet how they are done. Let <code>T_ins</code>, <code>T_min</code>, and <code>T_change</code> be the time per <code>insert</code>, <code>extract_min</code>, and <code>change_priority</code> operation, respectively, on a priority queue containing <code>n</code> elements. </p>
+      <p>The main <code>while</code> loop has <code>n</code> iterations, and the total number of iterations of the inner <code>for</code> loop, across all <code>n</code> iterations, is <code>m</code>. This is because each edge is relaxed once.</p>
+      <p>The runtime is dominated by the priority queue operations, so it is <code>O(n*T_ins + n*T_min + m*T_change)</code>. These operations dominate the runtime because everything else combined (like updating the <code>dist</code> list) takes <code>O(n+m)</code> time.</p>
+      <h2 id="linear-search-dijkstra-for-dense-graphs">Linear-search Dijkstra for dense graphs</h2>
+      <p>The simplest way to simulate the <code>extract_min</code> functionality of a priority queue is to iterate through the entire <code>dist</code> list to find the smallest value among the non-visited entries. If we do this, we don't need a priority queue. We call this <strong>linear-search Dijkstra</strong>.  We get <code>T_ins = O(1)</code>, <code>T_min = O(n)</code>, and <code>T_change = O(1)</code>. Plugging those in, the total runtime of linear-search Dijkstra is <code>O(n + n*n + m) = O(n^2)</code>, where we simplify out the <code>m</code> term because <code>n^2 &gt; m</code> in any graph. More precisely, a directed graph with <code>n</code> nodes has at most <code>n*(n-1)=O(n^2)</code> edges.</p>
+      <p>A graph with "close to" <code>n*(n-1)</code> edges is called dense. <strong>Linear-search Dijkstra is actually optimal for dense graphs.</strong> This is because Dijkstra's algorithm must take <code>O(m)</code> time just to relax all edges, so it cannot be faster than <code>O(m)</code>, and, in dense graphs that is already proportional to <code>O(n^2)</code>.</p>
+      <p>Here is a Python implementation:</p>
+      <pre><code class="hljs Python language-Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linearSearchDijkstra</span><span class="hljs-params">(G, s)</span>:</span>
+    n = len(G)
+    INF = <span class="hljs-number">9999999</span>
+    dist = [INF <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> range(n)]
+    dist[s] = <span class="hljs-number">0</span>
+    vis = [<span class="hljs-literal">False</span> <span class="hljs-keyword">for</span> node <span class="hljs-keyword">in</span> range(n)]
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+        u = <span class="hljs-number">-1</span>
+        <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> range(n):
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> vis[v] <span class="hljs-keyword">and</span> (u == <span class="hljs-number">-1</span> <span class="hljs-keyword">or</span> dist[v] &lt; dist[u]):
+                u = v
+        <span class="hljs-keyword">if</span> dist[u] == INF: <span class="hljs-keyword">break</span> <span class="hljs-comment">#no more reachable nodes</span>
+        vis[u] = <span class="hljs-literal">True</span>
+        <span class="hljs-keyword">for</span> v, l <span class="hljs-keyword">in</span> G[u]:
+            <span class="hljs-keyword">if</span> dist[u] + l &lt; dist[v]:
+                dist[v] = dist[u] + l
+    <span class="hljs-keyword">return</span> dist</code></pre>
+<p>And C++. We omit the includes and "<code>using namespace std;</code>".</p>
+<pre><code class="hljs C++ language-C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">linearSearchDijkstra</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;&gt;&gt;&amp; G, <span class="hljs-keyword">int</span> s)</span> </span>{
+    <span class="hljs-keyword">int</span> n = G.<span class="hljs-built_in">size</span>();
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">dist</span><span class="hljs-params">(n, INT_MAX)</span></span>;
+    dist[s] = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">vis</span><span class="hljs-params">(n, <span class="hljs-literal">false</span>)</span></span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+        <span class="hljs-keyword">int</span> u = <span class="hljs-number">-1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v = <span class="hljs-number">0</span>; v &lt; n; v++)
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> vis[v] <span class="hljs-keyword">and</span> (u == <span class="hljs-number">-1</span> <span class="hljs-keyword">or</span> dist[v] &lt; dist[u]))
+                u = v;
+        <span class="hljs-keyword">if</span> (dist[u] == INT_MAX) <span class="hljs-keyword">break</span>; <span class="hljs-comment">//no more reachable nodes</span>
+        vis[u] = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> edge : G[u]) {
+            <span class="hljs-keyword">int</span> v = edge.first, l = edge.second;
+            <span class="hljs-keyword">if</span> (dist[u]+l &lt; dist[v])
+                dist[v] = dist[u]+l;
+        }        
+    }
+    <span class="hljs-keyword">return</span> dist;
+}</code></pre>
+      <h2 id="priority-queues-for-sparse-graphs">Priority queues for sparse graphs</h2>
+      <p>The <code>O(n^2)</code> time from the implementation above is slow if the graph <code>G</code> is sparse, meaning that the number of edges is small relative to <code>O(n^2)</code>. Recall that the time is <code>O(n*T_ins + n*T_min + m*T_change)</code>. If <code>m</code> is more similar to <code>n</code> than to <code>n^2</code>, then we would be happy to trade a slower <code>change_priority</code> time for a faster <code>extract_min</code> time.</p>
+      <p>The best possible answer in terms of big-O notation is to use a priority queue implementation based on a data structure known as a <strong>Fibonacci Heap</strong>. A Fibonacci heap containing at most <code>n</code> elements achieves the following times:</p>
+      <ul>
+      <li><code>insert</code>: <code>O(log n)</code> amortized time.</li>
+      <li><code>extract_min</code>: <code>O(log n)</code> amortized time.</li>
+      <li><code>change_priority</code>: <code>O(1)</code> amortized time.</li>
+      </ul>
+      <p>Amortized time means that it could take more time, but, if we average out the times for that operation across the execution of an algorithm, each one takes that time on average.</p>
+      <p>Using a Fibonacci heap, we get a total time of <code>O(n*log n + m)</code> for Dijkstra's algorithm. This is really fast in terms of big-O notation, but Fibonacci heaps have larger constant factors than other data structures, making them slower in practice.</p>
+      <p>The most common way to implement a priority queue is with a <strong>binary heap</strong>. It is simple and fast in practice. Binary heaps support <code>insert</code> and <code>extract_min</code> in <code>O(log n)</code> like a Fibonacci heap. However, they do not support the <code>change_priority</code> operation.</p>
+      <p>It is possible to modify a binary heap to to support the <code>change_priority</code> operation in <code>O(log n)</code> time. The result is sometimes called an "indexed priority queue". Using an indexed priority queue, we would get a total runtime of <code>O(n*log n + m*log n) = O(m*log n)</code>. This is slightly worse than with a Fibonacci heap, and faster in practice.</p>
+      <p>In any case, the priority queues provided by languages like C++, Python, and Java, do not support the <code>change_priority</code> operation. This creates a disconnect between the pseudocode taught in classrooms and the actual code that we can write.</p>
+      <p>The goal of this post is to illustrate the options to deal with this issue. There are 3:</p>
+      <ul>
+      <li><strong>Textbook Dijkstra</strong>: find or implement our own indexed priority queue.</li>
+      <li><strong>Lazy Dijkstra</strong>: we implement Dijkstra without using the <code>change_priority</code> operation at all.</li>
+      <li><strong>BST Dijkstra</strong>: we use a self-balancing binary search tree as the priority queue.</li>
+      </ul>
+      <p>We will cover the latter two options. The first option is an interesting exercise in data structures (I [implemented](<br />
+      <a href="https://github.com/nmamano/StableDistricting/blob/master/src/graphmatching/BinaryHeap.java">https://github.com/nmamano/StableDistricting/blob/master/src/graphmatching/BinaryHeap.java</a>) it once for a project), but it is more about the inner workings of binary heaps than it is about Dijkstra's algorithm.</p>
+      <p>All three options have a runtime of <code>O(m*log n)</code>. Note that for dense graphs, this becomes <code>O(n^2 log n)</code> time, so they are all worse than the naive linear-search Dijkstra. In terms of space, lazy Dijkstra is worse than the others, as it needs <code>O(m)</code> space, as opposed to <code>O(n)</code> for the other options.</p>
+      <h2 id="lazy-dijkstra">Lazy Dijkstra</h2>
+      <p>We implement Dijkstra using a priority queue that does not support the change-priority operation. We need the following change: when we find a shorter distance to a node that is already in the priority-queue, instead of using the "change-priority" operation, we simply use an "insert" operation and add a copy of the node in the priority queue with the new distance. Then, when we extract a node from the priority queue, we ignore it if it is not the first time we extract that node. We call this version of Dijkstra "lazy Dijkstra" because we "postpone" the removal of the pre-existing copy of the node.</p>
+      <p>Here is a Python version. The logical structure of a binary heap is a binary tree, but, internally <a href="https://en.wikipedia.org/wiki/Binary_heap#Heap_implementation">the tree is represented as an array</a> for efficiency reasons. Python is a bit whack because, instead of having a priority queue module that encapsulates the implementation, we have the <a href="https://docs.python.org/3/library/heapq.html">heapq</a> module, which provides priority queue operations that can be used directly on a list representing a binary heap. <code>heapq</code> offers functions <code>heappop</code> (equivalent to <code>extract_min</code>) and <code>heappush</code> (equivalent to <code>insert</code>). These functions receive a normal Python list as a parameter, and this list is assumed to represent a binary heap. In Python, if the priority queue contains tuples, then the first element in the tuple is the priority. Thus, in the implementation we insert tuples to the priority queue with the distance first and the node second.</p>
+      <pre><code class="hljs Python language-Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lazyDijkstra</span><span class="hljs-params">(G, s)</span>:</span>
+    n = len(G)
+    INF = <span class="hljs-number">9999999</span>
+    dist = [INF <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> range(n)]
+    dist[s] = <span class="hljs-number">0</span>
+    vis = [<span class="hljs-literal">False</span> <span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> range(n)]
+    PQ = [(<span class="hljs-number">0</span>, s)]
+    <span class="hljs-keyword">while</span> len(PQ) &gt; <span class="hljs-number">0</span>:
+        _, u = heappop(PQ) <span class="hljs-comment">#only need the node, not the distance</span>
+        <span class="hljs-keyword">if</span> vis[u]: <span class="hljs-keyword">continue</span> <span class="hljs-comment">#not first extraction</span>
+        vis[u] = <span class="hljs-literal">True</span>
+        <span class="hljs-keyword">for</span> v, l <span class="hljs-keyword">in</span> G[u]:
+            <span class="hljs-keyword">if</span> dist[u]+l &lt; dist[v]:
+                dist[v] = dist[u]+l
+                heappush(PQ, (dist[u]+l, v))
+    <span class="hljs-keyword">return</span> dist</code></pre>
+<p>Here is a C++ version:</p>
+<pre><code class="hljs C++ language-C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">lazyDijkstra</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;&gt;&gt;&amp; G, <span class="hljs-keyword">int</span> s)</span> </span>{
+    <span class="hljs-keyword">int</span> n = G.<span class="hljs-built_in">size</span>();
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">dist</span><span class="hljs-params">(n, INT_MAX)</span></span>;
+    dist[s] = <span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">vis</span><span class="hljs-params">(n, <span class="hljs-literal">false</span>)</span></span>;
+    <span class="hljs-comment">//PQ of (distance, node) pairs prioritized by smallest distance</span>
+    priority_queue&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;, <span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt;, greater&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt;&gt; PQ;
+    PQ.push({<span class="hljs-number">0</span>, s});
+    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">not</span> PQ.empty()) {
+        <span class="hljs-keyword">int</span> u = PQ.top().second;
+        PQ.pop();
+        <span class="hljs-keyword">if</span> (vis[u]) <span class="hljs-keyword">continue</span>; <span class="hljs-comment">//not first extraction</span>
+        vis[u] = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> edge : G[u]) {
+            <span class="hljs-keyword">int</span> v = edge.first, l = edge.second;
+            <span class="hljs-keyword">if</span> (dist[u]+l &lt; dist[v]) {
+                dist[v] = dist[u]+l;
+                PQ.push({dist[v], v});
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> dist;
+}</code></pre>
+      <p>Analysis: since nodes can be added to the priority queue multiple times, in lazy Dijkstra the maximum number of elements in the priority queue increases from <code>O(n)</code> to <code>O(m)</code>. As a result, we do <code>O(m)</code> <code>extract_min</code> and <code>insert</code> operations. The total runtime is <code>O(m*log m)</code>. This can be simplified to <code>O(m*log n)</code>, because <code>log m &lt; log (n^2) = 2 log n = O(log n)</code>. Thus, in terms of big-O notation, <strong>lazy Dijkstra is equally fast as textbook Dijkstra</strong> (Dijkstra with an indexed priority queue). The only thing that got worse is the space used by the priority queue.</p>
+      <h2 id="bst-dijkstra">BST Dijkstra</h2>
+      <p>Self-balancing binary search trees, like red-black trees or AVL trees, are a type of data structure that maintains a set of elements ordered according to values associated with the elements, known as the elements' keys. They support a few operations, all in <code>O(log n)</code> time. For our use case, we are interested in the following ones:</p>
+      <ul>
+      <li>Insert an element with a given key.</li>
+      <li>Find the element with the smallest/largest key.</li>
+      <li>Given a key, find if there is an element with that key, and optionally remove it.</li>
+      </ul>
+      <p>These operations allow us to use a self-balancing BST to implement a priority queue. With the third operation, we can even implement the <code>change_priority</code> operation, as we mentioned.</p>
+      <p>Python does not actually have a self-balancing binary search tree module (why?!), so we cannot implement this version of Dijkstra either without finding or implementing our own self-balancing BST.</p>
+      <p>Here is a C++ version. In C++, the set data structure is implemented as a self-balancing BST:</p>
+      <pre><code class="hljs C++ language-C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">bstDijkstra</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;pair&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;&gt;&gt;&amp; G, <span class="hljs-keyword">int</span> s)</span> </span>{
+    <span class="hljs-keyword">int</span> n = G.<span class="hljs-built_in">size</span>();
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">dist</span> <span class="hljs-params">(n, INT_MAX)</span></span>;
+    dist[s] = <span class="hljs-number">0</span>;
+    <span class="hljs-comment">//self-balancing BST of (distance, node) pairs, sorted by smallest distance</span>
+    <span class="hljs-built_in">set</span>&lt;pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;&gt; PQ; 
+    PQ.insert({<span class="hljs-number">0</span>, s});
+    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">not</span> PQ.empty()) {
+        <span class="hljs-keyword">int</span> u = PQ.<span class="hljs-built_in">begin</span>()-&gt;second; <span class="hljs-comment">//extract-min</span>
+        PQ.erase(PQ.<span class="hljs-built_in">begin</span>());
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> edge : G[u]) {
+            <span class="hljs-keyword">int</span> v = edge.first, l = edge.second;
+            <span class="hljs-keyword">if</span> (dist[u]+l &lt; dist[v]) {
+                <span class="hljs-comment">//erase and insert instead of change-priority </span>
+                PQ.erase({dist[v], v}); 
+                dist[v] = dist[u]+l;
+                PQ.insert({dist[v], v});
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> dist;
+}</code></pre>
+      <h2 id="practice-problems">Practice problems</h2>
+      <ul>
+      <li><a href="https://leetcode.com/problems/network-delay-time/">https://leetcode.com/problems/network-delay-time/</a></li>
+      <li><a href="https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/">https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/</a></li>
+      <li><a href="https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/">https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/</a></li>
+      <li><a href="https://leetcode.com/problems/path-with-maximum-minimum-value/">https://leetcode.com/problems/path-with-maximum-minimum-value/</a><br />
+      (Premium only)</li>
+      </ul>
+    </div>
+
+    <div class="blogreturn">
+      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+    </div>
+  </main>
+
+</body>
+
