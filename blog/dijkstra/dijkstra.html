@@ -32,13 +32,21 @@
     <div id="mdToHtml">
       <h1 id="actually-implementing-dijkstras-algorithm">Actually Implementing Dijkstra's Algorithm</h1>
       <h2 id="introduction">Introduction</h2>
-      <p>Dijkstra's algorithm for the shortest-path problem is one of the most important graph algorithms, so it is often covered in algorithm classes. However, going from the pseudocode to an actual implementation is made difficult by the fact that it relies on a priority queue with a "decrease key" operation. While most programming languages offer a priority queue data structure as part of their standard library, this operation is generally not supported (e.g., in C++, Java or Python). In this blog, we go over the different ways to implement Dijkstra's algorithm with and without this operation, and the implications of using each. All in all, we consider 5 versions of Dijkstra:</p>
+      <p>Dijkstra's algorithm for the shortest-path problem is one of the most important graph algorithms, so it is often covered in algorithm classes. However, going from the pseudocode to an actual implementation is made difficult by the fact that it relies on a priority queue with a "decrease key" operation. While most programming languages offer a priority queue data structure as part of their standard library, this operation is generally not supported (e.g., in C++, Java or Python). In this blog, we go over the different ways to implement Dijkstra's algorithm with and without this operation, and the implications of using each. All in all, we consider 5 versions of Dijkstra (names mostly made up by me):</p>
       <ul>
       <li><strong>Textbook Dijkstra</strong>: the version commonly taught in textbooks where we assume that we have a priority queue with the "decrease key" operation. As we said, this often does not hold true in reality.</li>
       <li><strong>Linear-search Dijkstra</strong>: the most naive implementation, but which is actually optimal for dense graphs.</li>
       <li><strong>Lazy Dijkstra</strong>: practical version which does not use the "decrease key" operation at all, at the cost of using some extra space.</li>
       <li><strong>BST Dijkstra</strong>: version which uses a self-balancing binary search tree to implement the priority queue functionality, including the "decrease key" operation.</li>
       <li><strong>Theoretical Dijkstra</strong>: version that uses a Fibonacci heap for the priority queue in order to achieve the fastest possible runtime in terms of big-O notation. This is actually impractical due to the complexity and high constant factors of the Fibonacci heap.</li>
+      </ul>
+      <p>Roughly, each of the 5 versions corresponds to a different data structure used to implement the priority queue.  Throughout the post, let <code>n</code> be the number of nodes and <code>m</code> the number of edges. Here is summary of the resulting runtime and space complexities:</p>
+      <ul>
+      <li><strong>Textbook Dijkstra</strong>: indexed binary heap. Runtime: <code>O(m*log n)</code>; space: <code>O(n)</code>.</li>
+      <li><strong>Linear-search Dijkstra</strong>: unordered array. Runtime: <code>O(n^2)</code>; space: <code>O(n)</code>.</li>
+      <li><strong>Lazy Dijkstra</strong>: binary heap. Runtime: <code>O(m*log n)</code>; space: <code>O(m)</code>.</li>
+      <li><strong>BST Dijkstra</strong>: self-balancing BST. Runtime: <code>O(m*log n)</code>; space: <code>O(n)</code>.</li>
+      <li><strong>Theoretical Dijkstra</strong>: Fibonacci heap. Runtime: <code>O(m + n*log n)</code>; space: <code>O(n)</code>.</li>
       </ul>
       <p>We provide implementations in Python and C++. The initial sections are mostly background. If you are already familiar with Dijkstra's algorithm, you can skip to the code snippets.</p>
       <h2 id="the-shortest-path-problem">The shortest-path problem</h2>
@@ -47,12 +55,12 @@
       <p>The constraint that the edges are directed is not important: if <code>G</code> is undirected, we can simply replace every undirected edge <code>{u,v}</code> with a pair of directed edges <code>(u,v)</code> and <code>(v,u)</code> in opposite directions and with the weight of the original edge. </p>
       <p>To simplify things, we make a couple of assumptions that do not make any actual difference:</p>
       <ul>
-      <li>Nodes not reachable by <code>s</code> play no role in the algorithm, so we assume that <code>s</code> can reach every node. This is so that, in the analysis, we can assume that <code>n=O(m)</code>, where <code>n</code> is the number of nodes and <code>m</code> the number of edges.</li>
+      <li>Nodes not reachable by <code>s</code> play no role in the algorithm, so we assume that <code>s</code> can reach every node. This is so that, in the analysis, we can assume that <code>n=O(m)</code>.</li>
       <li>We assume that the distance from <code>s</code> to every node is unique. This allows us to talk about "the" shortest path to a node, when in general there could be many.</li>
       </ul>
       <h2 id="the-graphs-representation">The graph's representation</h2>
       <p>A graph is a mathematical concept. In the context of graph algorithms, we need to specify how the graph is represented as a data structure. For Dijkstra's algorithm, the most convenient representation is the adjacency list. The valuable thing about the adjacency list representation is that it allows us to iterate through the out-going edges of a node efficiently.</p>
-      <p>In the version of the adjacency list that we use, each node is identified with an index from <code>0</code> to <code>n-1</code>, where <code>n</code> is the number of nodes. The adjacency list contains one list for each node. For each node <code>u</code> between <code>0</code> and <code>n-1</code>, the list <code>G[u]</code> contains one entry for each neighbor of <code>u</code>. In a directed graph, if we have an edge <code>(u,v)</code> from <code>u</code> to <code>v</code>, we say that <code>v</code> is a neighbor of <code>u</code>, but <code>u</code> is not a neighbor of <code>v</code>. Since the graph is weighted, the entry for each neighbor <code>v</code> consists of a pair of values, <code>(v, l)</code>: the destination node <code>v</code>, and the length <code>l</code> of the edge <code>(u,v)</code>.</p>
+      <p>In the version of the adjacency list that we use, each node is identified with an index from <code>0</code> to <code>n-1</code>. The adjacency list contains one list for each node. For each node <code>u</code> between <code>0</code> and <code>n-1</code>, the list <code>G[u]</code> contains one entry for each neighbor of <code>u</code>. In a directed graph, if we have an edge <code>(u,v)</code> from <code>u</code> to <code>v</code>, we say that <code>v</code> is a neighbor of <code>u</code>, but <code>u</code> is not a neighbor of <code>v</code>. Since the graph is weighted, the entry for each neighbor <code>v</code> consists of a pair of values, <code>(v, l)</code>: the destination node <code>v</code>, and the length <code>l</code> of the edge <code>(u,v)</code>.</p>
       <h2 id="dijkstras-algorithm-idea">Dijkstra's algorithm idea</h2>
       <p>One of the data structures that we maintain is a list <code>dist</code> where <code>dist[u]</code> is the best distance known for <code>u</code> so far. At the beginning, <code>dist[s] = 0</code>, and for every other node <code>dist[u] = infinity</code>. These distances improve during the algorithm as we consider new paths. Our goal is to get to the point where <code>dist</code> contains the correct distance for every node.</p>
       <p>During the algorithm, the <code>dist</code> list is only updated through an operation called "relaxing" an edge.</p>
@@ -126,7 +134,6 @@ dijkstra(G, s):
                 <span class="hljs-keyword">else</span>: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PQ</span>.</span></span>insert(v, dist[<span class="hljs-identifier">v</span>])</code></pre>
       <p>It does not change the runtime or space complexity, but there is also no downside to deferring insertions to the PQ. On average, the PQ will contains fewer elements.</p>
       <h2 id="analysis-of-dijkstras-algorithm">Analysis of Dijkstra's algorithm</h2>
-      <p>Let <code>n</code> be the number of nodes and <code>m</code> the number of edges.</p>
       <p>Usually, we analyze the algorithms <em>after</em> implementing them. However, in order to choose the best data structure for the priority queue, we need to analyze how much we use each type of operation.<br />
       Thus, it is convenient to define the runtime in terms of the priority queue operations, without specifying yet how they are done. Let <code>T_ins</code>, <code>T_min</code>, and <code>T_change</code> be the time per <code>insert</code>, <code>extract_min</code>, and <code>change_priority</code> operation, respectively, on a priority queue containing <code>n</code> elements. </p>
       <p>The main <code>while</code> loop has <code>n</code> iterations, and the total number of iterations of the inner <code>for</code> loop, across all <code>n</code> iterations, is <code>m</code>. This is because each edge is relaxed once.</p>
@@ -271,6 +278,8 @@ dijkstra(G, s):
     }
     <span class="hljs-keyword">return</span> dist;
 }</code></pre>
+<p>Analysis: in a sense, BST Dijkstra combines the best of both worlds: it has the same runtime and space complexity as textbook Dijkstra, without needing the extra space of Lazy Dijkstra, but it uses a much more ubiquitous data structure, a self-balancing BST. However, in practice, self-balancing BSTs are slower than binary heaps. This has to do with the fact that heaps can be implemented on top of an array, while BSTs use recursive tree data structures with child pointers. The array has much better <a href="https://en.wikipedia.org/wiki/Locality_of_reference">locality of reference</a>. For sparse graphs, I'd expect the performance of the different versions to be ordered as follows:</p>
+<p>Textbook Dijkstra &gt; Lazy Dijkstra &gt; BST Dijkstra &gt; Theoretical Dijkstra &gt; Linear-search Dijkstra</p>
       <h2 id="practice-problems">Practice problems</h2>
       <ul>
       <li><a href="https://leetcode.com/problems/network-delay-time/">https://leetcode.com/problems/network-delay-time/</a></li>

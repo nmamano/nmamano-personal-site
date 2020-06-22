@@ -2,13 +2,21 @@
 
 ## Introduction
 
-Dijkstra's algorithm for the shortest-path problem is one of the most important graph algorithms, so it is often covered in algorithm classes. However, going from the pseudocode to an actual implementation is made difficult by the fact that it relies on a priority queue with a "decrease key" operation. While most programming languages offer a priority queue data structure as part of their standard library, this operation is generally not supported (e.g., in C++, Java or Python). In this blog, we go over the different ways to implement Dijkstra's algorithm with and without this operation, and the implications of using each. All in all, we consider 5 versions of Dijkstra:
+Dijkstra's algorithm for the shortest-path problem is one of the most important graph algorithms, so it is often covered in algorithm classes. However, going from the pseudocode to an actual implementation is made difficult by the fact that it relies on a priority queue with a "decrease key" operation. While most programming languages offer a priority queue data structure as part of their standard library, this operation is generally not supported (e.g., in C++, Java or Python). In this blog, we go over the different ways to implement Dijkstra's algorithm with and without this operation, and the implications of using each. All in all, we consider 5 versions of Dijkstra (names mostly made up by me):
 
 - **Textbook Dijkstra**: the version commonly taught in textbooks where we assume that we have a priority queue with the "decrease key" operation. As we said, this often does not hold true in reality.
 - **Linear-search Dijkstra**: the most naive implementation, but which is actually optimal for dense graphs.
 - **Lazy Dijkstra**: practical version which does not use the "decrease key" operation at all, at the cost of using some extra space.
 - **BST Dijkstra**: version which uses a self-balancing binary search tree to implement the priority queue functionality, including the "decrease key" operation.
 - **Theoretical Dijkstra**: version that uses a Fibonacci heap for the priority queue in order to achieve the fastest possible runtime in terms of big-O notation. This is actually impractical due to the complexity and high constant factors of the Fibonacci heap.
+
+Roughly, each of the 5 versions corresponds to a different data structure used to implement the priority queue. Throughout the post, let `n` be the number of nodes and `m` the number of edges. Here is summary of the resulting runtime and space complexities:
+
+- **Textbook Dijkstra**: indexed binary heap. Runtime: `O(m*log n)`; space: `O(n)`.
+- **Linear-search Dijkstra**: unordered array. Runtime: `O(n^2)`; space: `O(n)`.
+- **Lazy Dijkstra**: binary heap. Runtime: `O(m*log n)`; space: `O(m)`.
+- **BST Dijkstra**: self-balancing BST. Runtime: `O(m*log n)`; space: `O(n)`.
+- **Theoretical Dijkstra**: Fibonacci heap. Runtime: `O(m + n*log n)`; space: `O(n)`.
 
 We provide implementations in Python and C++. The initial sections are mostly background. If you are already familiar with Dijkstra's algorithm, you can skip to the code snippets.
 
@@ -21,14 +29,14 @@ More precisely, this is known as the "single-source shortest-path" (SSSP) proble
 The constraint that the edges are directed is not important: if `G` is undirected, we can simply replace every undirected edge `{u,v}` with a pair of directed edges `(u,v)` and `(v,u)` in opposite directions and with the weight of the original edge. 
 
 To simplify things, we make a couple of assumptions that do not make any actual difference:
-- Nodes not reachable by `s` play no role in the algorithm, so we assume that `s` can reach every node. This is so that, in the analysis, we can assume that `n=O(m)`, where `n` is the number of nodes and `m` the number of edges.
+- Nodes not reachable by `s` play no role in the algorithm, so we assume that `s` can reach every node. This is so that, in the analysis, we can assume that `n=O(m)`.
 - We assume that the distance from `s` to every node is unique. This allows us to talk about "the" shortest path to a node, when in general there could be many.
 
 ## The graph's representation
 
 A graph is a mathematical concept. In the context of graph algorithms, we need to specify how the graph is represented as a data structure. For Dijkstra's algorithm, the most convenient representation is the adjacency list. The valuable thing about the adjacency list representation is that it allows us to iterate through the out-going edges of a node efficiently.
 
-In the version of the adjacency list that we use, each node is identified with an index from `0` to `n-1`, where `n` is the number of nodes. The adjacency list contains one list for each node. For each node `u` between `0` and `n-1`, the list `G[u]` contains one entry for each neighbor of `u`. In a directed graph, if we have an edge `(u,v)` from `u` to `v`, we say that `v` is a neighbor of `u`, but `u` is not a neighbor of `v`. Since the graph is weighted, the entry for each neighbor `v` consists of a pair of values, `(v, l)`: the destination node `v`, and the length `l` of the edge `(u,v)`.
+In the version of the adjacency list that we use, each node is identified with an index from `0` to `n-1`. The adjacency list contains one list for each node. For each node `u` between `0` and `n-1`, the list `G[u]` contains one entry for each neighbor of `u`. In a directed graph, if we have an edge `(u,v)` from `u` to `v`, we say that `v` is a neighbor of `u`, but `u` is not a neighbor of `v`. Since the graph is weighted, the entry for each neighbor `v` consists of a pair of values, `(v, l)`: the destination node `v`, and the length `l` of the edge `(u,v)`.
 
 
 ## Dijkstra's algorithm idea
@@ -132,8 +140,6 @@ dijkstra(G, s):
 It does not change the runtime or space complexity, but there is also no downside to deferring insertions to the PQ. On average, the PQ will contains fewer elements.
 
 ## Analysis of Dijkstra's algorithm
-
-Let `n` be the number of nodes and `m` the number of edges.
 
 Usually, we analyze the algorithms *after* implementing them. However, in order to choose the best data structure for the priority queue, we need to analyze how much we use each type of operation.
 Thus, it is convenient to define the runtime in terms of the priority queue operations, without specifying yet how they are done. Let `T_ins`, `T_min`, and `T_change` be the time per `insert`, `extract_min`, and `change_priority` operation, respectively, on a priority queue containing `n` elements. 
@@ -317,6 +323,10 @@ vector<int> bstDijkstra(const vector<vector<pair<int,int>>>& G, int s) {
     return dist;
 }
 ```
+
+Analysis: in a sense, BST Dijkstra combines the best of both worlds: it has the same runtime and space complexity as textbook Dijkstra, without needing the extra space of Lazy Dijkstra, but it uses a much more ubiquitous data structure, a self-balancing BST. However, in practice, self-balancing BSTs are slower than binary heaps. This has to do with the fact that heaps can be implemented on top of an array, while BSTs use recursive tree data structures with child pointers. The array has much better [locality of reference](https://en.wikipedia.org/wiki/Locality_of_reference). For sparse graphs, I'd expect the performance of the different versions to be ordered as follows:
+
+Textbook Dijkstra > Lazy Dijkstra > BST Dijkstra > Theoretical Dijkstra > Linear-search Dijkstra
 
 ## Practice problems
 
