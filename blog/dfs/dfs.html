@@ -34,7 +34,7 @@
       <h2 id="introduction">Introduction</h2>
       <p>Depth-first search, or DFS, is a fundamental graph algorithm that can be used to solve <strong>reachability</strong> problems. This post shows how to adapt the basic DFS template to solve several problems of this kind. Reachability problems are often easier in undirected graphs. Below, we specify if the algorithm works for undirected graphs, directed graphs, or both.</p>
       <h3 id="prerequisites">Prerequisites</h3>
-      <p>We assume that the reader is already familiar with the concept of DFS. <a href="https://www.youtube.com/watch?v=7fujbpJ0LB4">Here</a> is an excellent video introducing DFS with step-by-step animations. We also assume that the reader is familiar with the adjacency list representation of a graph.</p>
+      <p>We assume that the reader is already familiar with the concept of DFS. <a href="https://www.youtube.com/watch?v=7fujbpJ0LB4">Here</a> is an excellent video introducing DFS with step-by-step animations. We also assume that the reader is familiar with the adjacency list representation of a graph, and we use big-O notation in the analysis.</p>
       <h3 id="coding-conventions">Coding conventions</h3>
       <p>The algorithms below are in Python. <code>n</code> denotes the number of nodes. Nodes are identified with integers in the range <code>0..n-1</code>. The graph <code>G</code> is a graph stored as an adjacency list: <code>G</code> is a list of <code>n</code> lists. For each <code>v</code> between <code>0</code> and <code>n-1</code>, <code>G[v]</code> is the list of neighbors of <code>G</code>.</p>
       <p>If the graph is given as an edge list instead, we can initialize it as follows:</p>
@@ -106,6 +106,11 @@
 
     <span class="hljs-keyword">return</span> visit(s)</code></pre>
       <p>Adding the early termination can make the DFS faster, but in the worst-case the time/space complexity is the same.</p>
+      <h3 id="practice-problems">Practice problems</h3>
+      <ul>
+      <li><a href="https://leetcode.com/problems/the-maze/">https://leetcode.com/problems/the-maze/</a></li>
+      </ul>
+      <p>The hardest part on this problem is constructing the graph in the first place.</p>
       <h2 id="find-a-path-from-s-to-t">Find a path from s to t</h2>
       <p>The edges "traversed" in a DFS search form a tree called the "DFS tree". The DFS tree changes depending on where we start the search. The starting node is called the root. We can construct the DFS tree by keeping track of the predecessor of each node in the search (the root has no predecessor). If we construct the DFS tree rooted at <code>s</code>, we can follow the sequence of predecessors from <code>t</code> to <code>s</code> to find a path from <code>s</code> to <code>t</code> in reverse order.</p>
       <p>Instead of using the list <code>vis</code> to keep track of visited nodes, we know a node is unvisited if it has no predecessor yet. We indicate that a node has no predecessor with the special value <code>-1</code>.</p>
@@ -217,6 +222,7 @@
       <li><a href="https://leetcode.com/problems/max-area-of-island/">https://leetcode.com/problems/max-area-of-island/</a></li>
       <li><a href="https://leetcode.com/problems/sentence-similarity-ii/">https://leetcode.com/problems/sentence-similarity-ii/</a></li>
       </ul>
+      <p>In the second problem, nodes are given by names, not indices, so they need to be converted.</p>
       <h2 id="is-the-graph-acyclic">Is the graph acyclic?</h2>
       <p>For undirected graphs, this question is simple. First, we consider the problem in each CC independently. This is very common pattern in graph problems. We do this with an outer loop through all the nodes where we launch a search for every yet-unvisited node.</p>
       <p>During the DFS search in each CC, if we find an edge to an already visited node that is not the predecessor in the search (the node we just came from), there is a cycle. Such edges in a DFS search are called <strong>back edges</strong>. We add one parameter to the recursive function <code>visit</code> to know the predecessor node.</p>
@@ -244,6 +250,7 @@
       <ul>
       <li><a href="https://leetcode.com/problems/redundant-connection/">https://leetcode.com/problems/redundant-connection/</a></li>
       </ul>
+      <p>This problem is easier to solve using union-find, but it can be done with DFS.</p>
       <h2 id="is-the-graph-a-tree">Is the graph a tree?</h2>
       <p>Usually, we ask this question for undirected graphs. We can use this characterization of trees:</p>
       <p><em>An undirected graph is a tree if and only if it is connected and has exactly <code>n-1</code> edges.</em></p>

@@ -6,7 +6,7 @@ Depth-first search, or DFS, is a fundamental graph algorithm that can be used to
 
 ### Prerequisites
 
-We assume that the reader is already familiar with the concept of DFS. [Here](https://www.youtube.com/watch?v=7fujbpJ0LB4) is an excellent video introducing DFS with step-by-step animations. We also assume that the reader is familiar with the adjacency list representation of a graph.
+We assume that the reader is already familiar with the concept of DFS. [Here](https://www.youtube.com/watch?v=7fujbpJ0LB4) is an excellent video introducing DFS with step-by-step animations. We also assume that the reader is familiar with the adjacency list representation of a graph, and we use big-O notation in the analysis.
 
 ### Coding conventions
 
@@ -107,6 +107,10 @@ def canReachNode(G, s, t): #G is directed or undirected
 ```
 
 Adding the early termination can make the DFS faster, but in the worst-case the time/space complexity is the same.
+
+### Practice problems
+- https://leetcode.com/problems/the-maze/
+The hardest part on this problem is constructing the graph in the first place.
 
 ## Find a path from s to t
 
@@ -251,6 +255,7 @@ For directed graphs, again we need Tarjan's algorithm or an equivalent algorithm
 ### Practice problems
 - https://leetcode.com/problems/max-area-of-island/
 - https://leetcode.com/problems/sentence-similarity-ii/
+In the second problem, nodes are given by names, not indices, so they need to be converted.
 
 ## Is the graph acyclic?
 
@@ -285,6 +290,7 @@ For directed graphs, it is not as simple: the fact that a neighbor `nbr` is alre
 
 ### Practice problems
 - https://leetcode.com/problems/redundant-connection/
+This problem is easier to solve using union-find, but it can be done with DFS.
 
 ## Is the graph a tree?
 

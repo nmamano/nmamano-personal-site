@@ -38,7 +38,7 @@ converter.setFlavor('github');
 
 var fs = require('fs');
 var markdownFilePath = process.argv[2];
-var outputFile = process.argv[3];
+var outputFile = 'autogen.html';
 fs.readFile( markdownFilePath, 'utf8', function(err, text) {
     if (err) throw err;
     var genHTML = converter.makeHtml(text);
@@ -48,4 +48,6 @@ fs.readFile( markdownFilePath, 'utf8', function(err, text) {
       });
 });
 
-/* usage: node index.js markdown_input_file html_output_file */
+/* usage: node index.js markdown_file
+the result will be in autogen.html
+*/
