@@ -26,23 +26,24 @@ def makeAdjList(edgeList):
 
 If the graph is given as an adjacency matrix, we can iterate through the rows of the adjacency matrix instead of through the adjacency lists. To iterate through the neighbors of a node `v`, instead of 
 ```python
-    for nbr in G[v]:
+    for u in G[v]:
+        #u is a neighbor of v
         ...
 ```
 we do
 ```python
     for u in range(n):
         if adjMatrix[v][u]:
-            #u is a nbr of v
+            #u is a neighbor of v
             ...
 ```
-Note that using an adjacency matrix affects the runtime analysis of DFS (`O(n^2)` instead of `O(m)`).
+Note that using an adjacency matrix affects the runtime analysis of DFS: `O(n^2)` instead of `O(m)`.
 
 ## Which nodes can be reached from node s?
 
 This is the simplest question that can be answered with DFS. The primary data structure in DFS is a list of booleans to keep track of already visited nodes (we call it `vis`). If we start a DFS search from a node `s`, the reachable nodes will be the ones for which `vis` is true.
 
-For this `G` can be directed or undirected. We make use of a nested function in Python so that we do not need to pass `G` and `vis` as parameters (in Python nested functions have visibility over the variables in the scope where they are defined).
+For this, `G` can be directed or undirected. We make use of a nested function in Python so that we do not need to pass `G` and `vis` as parameters (in Python nested functions have visibility over the variables in the scope where they are defined).
 
 ```python
 def reachableNodes(G, s): #G is directed or undirected
@@ -398,8 +399,6 @@ def spanningTree(G): #G is undirected and connected
 
 ## Conclusions
 
-DFS is the footprint for many algorithms, from simple to . We showed how to make minor modifications to the DFS template to answer reachability and connectivity questions.
-
-If you know of other problems that can be solved with DFS, let me know!
+DFS has many uses. We showed how to make minor modifications to the DFS template to answer reachability and connectivity questions.
 
 After DFS, the next algorithm to learn would be BFS (breath-first search). Like DFS, it can answer reachability questions. On top of that, it can also answer questions about distance in undirected graphs.
