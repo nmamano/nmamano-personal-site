@@ -12,7 +12,7 @@
 	colorlinks,
 	linkcolor={red!80!black},
 	citecolor={blue!50!black},
-	urlcolor={blue!80!black}
+	urlcolor={black!80!black}
 }
 \sectionfont{\Large}
 \subsectionfont{\large}
@@ -45,8 +45,10 @@
 \begin{minipage}[c]{0.28\textwidth}
 	\begin{flushleft}
 	\href{mailto:nil.mamano@gmail.com}{nil.mamano@gmail.com}\\
+\begin{comment}
 	1710 Dunlavy St\\
 	Houston, Texas 77006, US\\
+\end{comment}
 	832-212-3511
 	\end{flushleft}
 \end{minipage}\hfill
@@ -65,74 +67,125 @@
 \vspace{5px}
 \hrulefill
 }
+\vspace{-5px}
 
-\vspace{7px}
-\noindent\textbf{Summary} Strong Computer Science fundamentals and problem-solving skills from doing research in algorithm design. Strong communication skills from collaborating with researchers and teaching. Quick learner looking forward to dive into the latest technologies.
-\vspace{-12px}
+%\noindent\textbf{Summary} Strong Computer Science fundamentals and problem-solving skills from doing research in algorithms. Developed strong communication skills from collaborating with researchers and teaching. Quick learner looking forward to dive into the latest technologies.
 \section*{Education}
-\paragraph*{PhD + Masters in Computer Science} University of California Irvine, GPA 3.83/4 \hfill Sep 2015 -- Dec 2019
-\paragraph*{B.E. in Computer Science} Polytechnic University of Catalonia, GPA 3.8/4 (99th percentile) \hfill Sep 2011 -- Jul 2015
-\vspace*{-1px}
+\begin{description}
+\item[PhD + Masters in Computer Science]\quad University of California Irvine, GPA 3.83/4 \hfill Sep 2015 -- Dec 2019
+\item[B.E. in Computer Science]\quad Polytechnic University of Catalonia, GPA 3.8/4 (99th percentile) \hfill Sep 2011 -- Jul 2015
+\end{description}
+\section*{Skills}
+
+\begin{description}
+\item[Languages]\quad C++, C, Python, Java, Javascript, Typescript, Bash, HTML, CSS, SQL.
+\item[Tools]\quad Linux, Git, Github, React, Node.js, MongoDB, WebSocket, Oracle Grid Engine.
+\end{description}
+\vspace{-7px}
+\section*{Experience}
+\subsection*{University of California Irvine}
+\vspace{-3px}
+\begin{description}
+\item[PhD Student Researcher]\quad \href{https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ}{scholar.google.bg/citations?hl=en\&user=LIuIigEAAAAJ}\hfill Sep 2015 -- Dec 2019
+
+Co-authored 9 peer-reviewed papers on algorithm design, including as main author in tier A conferences like ICALP and ISAAC. The papers describe new algorithmic improvements for problems in graph theory, computational geometry, and computational biology. For example: improved the runtime of the multi-fragment algorithm for Euclidean TSP from $O(n^2)$ to $O(n\log n)$.
+
+\vspace{2px}
+\noindent Led a research project from inception to publication: came up with an original problem, engaged 3 colleagues to work on it, and collaborated with them to solve it and write a paper. We invented an algorithm for the knight's tour problem.
+
+\item[Teaching Assistant]\quad \href{http://nmamano.com/cv/studentEvaluations.pdf}{nmamano.com/cv/studentEvaluations.pdf} \hfill Sep 2016 -- Jun 2018
+
+Presented 100+ sessions teaching algorithms to 50+ students, including guest lectures, with excellent student evaluations.
+
+\vspace{2px}
+Championed the use of online automated grading to provide immediate feedback to the students and reduce the grading load. Led a study to measure the effect of automated grading (120 students split into experimental/control group), with inconclusive but promising results.
+
+\item[Undergrad Researcher]\quad \href{https://github.com/nmamano/SANA}{github.com/nmamano/SANA} \hfill Feb 2015 -- Jul 2015
+
+C++, Bash, Oracle Grid Engine $|$ Github (1600+ commits, 30+ collaborators) $|$ Research (30+ citations) $|$ Created SANA, a software to find alignments between biological networks by using a Simulated Annealing algorithm. Ran large-scale experiments in a computing cluster to optimize the algorithm and produce near-optimal alignments of PPI networks with 10k+ nodes and 100k+ edges in about an hour. Aligned networks with up to 100k nodes and 100 million edges.
+\end{description}
+
+\subsection*{Polytechnic University of Catalonia}
+\vspace{-2px}
+\begin{description}
+\item[Research Intern]\quad \href{https://racso.cs.upc.edu/juezwsgi/about}{racso.cs.upc.edu/juezwsgi/about}\hfill Feb 2014 -- Sep 2014
+
+\noindent Created 70+ exercises and exams for RACSO, a collection of online judges (automated grading tools) for CS courses.
+
+\vspace{2px}
+\noindent C++ $|$ Contributed to the backend of a judge: built the interpreter for a special language used by the users of the judge.
+\end{description}
+
+\section*{Projects}
+\begin{description}
+	\item[WallWars]\quad nmamano.com/wallwars \hfill Jul 2020 -- Present
+	
+	React, Node.js, WebSocket, MongoDB $|$ A 2-player online board game inspired by Quoridor. It has many of the features of online chess sites, like timers, watching past games, and a responsive design.
+	 
+	\item[SANA 2.0]\quad  \href{https://github.com/nmamano/SANA}{github.com/nmamano/SANA} \hfill Apr 2020 -- Jun 2020
+	
+	C++ $|$ Extended the SANA software (mentioned above) to enable alignment-finding between viruses. Refactored 20k+ lines of the codebase and added new features, allowing academic collaborators to run scientific experiments comparing SARS-CoV-2 to other viruses (currently underway).
+
+	\item[ttl-cache]\quad  \href{https://github.com/nmamano/ttlcache}{github.com/nmamano/ttlcache}\hfill  Mar 2020
+	
+	C++ (templates and C++17 features) $|$ An efficient in-memory key-value cache that supports timeouts. It implements Redis' algorithm to remove expired entries and has an LRU eviction mechanism.
+	
+	\item[Graph Nearest-Neighbor]\quad  \href{https://github.com/nmamano/NearestNeighborInGraphs}{github.com/nmamano/NearestNeighborInGraphs} \hfill 2018
+	 
+	 Java $|$ Designed and implemented data structures for matching drivers and passengers on a road network dynamically. Leveraged the topology of road networks to optimize the data structures and scale them to statewide networks with 100k+ edges.  
+	\item[Stable Matching Voronoi Diagram]\quad  \href{https://github.com/nmamano/StableMatchingVoronoiDiagram}{github.com/nmamano/StableMatchingVoronoiDiagram} \hfill 2018
+	
+	C++, OpenGL, Javascript $|$ Designed and implemented clustering algorithms for partitioning data into balanced clusters, and researched their application to gerrymandering prevention: they can partition a geographic region into compact and equal-population districts. Built a desktop application to visualize and benchmark the algorithms.
+	 \begin{comment}
+	\item[Chespel]\quad  \href{https://github.com/nmamano/Chespel}{github.com/nmamano/Chespel}\hfill 2014
+	
+	Java $|$ Designed a high-level programming language to specify the position evaluation rules of a chess engine. Built a transpiler that converts the code into C++ and integrates it with the search algorithm from the Faile chess engine, allowing users to build their own chess engines and experiment with the evaluation rules without needing to understand the search algorithm.
+
+\end{comment}	
+\end{description}
+
+
+
+
+\end{document}
+\begin{comment}
+\subsection*{Pathrise}
+
+\paragraph*{Technical Advisor} \hfill Apr 2020 -- Present
+
+\vspace{-1px}
+\noindent ((Still writing this.))
+
 %\begin{itemize}[leftmargin=15px]
 %	\item 2nd highest GPA in a cohort of 400+ students.
 %\end{itemize}
 
-\section*{Skills}
-\textbf{Languages:} C++, C, Python, Java, HTML, CSS, Javascript, Bash.~
-\textbf{Tools:} Git, Github, Linux, Oracle Grid Engine.
 
-\section*{Experience}
-\subsection*{University of California Irvine}
-\vspace{-3px}
-\paragraph*{PhD Student Researcher} \hfill Sep 2015 -- Dec 2019
 
-\vspace{-1px}
-\begin{itemize}[leftmargin=15px]
-	\item Co-authored 9 peer-reviewed articles on algorithm design.
-	\item Designed data structures for matching drivers and passengers on a road network dynamically. Leveraged the topology of road networks to optimize the data structures and scale them to statewide networks with 100k+ edges. [Java]   
-	\item Led a research project: came up with an original research problem, engaged 3 colleagues to work on it, and collaborated with them to solve it, write a paper, and get it published. We designed an optimal algorithm for the knight tour problem. [Javascript]
-	\item Designed clustering algorithms for partitioning data into balanced clusters, and applied them to gerrymandering prevention: they can partition a geographic region into compact and equal-population districts. Built a desktop application with a GUI to visualize and benchmark the algorithms. [C++, OpenGL, Javascript]
-	\item Improved the runtime of the multi-fragment algorithm for Euclidean TSP from $O(n^2)$ to $O(n\log n)$.
+%\item Improved the runtime of the multi-fragment algorithm for Euclidean TSP from $O(n^2)$ to $O(n\log n)$.
 %	\item Designed a parallel algorithm for DNA sequencing.
-	%\item Proved that a class of Greedy algorithms can be computed in a distributed system.
-	%\item Implemented an algorithm for embedding hidden ``watermarks'' in large graphs by hiding information in the structure of the graphs, allowing companies to share data encoded as graphs such as social networks without the risk of it being leaked. [Python]
-\end{itemize}
+%\item Proved that a class of Greedy algorithms can be computed in a distributed system.
+%\item Implemented an algorithm for embedding hidden ``watermarks'' in large graphs by hiding information in the structure of the graphs, allowing companies to share data encoded as graphs such as social networks without the risk of it being leaked. [Python]
 
-\paragraph*{Teaching Assistant} \hfill Sep 2016 -- Jun 2018
 
-\vspace{-1px}
+%\section*{Selected publications}
+
+Selected publications:
 \begin{itemize}[leftmargin=15px]
-	\item 100+ sessions teaching algorithms to groups of 50+ students, with excellent student evaluations.
-	\item Championed the use of online automated grading to provide immediate feedback to the students and reduce the grading load. Led a study with 100+ students to measure the effect of automated grading.
-\end{itemize}
-\paragraph*{Undergrad Researcher} \hfill Feb 2015 -- Jul 2015
-
-\vspace{2px}
-\noindent Created SANA, a biological network alignment software that uses simulated annealing to predict the function of proteins. Ran large-scale experiments in a computing cluster to fine-tune the algorithm and managed to outperform the leading algorithms in accuracy and runtime simultaneously. [C++, Bash, Oracle Grid Engine]
-	 
-\vspace{3px}
-\subsection*{Polytechnic University of Catalonia}
-\vspace{-2px}
-\paragraph*{Research Intern} \hfill Feb 2014 -- Sep 2014
-
-\vspace{2px}
-\noindent Contributed to RACSO, a free online judge (automated grading tool) for compiler and automata theory courses. Built an interpreter for a C-like language used by the students to write their solutions, following Test-driven development. [C++]
-		%\item Prepared 70+ online exercises, and exams taken by 100+ students.
-
-\section*{Selected projects}
-Built an efficient in-memory key-value Cache that supports timeouts, using templates and C++17 features. It implements Redis' algorithm to remove expired entries and has an LRU eviction mechanism. [C++]
-
-\section*{Selected publications}
-\begin{itemize}[leftmargin=15px]
-\item ``Euclidean TSP, Motorcycle Graphs, and Other New Applications of Nearest-Neighbor Chains'' N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S. Kobourov, P. Matias, V. Polishchuk, International Symposium on Algorithms and Computation 2019
+%\item ``Euclidean TSP, Motorcycle Graphs, and Other New Applications of Nearest-Neighbor Chains'' N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S. Kobourov, P. Matias, V. Polishchuk, International Symposium on Algorithms and Computation 2019
 \item ``Stable-Matching Voronoi Diagrams: Combinatorial Complexity and Algorithms'' G. Barequet, D. Eppstein, M. T. Goodrich, and N. Mamano, International Colloquium on Automata, Languages and Programming 2018
 \item ``Reactive Proximity Data Structures for Graphs'' D. Eppstein, M.T. Goodrich, and N. Mamano, Latin American Theoretical Informatics Symposium 2018
 \item ``SANA: Simulated Annealing far outperforms many other search algorithms for biological network alignment'' N. Mamano and W. Hayes, Bioinformatics: Oxford Journals 2017
 \end{itemize}
+\end{comment}
+\begin{comment}
+\begin{itemize}
+%	\item Designed a parallel algorithm for DNA sequencing.
+%\item Proved that a class of Greedy algorithms can be computed in a distributed system.
+%\item Implemented an algorithm for embedding hidden ``watermarks'' in large graphs by hiding information in the structure of the graphs, allowing companies to share data encoded as graphs such as social networks without the risk of it being leaked. [Python]
 
-
-\end{document}
-
+\end{itemize}
+\end{comment}
 
 %\section*{Awards and Honors}
 %\begin{itemize}

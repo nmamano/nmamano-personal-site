@@ -1,0 +1,142 @@
+%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper,10pt,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{sectsty}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!80!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+\sectionfont{\Large}
+\subsectionfont{\large}
+\usepackage{titlesec}
+
+\renewcommand\labelitemi{--}
+
+
+\usepackage[left=0.4in, right=0.4in, bottom=0.35in, top=0.35in]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+\pagenumbering{gobble}
+
+%\newcommand{\note}[1]{\textcolor{red}{\,(#1)}}
+\newcommand{\note}[1]{}
+
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{0.94} 
+
+\titlespacing*{\section}{0px}{6px}{4px}
+\titlespacing*{\subsection}{0pt}{6px}{8px}
+\titlespacing*{\paragraph}{0pt}{6px}{8px}
+
+\input{glyphtounicode}
+
+\pdfgentounicode=1
+
+\begin{document}
+{\raggedleft
+
+\begin{minipage}[c]{0.28\textwidth}
+	\begin{flushleft}
+	\href{mailto:nil.mamano@gmail.com}{nil.mamano@gmail.com}\\
+	1710 Dunlavy St\\
+	Houston, Texas 77006, US\\
+	832-212-3511
+	\end{flushleft}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.3\textwidth}
+	\begin{center}
+		\Huge{\textbf{Nil Mamano}}
+	\end{center}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.3\textwidth}
+	\begin{flushright}
+	\href{http://www.nmamano.com}{nmamano.com} \\
+	\href{http://www.github.com/nmamano}{github.com/nmamano} \\
+	\href{http://www.linkedin.com/in/nmamano}{linkedin.com/in/nmamano}
+	\end{flushright}
+\end{minipage}\\
+\vspace{5px}
+\hrulefill
+}
+
+\vspace{7px}
+\noindent\textbf{Summary} Strong Computer Science fundamentals and problem-solving skills from doing research in algorithm design. Strong communication skills from collaborating with researchers and teaching. Quick learner looking forward to dive into the latest technologies.
+\vspace{-12px}
+\section*{Education}
+\paragraph*{PhD + Masters in Computer Science} University of California Irvine, GPA 3.83/4 \hfill Sep 2015 -- Dec 2019
+\paragraph*{B.E. in Computer Science} Polytechnic University of Catalonia, GPA 3.8/4 (99th percentile) \hfill Sep 2011 -- Jul 2015
+\vspace*{-1px}
+%\begin{itemize}[leftmargin=15px]
+%	\item 2nd highest GPA in a cohort of 400+ students.
+%\end{itemize}
+
+\section*{Skills}
+\textbf{Languages:} C++, C, Python, Java, HTML, CSS, Javascript, Bash, SQL~
+\textbf{Tools:} Git, Github, Linux, Oracle Grid Engine.
+
+\section*{Experience}
+\subsection*{University of California Irvine}
+\vspace{-3px}
+\paragraph*{PhD Student Researcher} \hfill Sep 2015 -- Dec 2019
+
+\vspace{-1px}
+\begin{itemize}[leftmargin=15px]
+	\item Co-authored 9 peer-reviewed articles on algorithm design.
+	\item Designed data structures for matching drivers and passengers on a road network dynamically. Leveraged the topology of road networks to optimize the data structures and scale them to statewide networks with 100k+ edges. [Java]   
+	\item Led a research project: came up with an original research problem, engaged 3 colleagues to work on it, and collaborated with them to solve it, write a paper, and get it published. We designed an optimal algorithm for the knight tour problem. [Javascript]
+	\item Designed clustering algorithms for partitioning data into balanced clusters, and applied them to gerrymandering prevention: they can partition a geographic region into compact and equal-population districts. Built a desktop application with a GUI to visualize and benchmark the algorithms. [C++, OpenGL, Javascript]
+	\item Improved the runtime of the multi-fragment algorithm for Euclidean TSP from $O(n^2)$ to $O(n\log n)$.
+%	\item Designed a parallel algorithm for DNA sequencing.
+	%\item Proved that a class of Greedy algorithms can be computed in a distributed system.
+	%\item Implemented an algorithm for embedding hidden ``watermarks'' in large graphs by hiding information in the structure of the graphs, allowing companies to share data encoded as graphs such as social networks without the risk of it being leaked. [Python]
+\end{itemize}
+
+\paragraph*{Teaching Assistant} \hfill Sep 2016 -- Jun 2018
+
+\vspace{-1px}
+\begin{itemize}[leftmargin=15px]
+	\item 100+ sessions teaching algorithms to groups of 50+ students, with excellent student evaluations.
+	\item Championed the use of online automated grading to provide immediate feedback to the students and reduce the grading load. Led a study with 100+ students to measure the effect of automated grading.
+\end{itemize}
+\paragraph*{Undergrad Researcher} \hfill Feb 2015 -- Jul 2015
+
+\vspace{2px}
+\noindent Created SANA, a biological network alignment software that uses simulated annealing to predict the function of proteins. Ran large-scale experiments in a computing cluster to fine-tune the algorithm and managed to outperform the leading algorithms in accuracy and runtime simultaneously. [C++, Bash, Oracle Grid Engine]
+	 
+\vspace{3px}
+\subsection*{Polytechnic University of Catalonia}
+\vspace{-2px}
+\paragraph*{Research Intern} \hfill Feb 2014 -- Sep 2014
+
+\vspace{2px}
+\noindent Contributed to RACSO, a free online judge (automated grading tool) for compiler and automata theory courses. Built an interpreter for a C-like language used by the students to write their solutions, following Test-driven development. [C++]
+		%\item Prepared 70+ online exercises, and exams taken by 100+ students.
+
+\section*{Selected projects}
+Built an efficient in-memory key-value Cache that supports timeouts, using templates and C++17 features. It implements Redis' algorithm to remove expired entries and has an LRU eviction mechanism. [C++]
+
+\section*{Selected publications}
+\begin{itemize}[leftmargin=15px]
+\item ``Euclidean TSP, Motorcycle Graphs, and Other New Applications of Nearest-Neighbor Chains'' N. Mamano, A. Efrat, D. Eppstein, D. Frishberg, M.T. Goodrich, S. Kobourov, P. Matias, V. Polishchuk, International Symposium on Algorithms and Computation 2019
+\item ``Stable-Matching Voronoi Diagrams: Combinatorial Complexity and Algorithms'' G. Barequet, D. Eppstein, M. T. Goodrich, and N. Mamano, International Colloquium on Automata, Languages and Programming 2018
+\item ``Reactive Proximity Data Structures for Graphs'' D. Eppstein, M.T. Goodrich, and N. Mamano, Latin American Theoretical Informatics Symposium 2018
+\item ``SANA: Simulated Annealing far outperforms many other search algorithms for biological network alignment'' N. Mamano and W. Hayes, Bioinformatics: Oxford Journals 2017
+\end{itemize}
+
+
+\end{document}
+
+
+%\section*{Awards and Honors}
+%\begin{itemize}
+%	\item Balsells Graduate Fellowship\hfill 2015 -- 2016
+%	\item Balsells Fellowship---Undergraduate Mobility Program\hfill 2014
+%	\item Formula Santander International Scholarship \hfill 2014
+%\end{itemize}
