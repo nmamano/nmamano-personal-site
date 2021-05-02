@@ -82,6 +82,25 @@
       <li>
         <div class="paper collapsible">
           <div class="data">
+            WallWars online board game.
+          </div>
+          <a class="papericon" title="Website" href="http://nmamano.com/wallwars/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
+            <a class="papericon" title="Source code" href="https://github.com/nmamano/wallwars" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>Wallwars is an online 2-player strategy board game. The player who gets to their goal before first wins. You can place walls to reshape the terrain to your advantage. WallWars is inspired by board games like Blockade and Quoridor. I built it to learn the MERN stack.</p> 
+            <div class="gallery">
+              <img class="gallerypic widepic" src="img/projects/wallwarsgame.gif" title="Real past game (on fast forward)">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
             SANA: Simulated Annealing Network Aligner.
           </div>
           <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
@@ -90,7 +109,7 @@
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project yielded a series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>), with a third one on the works.</p> 
+            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project spawned a series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>).</p> 
           </div>
         </div>
       </li>
@@ -121,18 +140,19 @@
       <li>
         <div class="paper collapsible">
           <div class="data">
-            LRU + TTL Cache
+            Bandwidth Enforcer Visualizer.
           </div>
-          <!--<a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>-->
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/ttlcache" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Try applet" href="http://nmamano.com/bandwidth-enforcer-plotter/" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/bandwidth-enforcer-plotter" target="_blank"><i class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>An in-memory hash table that acts as a Cache for a Key-Value storage. It is inspired by Redis and Memcached. It has an LRU (least recently used) eviction mechanism, and it also supports timeouts: entries expire after a certain TTL (<q>time-to-live</q>). The project focuses on how to handle expired entries. They can be handled in two ways: 1) passively, when they are <q>discovered</q> through read/write operations. 2) actively, by searching for them.
-            </p> 
-
-            <p>Using only passive removal may result in the LRU mechanism evicting entries that are still <q>alive</q> while the cache is poluted by expired entries. Memcached uses a <a href="https://memcached.org/blog/modern-lru/">segmented LRU mechanism</a> which takes TTL's into account. It can be considered as a type of passive removal. In contrast, Redis implements an active <a href="https://redis.io/commands/expire">probabilistic algorithm</a> to keep the fraction of expired entries low, which I implemented in this project. In the future, this project may serve as a testbed for comparing different algorithms for handling expired entries.</p>
+            <p><q><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43838.pdf" target="_blank">BwE: Flexible, Hierarchical Bandwidth Allocation for WAN Distributed Computing</a><q> is a public research paper from Google which introduces the Bandwidth Enforcer (BwE) network allocation algorithm used in Google's internal WAN. Among other things, it introduces the notion of bandwidth functions and how to aggregate them in a fair way. I made an interactive app to recreate the examples from the paper and be able to explore how they would change with different parameters.</p>
+            <p>For more context on the problem of fair network allocation, check out the BwE paper.</p>
+            <div class="gallery">
+              <img class="gallerypic svgpic widepic" src="img/projects/bwevisualizer.PNG" title="Screenshot from the applet">
+            </div>
           </div>
         </div>
       </li>
@@ -168,7 +188,7 @@
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>My research often has geometric aspects, and geometric data is not easy to grasp in text form.
+            <p>My research often has geometric aspects, and geometric concepts are not easy to convey in text form.
               To aid in this, I made the <em>Simplified SVG</em> library which accepts geometric primitives, specified in JSON,
               and shows the result on the resulting drawing in the browser using SVG.
               This is useful to visualize computationally-generated geometric data and avoid having to draw it out by hand.
@@ -204,6 +224,24 @@
         </div>
       </li>
 
+      <li>
+        <div class="paper collapsible">
+          <div class="data">
+            LRU + TTL Cache
+          </div>
+          <!--<a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>-->
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/ttlcache" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+        </div>
+        <div class="details collapsible-content">
+          <div class="abstract">
+            <p>An in-memory hash table that acts as a Cache for a Key-Value storage. It is inspired by Redis and Memcached. It has an LRU (least recently used) eviction mechanism, and it also supports timeouts: entries expire after a certain TTL (<q>time-to-live</q>). The project focuses on how to handle expired entries. They can be handled in two ways: 1) passively, when they are <q>discovered</q> through read/write operations. 2) actively, by searching for them.
+            </p> 
+
+            <p>Using only passive removal may result in the LRU mechanism evicting entries that are still <q>alive</q> while the cache is poluted by expired entries. Memcached uses a <a href="https://memcached.org/blog/modern-lru/">segmented LRU mechanism</a> which takes TTL's into account. It can be considered as a type of passive removal. In contrast, Redis implements an active <a href="https://redis.io/commands/expire">probabilistic algorithm</a> to keep the fraction of expired entries low, which I implemented in this project. In the future, this project may serve as a testbed for comparing different algorithms for handling expired entries.</p>
+          </div>
+        </div>
+      </li>
 
     </ul>
 
