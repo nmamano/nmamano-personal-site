@@ -1,5 +1,5 @@
-# nmamano.github.io
+# nilmamano.com
 
 Personal website made with "vanilla" html and css for learning purposes.
 
-Hosted at [nmamano.com](http://nmamano.com/)
+Hosted at [nilmamano.com](http://nilmamano.com/)

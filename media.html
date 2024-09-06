@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nil Mamano | Personal site</title>
+  <meta name="person" content="Nil Mamano">
+  <meta name="sortname" content="Mamano, Nil">
+  <meta name="keywords" content="personal site,computer science,software engineer">
+  <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/academicons.min.css" />
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+
+  <!-- Fast icon load: -->
+  <script
+    type="text/javascript"> (function () { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+
+</head>
+
+<body id="homepage">
+  <nav>
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Publications</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="misc.html">Personal</a></li>
+      <li class="currenttab"><a href="media.html">Media kit</a></li>
+    </ul>
+    <h3>Contact &amp; links</h3>
+    <ul id="links">
+      <li>
+        <span class="long-form"><strong>Email:</strong><br>nil at nilmamano.com</span>
+        <span class="short-form">
+          <button id="emailbtn"><i class="fas fa-envelope fa-2x"></i></button>
+          <div id="emailmodal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>nil at nilmamano.com</p>
+            </div>
+          </div>
+        </span>
+      </li>
+      <li>
+        <span class="long-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i>
+            Resume</i></a></span>
+        <span class="short-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><img src="img/cv-icon.svg"
+              alt="Resume" width="32px" height="32px"></a></span>
+      </li>
+      <li class="only_long_nav">
+        <span class="long-form"><a href="cv/CV_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Academic
+            CV</i></a></span>
+        <span class="short-form"></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="https://github.com/nmamano" target="_blank">
+            <i class="fab fa-github-square"></i> Github</a></span>
+        <span class="short-form"><a href="https://github.com/nmamano" target="_blank">
+            <i class="fab fa-github-square fa-2x"></i></a></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn</a></span>
+        <span class="short-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin fa-2x"></i></a></span>
+      </li>
+      <li>
+        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ" target="_blank"><i
+              class="ai ai-google-scholar-square ai"></i> Google scholar</a>
+          (publications &amp; citations)
+        </span>
+        <span class="short-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
+            target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+        </span>
+      </li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Nil Mamano</h1>
+  </header>
+
+  <main>
+    <div class="section">
+      <h1>Bio</h1>
+      <h3>Mini</h3>
+      <p>CS PhD from UCI specializing in algorithm design. Former senior SWE at Google.</p>
+      <h3>Short</h3>
+      <p>CS PhD from UC Irvine specializing in algorithms and data structures.
+        Former senior SWE at Google and tech hiring consultant at Pathrise.</p>
+      <h3>Medium</h3>
+      <p>Nil Mamano is a computer scientist with a PhD from UC Irvine,
+        where his research focused on algorithms and data structures.
+        He has co-authored nine peer-reviewed papers, with original contributions to graph algorithms,
+        computational geometry, computational biology, and recreational mathematics.
+        He previously worked as a senior software engineer at Google,
+        working on scaling the networking infrastructure.
+        Additionally, he developed the technical curriculum for coding interview prep at Pathrise.</p>
+    </div>
+    <div class="section">
+      <h1>Contact</h1>
+      <p>Find Nil online at:</p>
+      <ul style="line-height: 0.5">
+        <li><a href="https://nilmamano.com">nilmamano.com</a></li>
+        <li>nil &lt;at&gt; nilmamano.com</li>
+        <li><a href="https://linkedin.com/in/nmamano">linkedin.com/in/nmamano</a></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h1>Headshot</h1>
+      <div class="headshot-container">
+        <img id="profilepic" src="img/nil2024.jpg" alt="Nil headshot">
+        <img id="profilepic_square" src="img/nil2024_square.png" alt="Nil headshot">
+      </div>
+    </div>
+  </main>
+
+
+
+  <script src="js/emailmodal.js"></script>
+
+</body>
+
+</html>

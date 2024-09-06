@@ -12,10 +12,14 @@
   <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/academicons.min.css"/>
+  <link rel="stylesheet" href="css/academicons.min.css" />
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
 
   <!-- Fast icon load: -->
-  <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+  <script
+    type="text/javascript"> (function () { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
 
 </head>
 
@@ -23,52 +27,56 @@
   <nav>
     <ul id="menu">
       <li class="currenttab"><a href="index.html">Home</a></li>
-      <li><a href="research.html">Research</a></li>
+      <li><a href="research.html">Publications</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="misc.html">Personal</a></li>
+      <li><a href="media.html">Media kit</a></li>
     </ul>
     <h3>Contact &amp; links</h3>
     <ul id="links">
       <li>
-        <span class="long-form"><strong>Email:</strong><br>nil.mamano at gmail.com</span>
+        <span class="long-form"><strong>Email:</strong><br>nil at nilmamano.com</span>
         <span class="short-form">
           <button id="emailbtn"><i class="fas fa-envelope fa-2x"></i></button>
           <div id="emailmodal" class="modal">
             <div class="modal-content">
               <span class="close">&times;</span>
-              <p>nil.mamano at gmail.com</p>
+              <p>nil at nilmamano.com</p>
             </div>
           </div>
         </span>
       </li>
       <li>
-        <span class="long-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</i></a></span>
-        <span class="short-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><img src="img/cv-icon.svg" alt="Resume" width="32px" height="32px"></a></span>
+        <span class="long-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i>
+            Resume</i></a></span>
+        <span class="short-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><img src="img/cv-icon.svg"
+              alt="Resume" width="32px" height="32px"></a></span>
       </li>
       <li class="only_long_nav">
-        <span class="long-form"><a href="cv/CV_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Academic CV</i></a></span>
+        <span class="long-form"><a href="cv/CV_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Academic
+            CV</i></a></span>
         <span class="short-form"></span>
       </li>
       <li>
         <span class="long-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github-square"></i> Github</a></span>
+            <i class="fab fa-github-square"></i> Github</a></span>
         <span class="short-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github-square fa-2x"></i></a></span>
+            <i class="fab fa-github-square fa-2x"></i></a></span>
       </li>
       <li>
-        <span class="long-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
-          <i class="fab fa-linkedin"></i> LinkedIn</a></span>
-        <span class="short-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
-          <i class="fab fa-linkedin fa-2x"></i></a></span>
+        <span class="long-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn</a></span>
+        <span class="short-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin fa-2x"></i></a></span>
       </li>
       <li>
-        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
-          target="_blank"><i class="ai ai-google-scholar-square ai"></i> Google scholar</a>
+        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ" target="_blank"><i
+              class="ai ai-google-scholar-square ai"></i> Google scholar</a>
           (publications &amp; citations)
         </span>
         <span class="short-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
-          target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+            target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
         </span>
       </li>
     </ul>
@@ -79,28 +87,47 @@
   </header>
 
   <aside id="pic">
-    <img id="profilepic" src="img/nil.jpg" alt="profile picture">
+    <img id="profilepic" src="img/nil2024.jpg" alt="Nil headshot">
   </aside>
 
   <main>
     <h2>Hi!</h2>
     <p>I am a computer scientist specialized in algorithm design.</p>
 
-    <p>I received a PhD as part of the <a
-        href="http://www.ics.uci.edu/~theory" target="_blank">CS Theory group</a> at <a href="http://www.uci.edu"
-        target="_blank">UCI</a>. I was fortunate to be advised by Professors <a href="https://www.ics.uci.edu/~eppstein/"
-        target="_blank">David Eppstein</a> and <a href="http://www.ics.uci.edu/~goodrich/" target="_blank">Michael
-        Goodrich</a>. Before that, I got a bachelor's degree in CS from <a href="https://www.fib.upc.edu/en" target="_blank">UPC</a> in
-      my hometown of Barcelona. I am currently a software engineer at Google.
-      <!-- I visited UCI as an undergrad to conduct my senior thesis under Professor Wayne Hayes. -->
+    <p>I received a PhD as part of the <a href="http://www.ics.uci.edu/~theory" target="_blank">CS Theory group</a> at
+      <a href="http://www.uci.edu" target="_blank">UCI</a>. I was fortunate to be advised by Professors <a
+        href="https://www.ics.uci.edu/~eppstein/" target="_blank">David Eppstein</a> and <a
+        href="http://www.ics.uci.edu/~goodrich/" target="_blank">Michael
+        Goodrich</a>. Before that, I got a bachelor's degree in CS from <a href="https://www.fib.upc.edu/en"
+        target="_blank">UPC</a> in
+      my hometown of Barcelona.
     </p>
+    <p>After my PhD, I spent some time in industry as a senior SWE at Google. I worked on Google's internal <a
+        href="https://research.google/pubs/software-defined-networking-at-scale/">software-defined WAN</a>,
+      optimizing the allocation of
+      network bandwidth to Google's services.</p>
+    <p>My passion project is <a href="https://www.wallwars.net/">wallwars.net</a>, an online board game.</p>
+    <p>I am currently on sabbatical.</p>
 
-    <h2 class="mainpageheader">Research</h2>
-    <p>My research spans graph algorithms, computational geometry, greedy algorithms, and data structures. My dissertation, <a href="thesis/nilthesis.pdf" target="_blank"><q>New Applications of the Nearest-neighbor
-          Chain Algorithm</q></a> (<a href="blog/greedy/greedy.html" target="_blank">blog article</a>, <a href="thesis/thesisslides.pdf" target="_blank">defense slides</a>)
-      studies how to <q>weaken</q> the selection rule of greedy algorithms without affecting the final
-      solution. This idea, paired with an algorithmic technique called <q>nearest-neighbor chain</q>, allows
-      us to speed up greedy algorithms for several problems such as TSP.
+    <h3 class="mainpageheader">Research</h3>
+    <p>My research spans
+      <a href="https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2018.89">computational geometry</a>,
+      <a
+        href="https://drops.dagstuhl.de/storage/00lipics/lipics-vol149-isaac2019/LIPIcs.ISAAC.2019.51/LIPIcs.ISAAC.2019.51.pdf">greedy
+        algorithms</a>,
+      <a href="https://arxiv.org/pdf/1803.04555">graph data structures</a>,
+      <a href="https://academic.oup.com/bioinformatics/article/33/14/2156/2996219?login=false">computational
+        biology</a>, and
+      <a href="https://arxiv.org/pdf/1904.02824">recreational mathematics</a>.
+      My dissertation, <a href="thesis/nilthesis.pdf" target="_blank"><q>New Applications of the Nearest-neighbor
+          Chain Algorithm</q></a> (<a href="blog/greedy/greedy.html" target="_blank">blog article</a>, <a
+        href="thesis/thesisslides.pdf" target="_blank">defense slides</a>)
+      studies how to <q>relax</q> the "greedy choice" in certain greedy algorithms without affecting the final
+      solution. This idea, paired with an algorithmic technique called <q>nearest-neighbor chain,</q> allows
+      us to speed up some greedy algorithms (like the <a
+        href="https://en.wikipedia.org/wiki/Multi-fragment_algorithm">Multi-fragment algorithm</a>
+      for <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Euclidean TSP</a> from O(n<sup>2</sup>) to
+      O(n log n)).
     </p>
 
     <p>See <a href="research.html">Research</a> for more.
@@ -108,14 +135,14 @@
   </main>
 
   <footer>
-    <p>Last updated: May 2021.
+    <p>Last updated: Sep 2024.
     </p>
   </footer>
 
 
 
-  <script src="js/emailmodal.js"></script> 
-    
+  <script src="js/emailmodal.js"></script>
+
 </body>
 
 </html>

@@ -12,67 +12,74 @@
   <meta name="description" content="Welcome to my personal website. I'm Nil, a computer scientist.">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/academicons.min.css"/>
-
-  <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+  <link rel="stylesheet" href="css/academicons.min.css" />
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+  <script
+    type="text/javascript"> (function () { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
 </head>
 
 <body id="projectspage">
   <nav>
     <ul id="menu">
       <li><a href="index.html">Home</a></li>
-      <li><a href="research.html">Research</a></li>
+      <li><a href="research.html">Publications</a></li>
       <li class="currenttab"><a href="projects.html">Projects</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="misc.html">Personal</a></li>
+      <li><a href="media.html">Media kit</a></li>
     </ul>
     <h3>Contact &amp; links</h3>
     <ul id="links">
       <li>
-        <span class="long-form"><strong>Email:</strong><br>nil.mamano at gmail.com</span>
+        <span class="long-form"><strong>Email:</strong><br>nil at nilmamano.com</span>
         <span class="short-form">
           <button id="emailbtn"><i class="fas fa-envelope fa-2x"></i></button>
           <div id="emailmodal" class="modal">
             <div class="modal-content">
               <span class="close">&times;</span>
-              <p>nil.mamano at gmail.com</p>
+              <p>nil at nilmamano.com</p>
             </div>
           </div>
         </span>
       </li>
       <li>
-        <span class="long-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</i></a></span>
-        <span class="short-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><img src="img/cv-icon.svg" alt="Resume" width="32px" height="32px"></a></span>
+        <span class="long-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i>
+            Resume</i></a></span>
+        <span class="short-form"><a href="cv/Resume_NilMamano.pdf" target="_blank"><img src="img/cv-icon.svg"
+              alt="Resume" width="32px" height="32px"></a></span>
       </li>
       <li class="only_long_nav">
-        <span class="long-form"><a href="cv/CV_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Academic CV</i></a></span>
+        <span class="long-form"><a href="cv/CV_NilMamano.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Academic
+            CV</i></a></span>
         <span class="short-form"></span>
       </li>
       <li>
         <span class="long-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github-square"></i> Github</a></span>
+            <i class="fab fa-github-square"></i> Github</a></span>
         <span class="short-form"><a href="https://github.com/nmamano" target="_blank">
-          <i class="fab fa-github-square fa-2x"></i></a></span>
+            <i class="fab fa-github-square fa-2x"></i></a></span>
       </li>
       <li>
-        <span class="long-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
-          <i class="fab fa-linkedin"></i> LinkedIn</a></span>
-        <span class="short-form"><a href="https://www.linkedin.com/in/nmamano/" target="_blank">
-          <i class="fab fa-linkedin fa-2x"></i></a></span>
+        <span class="long-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn</a></span>
+        <span class="short-form"><a href="https://www.linkedin.com/in/nilmamano/" target="_blank">
+            <i class="fab fa-linkedin fa-2x"></i></a></span>
       </li>
       <li>
-        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
-          target="_blank"><i class="ai ai-google-scholar-square ai"></i> Google scholar</a>
+        <span class="long-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ" target="_blank"><i
+              class="ai ai-google-scholar-square ai"></i> Google scholar</a>
           (publications &amp; citations)
         </span>
         <span class="short-form"><a href="https://scholar.google.bg/citations?hl=en&user=LIuIigEAAAAJ"
-          target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+            target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
         </span>
       </li>
     </ul>
   </nav>
 
-  <main id="projects" class = "cards">
+  <main id="projects" class="cards">
     <div id="preamble">
       <h2>Projects</h2>
       <p>Click on a project name for a brief explanation.</p>
@@ -84,15 +91,20 @@
           <div class="data">
             WallWars online board game.
           </div>
-          <a class="papericon" title="Website" href="http://nmamano.com/wallwars/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
-            <a class="papericon" title="Source code" href="https://github.com/nmamano/wallwars" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-            <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+          <a class="papericon" title="Website" href="http://nilmamano.com/wallwars/" target="_blank"><i
+              class="fas fa-external-link-alt fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/wallwars" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
+          <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>Wallwars is an online 2-player strategy board game. The player who gets to their goal before first wins. You can place walls to reshape the terrain to your advantage. WallWars is inspired by board games like Blockade and Quoridor. I built it to learn the MERN stack.</p> 
+            <p>Wallwars is an online 2-player strategy board game. The player who gets to their goal before first wins.
+              You can place walls to reshape the terrain to your advantage. WallWars is inspired by board games like
+              Blockade and Quoridor. I built it to learn the MERN stack.</p>
             <div class="gallery">
-              <img class="gallerypic widepic" src="img/projects/wallwarsgame.gif" title="Real past game (on fast forward)">
+              <img class="gallerypic widepic" src="img/projects/wallwarsgame.gif"
+                title="Real past game (on fast forward)">
             </div>
           </div>
         </div>
@@ -103,13 +115,20 @@
           <div class="data">
             SANA: Simulated Annealing Network Aligner.
           </div>
-          <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
-            <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-            <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
+          <a class="papericon" title="Website" href="http://sana.ics.uci.edu/" target="_blank"><i
+              class="fas fa-external-link-alt fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/waynebhayes/SANA" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
+          <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings. This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated annealing metaheuristic which substantially outperformed other existing methods. The project spawned a series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>).</p> 
+            <p>Network alignment is the algorithmic problem of how to map biological networks to discover their
+              similarities. It can be seen as the analogous of sequence alignment, but for graphs instead of strings.
+              This makes the problem NP-hard. For my undergrad thesis, I developed an algorithm based on the simulated
+              annealing metaheuristic which substantially outperformed other existing methods. The project spawned a
+              series of papers, of which I am a coauthor on two of them (<a href="research.html">papers [C1,C2]</a>).
+            </p>
           </div>
         </div>
       </li>
@@ -119,20 +138,32 @@
           <div class="data">
             RACSO Online Judge (contribution).
           </div>
-          <a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/SATReductionLang" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i
+              class="fas fa-external-link-alt fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/SATReductionLang" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
             <p>The RACSO online
               Judge is a teaching tool for the subject of &#171;Theory of Computation&#187;. It contains a collection of
-            automatically-evaluated exercises asking to define recognizers/generators of formal languages (regular or
-            context-free), as well as exercises asking for reductions between problems (undecidable or NP-complete). The judge also contains exercises for a compilers course.</p> 
-          
-          <p>RACSO was developed at Polytechnic University of Catalonia, where it is used for homework and even for exams. After using it myself as a student, I started a working on expanding it. I contributed most of the exercises in the lists for <a href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=redsat" target="_blank">reductions to SAT</a> and <a href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=antlrsyn" target="_blank">syntax parsers</a>, and some exercises in other lists. I also helped <a href="https://github.com/nmamano/SATReductionLang" target="_blank">code</a> the interpreter for the language in which the SAT reductions are given.</p> 
-            
-            <p>The interesting aspect of these judges is that the evaluation is not simply based on test cases. Here is a <a href="https://upcommons.upc.edu/handle/2117/119781" target="_blank">technical report</a> about the inner workings of the judge for evaluating syntax parsers.</p>
+              automatically-evaluated exercises asking to define recognizers/generators of formal languages (regular or
+              context-free), as well as exercises asking for reductions between problems (undecidable or NP-complete).
+              The judge also contains exercises for a compilers course.</p>
+
+            <p>RACSO was developed at Polytechnic University of Catalonia, where it is used for homework and even for
+              exams. After using it myself as a student, I started a working on expanding it. I contributed most of the
+              exercises in the lists for <a href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=redsat"
+                target="_blank">reductions to SAT</a> and <a
+                href="https://racso.cs.upc.edu/juezwsgi/exercise-list?inputkind=antlrsyn" target="_blank">syntax
+                parsers</a>, and some exercises in other lists. I also helped <a
+                href="https://github.com/nmamano/SATReductionLang" target="_blank">code</a> the interpreter for the
+              language in which the SAT reductions are given.</p>
+
+            <p>The interesting aspect of these judges is that the evaluation is not simply based on test cases. Here is
+              a <a href="https://upcommons.upc.edu/handle/2117/119781" target="_blank">technical report</a> about the
+              inner workings of the judge for evaluating syntax parsers.</p>
           </div>
         </div>
       </li>
@@ -142,16 +173,24 @@
           <div class="data">
             Bandwidth Enforcer Visualizer.
           </div>
-          <a class="papericon" title="Try applet" href="http://nmamano.com/bandwidth-enforcer-plotter/" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/bandwidth-enforcer-plotter" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Try applet" href="http://nilmamano.com/bandwidth-enforcer-plotter/"
+            target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/bandwidth-enforcer-plotter"
+            target="_blank"><i class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p><q><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43838.pdf" target="_blank">BwE: Flexible, Hierarchical Bandwidth Allocation for WAN Distributed Computing</a><q> is a public research paper from Google which introduces the Bandwidth Enforcer (BwE) network allocation algorithm used in Google's internal WAN. Among other things, it introduces the notion of bandwidth functions and how to aggregate them in a fair way. I made an interactive app to recreate the examples from the paper and be able to explore how they would change with different parameters.</p>
+            <p><q><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43838.pdf"
+                  target="_blank">BwE: Flexible, Hierarchical Bandwidth Allocation for WAN Distributed Computing</a><q>
+                  is a public research paper from Google which introduces the Bandwidth Enforcer (BwE) network
+                  allocation algorithm used in Google's internal WAN. Among other things, it introduces the notion of
+                  bandwidth functions and how to aggregate them in a fair way. I made an interactive app to recreate the
+                  examples from the paper and be able to explore how they would change with different parameters.</p>
             <p>For more context on the problem of fair network allocation, check out the BwE paper.</p>
             <div class="gallery">
-              <img class="gallerypic svgpic widepic" src="img/projects/bwevisualizer.PNG" title="Screenshot from the applet">
+              <img class="gallerypic svgpic widepic" src="img/projects/bwevisualizer.PNG"
+                title="Screenshot from the applet">
             </div>
           </div>
         </div>
@@ -162,14 +201,20 @@
           <div class="data">
             Two-list stable matching visualizer.
           </div>
-          <a class="papericon" title="Try demo" href="https://nmamano.github.io/TwoListStableMatching/index.html" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/TwoListStableMatching" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Try demo" href="https://nmamano.github.io/TwoListStableMatching/index.html"
+            target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/TwoListStableMatching"
+            target="_blank"><i class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>The <q>two-list stable matching problem</q> is an open problem in the field of market design. I made an interactive visual exploration tool to assist in solving it. See <a href="https://github.com/nmamano/TwoListStableMatching" target="_blank">the github page</a> for a description of the problem and the tool.</p>
-            <p>The <a href="https://nmamano.github.io/TwoListStableMatching/index.html" target="_blank">demo</a> requires a mouse, so it is not friendly to mobile browsers.</p>  
+            <p>The <q>two-list stable matching problem</q> is an open problem in the field of market design. I made an
+              interactive visual exploration tool to assist in solving it. See <a
+                href="https://github.com/nmamano/TwoListStableMatching" target="_blank">the github page</a> for a
+              description of the problem and the tool.</p>
+            <p>The <a href="https://nmamano.github.io/TwoListStableMatching/index.html" target="_blank">demo</a>
+              requires a mouse, so it is not friendly to mobile browsers.</p>
             <div class="gallery">
               <img class="gallerypic svgpic widepic" src="img/projects/twolist.PNG" title="Screenshot from the demo">
             </div>
@@ -182,23 +227,29 @@
           <div class="data">
             Simplified SVG
           </div>
-          <a class="papericon" title="Try demo" href="http://nmamano.com/simplifiedsvg/" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/simplifiedsvg" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Try demo" href="http://nilmamano.com/simplifiedsvg/" target="_blank"><i
+              class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/simplifiedsvg" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
             <p>My research often has geometric aspects, and geometric concepts are not easy to convey in text form.
-              To aid in this, I made the <em>Simplified SVG</em> library which accepts geometric primitives, specified in JSON,
+              To aid in this, I made the <em>Simplified SVG</em> library which accepts geometric primitives, specified
+              in JSON,
               and shows the result on the resulting drawing in the browser using SVG.
-              This is useful to visualize computationally-generated geometric data and avoid having to draw it out by hand.
+              This is useful to visualize computationally-generated geometric data and avoid having to draw it out by
+              hand.
             </p>
             <p>
               While drawing software with support for <q>scripting</q> already exists,
-              I kept the syntax minmalistic so that it is easy to generate the drawing instructions from any language/environment,
-              and instead of running a drawing software/library, one can just copy-paste them on the <a href="http://nmamano.com/simplifiedsvg/" target="_blank">sandbox</a>.
+              I kept the syntax minmalistic so that it is easy to generate the drawing instructions from any
+              language/environment,
+              and instead of running a drawing software/library, one can just copy-paste them on the <a
+                href="http://nilmamano.com/simplifiedsvg/" target="_blank">sandbox</a>.
             </p>
-            <p>Note: the sandbox is not intended for mobile browsers.</p>  
+            <p>Note: the sandbox is not intended for mobile browsers.</p>
           </div>
         </div>
       </li>
@@ -208,18 +259,26 @@
           <div class="data">
             Sanim (Slide ANIMation).
           </div>
-          <a class="papericon" title="Try demo" href="https://nmamano.github.io/sanim/index.html" target="_blank"><i class="far fa-play-circle fa-2x"></i></a>
-           <a class="papericon" title="Source code" href="https://github.com/nmamano/sanim" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Try demo" href="https://nmamano.github.io/sanim/index.html" target="_blank"><i
+              class="far fa-play-circle fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/sanim" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>Sanim is both a markup language for preparing presentations, and a parser for this language that produces the presentations. The transition between slides is animated using Manim.</p>
-            <p><a href="https://github.com/3b1b/manim" target="_blank">Manim (Math ANIMation)</a> is an animation engine for explanatory math videos made for the youtube channel <a href="https://www.youtube.com/c/3blue1brown" target="_blank">3Blue1Brown</a>.
-            </p>  
-            <p>Sanim encapsulates Manim so that the user can prepare slides with a style similar to Manim but without needing to write code. In addition, the slides are displayed in a browser, and the user can trigger the forward and backward animations using arrow keys.</p>
+            <p>Sanim is both a markup language for preparing presentations, and a parser for this language that produces
+              the presentations. The transition between slides is animated using Manim.</p>
+            <p><a href="https://github.com/3b1b/manim" target="_blank">Manim (Math ANIMation)</a> is an animation engine
+              for explanatory math videos made for the youtube channel <a href="https://www.youtube.com/c/3blue1brown"
+                target="_blank">3Blue1Brown</a>.
+            </p>
+            <p>Sanim encapsulates Manim so that the user can prepare slides with a style similar to Manim but without
+              needing to write code. In addition, the slides are displayed in a browser, and the user can trigger the
+              forward and backward animations using arrow keys.</p>
 
-            <p>For the demo, use the right arrow key to show the slides (not possible on mobile browsers). See more on the github repo.</p>
+            <p>For the demo, use the right arrow key to show the slides (not possible on mobile browsers). See more on
+              the github repo.</p>
           </div>
         </div>
       </li>
@@ -230,15 +289,26 @@
             LRU + TTL Cache
           </div>
           <!--<a class="papericon" title="Website" href="https://racso.cs.upc.edu/juezwsgi/index" target="_blank"><i class="fas fa-external-link-alt fa-2x"></i></a>-->
-          <a class="papericon" title="Source code" href="https://github.com/nmamano/ttlcache" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+          <a class="papericon" title="Source code" href="https://github.com/nmamano/ttlcache" target="_blank"><i
+              class="fab fa-github fa-2x"></i></a>
           <a class="papericon test-icon-size-2 showmorebtn" title="Show more"><i class="fas fa-chevron-down"></i></a>
         </div>
         <div class="details collapsible-content">
           <div class="abstract">
-            <p>An in-memory hash table that acts as a Cache for a Key-Value storage. It is inspired by Redis and Memcached. It has an LRU (least recently used) eviction mechanism, and it also supports timeouts: entries expire after a certain TTL (<q>time-to-live</q>). The project focuses on how to handle expired entries. They can be handled in two ways: 1) passively, when they are <q>discovered</q> through read/write operations. 2) actively, by searching for them.
-            </p> 
+            <p>An in-memory hash table that acts as a Cache for a Key-Value storage. It is inspired by Redis and
+              Memcached. It has an LRU (least recently used) eviction mechanism, and it also supports timeouts: entries
+              expire after a certain TTL (<q>time-to-live</q>). The project focuses on how to handle expired entries.
+              They can be handled in two ways: 1) passively, when they are <q>discovered</q> through read/write
+              operations. 2) actively, by searching for them.
+            </p>
 
-            <p>Using only passive removal may result in the LRU mechanism evicting entries that are still <q>alive</q> while the cache is poluted by expired entries. Memcached uses a <a href="https://memcached.org/blog/modern-lru/">segmented LRU mechanism</a> which takes TTL's into account. It can be considered as a type of passive removal. In contrast, Redis implements an active <a href="https://redis.io/commands/expire">probabilistic algorithm</a> to keep the fraction of expired entries low, which I implemented in this project. In the future, this project may serve as a testbed for comparing different algorithms for handling expired entries.</p>
+            <p>Using only passive removal may result in the LRU mechanism evicting entries that are still <q>alive</q>
+              while the cache is poluted by expired entries. Memcached uses a <a
+                href="https://memcached.org/blog/modern-lru/">segmented LRU mechanism</a> which takes TTL's into
+              account. It can be considered as a type of passive removal. In contrast, Redis implements an active <a
+                href="https://redis.io/commands/expire">probabilistic algorithm</a> to keep the fraction of expired
+              entries low, which I implemented in this project. In the future, this project may serve as a testbed for
+              comparing different algorithms for handling expired entries.</p>
           </div>
         </div>
       </li>
@@ -249,9 +319,10 @@
       <p>More projects on my <a href="https://github.com/nmamano" target="_blank">Github page</a>.
       </p>
     </div>
-    
+
     <div id="decopic">
-      <img id="researchfooterimg" title="A computational drawing inspired by Voronoi diagrams" src="img/decosmoonvd.jfif">
+      <img id="researchfooterimg" title="A computational drawing inspired by Voronoi diagrams"
+        src="img/decosmoonvd.jfif">
     </div>
   </main>
 

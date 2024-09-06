@@ -164,15 +164,18 @@ footer p {
 
 #decopic img,
 #pic img {
-  border: 1px solid black;
+  border: 1px solid var(--blue-1);
   border-radius: 5px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 #profilepic {
-  /* original: 1205 x 782 */
-  height: 574px;
+  height: auto;
+  width: 372px;
+}
+#profilepic_square {
+  height: auto;
   width: 372px;
 }
 
@@ -592,4 +595,12 @@ nav #links a {
   .blogpostpage img {
     width: 100%;
   }
+}
+
+.headshot-container {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; /* Create two equal-width columns */
+  justify-content: center; /* Optional: Center the entire grid container */
+  gap: 20px;
+  margin-bottom: 60px;
 }
