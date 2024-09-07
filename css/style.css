@@ -125,6 +125,7 @@ body {
 #researchpage,
 #projectspage,
 #miscpage,
+#mediapage,
 #blogpage {
   grid-template-columns: 15rem auto;
   grid-template-areas:
@@ -170,6 +171,7 @@ footer p {
   margin-left: auto;
   margin-right: auto;
 }
+@media (min-width: 801px) {
 #profilepic {
   height: auto;
   width: 372px;
@@ -178,6 +180,17 @@ footer p {
   height: auto;
   width: 372px;
 }
+}
+@media (max-width: 800px) {
+  #profilepic {
+    height: auto;
+    width: 300px;
+  }
+  #profilepic_square {
+    height: auto;
+    width: 300px;
+  }
+  }
 
 header,
 footer {
@@ -275,6 +288,7 @@ nav #links a {
   #researchpage,
   #projectspage,
   #miscpage,
+  #mediapage,
   #blogpage {
     grid-template-columns: unset;
     grid-template-areas:
@@ -315,9 +329,6 @@ nav #links a {
     display: none;
   }
   nav #links {
-    /* column-width: auto;
-    column-count: 5;
-    column-gap: 0; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
@@ -343,7 +354,6 @@ nav #links a {
   padding-bottom: 0.3rem;
   margin-top: 0.6rem;
   margin-bottom: 0.6rem;
-  /* border-bottom: solid 3px rgb(255, 255, 255); */
 }
 
 .cards {
@@ -597,10 +607,32 @@ nav #links a {
   }
 }
 
+@media (min-width: 801px) {
 .headshot-container {
   display: grid; 
-  grid-template-columns: 1fr 1fr; /* Create two equal-width columns */
-  justify-content: center; /* Optional: Center the entire grid container */
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
   gap: 20px;
   margin-bottom: 60px;
+}
+}
+
+@media (max-width: 800px) {
+  .headshot-container {
+    display: grid; 
+    grid-template-columns: 2fr;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .desktop-only {
+    display: none;
+  }
+}
+@media (min-width: 801px) {
+  .mobile-only {
+    display: none;
+  }
 }
