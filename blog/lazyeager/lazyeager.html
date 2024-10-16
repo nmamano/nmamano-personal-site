@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Nil Mamano | Blog</title>
+    <meta name="person" content="Nil Mamano" />
+    <meta name="sortname" content="Mamano, Nil" />
+    <meta name="keywords" content="personal site,computer science,blog" />
+    <meta name="description" content="BLOG POST TITLE **********************" />
+
+    <meta property="og:title" content="Nil Mamano | Blog" />
+    <meta
+      property="og:description"
+      content="BLOG POST TITLE **********************"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="http://nilmamano.com/blog/NAME/NAME.html **********************"
+    />
+    <meta
+      property="og:image"
+      content="http://nilmamano.com/blog/NAME/THUMBNAIL **********************"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <link href="../../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/default.min.css" />
+  </head>
+
+  <body class="blogpostpage">
+    <main class="blogpost">
+      <div class="blogreturn">
+        <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+      </div>
+
+      <div id="mdToHtml">
+        <h1 id="lazy-vs-eager-algorithms">Lazy vs Eager Algorithms</h1>
+        <p>
+          Warning: I have not tested any code snippet below. Please let me know
+          if you find a bug.
+        </p>
+        <h2 id="introduction">Introduction</h2>
+        <p>
+          Most algorithms have multiple valid implementations. For instance, in
+          a binay tree problem, you have multiple ways of handling NULL nodes.
+          I'm currently writing
+          <strong>Beyond Cracking the Coding Interview</strong> (<a
+            href="https://www.beyondctci.com/"
+            >beyondctci.com</a
+          >), which means that my co-authors and I need to take a stance on what
+          version of each algorithm to use. Ideally, we want to show the
+          simplest version of each algorithm:
+        </p>
+        <ul>
+          <li>Easy to recall for interview,</li>
+          <li>Easy to explain to interviewers,</li>
+          <li>Easy to debug by hand,</li>
+          <li>Short, so that it is quick to code.</li>
+        </ul>
+        <p>
+          In the book, we don't claim that the version we show is "the best" -
+          we say to use the one that works best for you. But showing one in the
+          book is an implicit endorsement.
+        </p>
+        <p>
+          One particular decision that comes up again and again with recursive
+          algorithms is choosing between the <strong>lazy</strong> version and
+          the <strong>eager</strong> version of an algorithm.
+        </p>
+        <ul>
+          <li>
+            An <strong>eager</strong> recursive function expects 'valid' inputs
+            and ensures to only call the recursive function with 'valid' inputs.
+            We can also call it a <strong>clean</strong> (call)
+            <strong>stack</strong> algorithm.
+          </li>
+          <li>
+            A <strong>lazy</strong> recursive algorithm allows 'invalid' inputs,
+            so it starts by validating the input. Then, it calls the recursive
+            function without validating the inputs passed to it. We can also
+            call it a <strong>dirty stack</strong> algorithm.
+          </li>
+        </ul>
+        <p>
+          What 'valid' means depends on the algorithm--we'll see plenty of
+          examples. We'll also translate the concept of eager vs lazy to
+          iterative algorithms.
+        </p>
+        <h2 id="lazy-vs-eager-tree-traversals">
+          Lazy vs Eager Tree Traversals
+        </h2>
+        <p>
+          An <strong>eager</strong> tree traversal eagerly validates that the
+          children are not NULL before passing them to the recursive function. A
+          <strong>lazy</strong> tree traversal doesn't, so it needs to check if
+          the current node is NULL before accessing it.
+        </p>
+        <p>For instance, here is eager vs lazy preorder traversal:</p>
+        <pre><code class="hljs python language-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, val, left=None, right=None)</span>:</span>
+    self.val = val
+    self.left = left
+    self.right = right
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorder_traversal_eager</span><span class="hljs-params">(root)</span>:</span>
+  res = []
+
+  <span class="hljs-comment"># CANNOT be called with node == None</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(node)</span>:</span>
+    res.append(node.val)
+    <span class="hljs-keyword">if</span> node.left:
+      visit(node.left)
+    <span class="hljs-keyword">if</span> node.right:
+      visit(node.right)
+
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+    <span class="hljs-keyword">return</span> []
+  visit(root)
+  <span class="hljs-keyword">return</span> res
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preorder_traversal_lazy</span><span class="hljs-params">(root)</span>:</span>
+  res = []
+
+  <span class="hljs-comment"># CAN be called with node == None</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:
+      <span class="hljs-keyword">return</span>
+    res.append(node.val)
+    visit(node.left)
+    visit(node.right)
+
+  visit(root)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <p>
+          Both have the same runtime and space analysis. Even the constant
+          factors probably don't change much, so it comes down to style
+          preference. Which one do you prefer?
+        </p>
+        <h2 id="lazy-vs-eager-graph-dfs">Lazy vs Eager graph DFS</h2>
+        <p>
+          An <strong>eager</strong> graph DFS eagerly checks that the neighbors
+          are not already visited before passing them to the recursive function.
+          A <strong>lazy</strong> graph DFS doesn't, so it needs to check if the
+          current node is already visited.
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-comment"># Returns all nodes reachable from start</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dfs_eager</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  res = []
+  visited = set()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(node)</span>:</span>
+    res.append(node)
+    <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj_lists[node]:
+      <span class="hljs-keyword">if</span> neighbor <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:
+        visited.add(neighbor)
+        visit(neighbor)
+
+  visited.add(start)
+  visit(start)
+  <span class="hljs-keyword">return</span> res
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dfs_lazy</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  res = []
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(node)</span>:</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">in</span> visited:
+      <span class="hljs-keyword">return</span>
+    visited.add(node)
+    res.append(node)
+    <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj_lists[node]:
+      visit(neighbor)
+
+  visit(root)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <p>
+          For a graph DFS, we can also do a mix between lazy and eager: we can
+          eagerly check if nodes are already visited, and lazily mark them as
+          visited:
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dfs_lazy</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  res = []
+  visited = set()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(node)</span>:</span>
+    visited.add(node)
+    res.append(node)
+    <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj_lists[node]:
+      <span class="hljs-keyword">if</span> neighbor <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:
+        visit(neighbor)
+
+  visit(root)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <p>Again, they all have the same analysis. Which one do you prefer?</p>
+        <h2 id="lazy-vs-eager-grid-algorithms">
+          Lazy vs Eager grid algorithms
+        </h2>
+        <p>
+          Consider the same DFS algorithm but on a grid of 0's and 1's. The 0's
+          are walkable cells, the 1's are obstacles, and<br />
+          walkable cells next to each other are connected. This time, we need to
+          check that the neighbors are not out of bounds, which we can do lazily
+          or greedily.
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-comment"># Returns all cells reachable from (start_row, start_col).</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">grid_dfs_eager</span><span class="hljs-params">(grid, start_row, start_col)</span>:</span>
+  nr, nc = len(grid), len(grid[<span class="hljs-number">0</span>])
+  res = []
+  visited = set()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(row, col)</span>:</span>
+    res.append((row, col))
+    <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> ((<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>)):
+      r, c = row + dir[<span class="hljs-number">0</span>], col + dir[<span class="hljs-number">1</span>]
+      <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= r &lt; nr <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt;= c &lt; nc <span class="hljs-keyword">and</span> grid[r][c] == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> (r, c) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:
+        visited.add((r, c))
+        visit(r, c)
+
+  <span class="hljs-comment"># Assumes (start_row, start_col) is within bounds</span>
+  visited.add((start_row, start_col))
+  visit(start_row, start_col)
+  <span class="hljs-keyword">return</span> res
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">grid_dfs_lazy</span><span class="hljs-params">(grid, start_row, start_col)</span>:</span>
+  nr, nc = len(grid), len(grid[<span class="hljs-number">0</span>])
+  res = []
+  visited = set()
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">visit</span><span class="hljs-params">(row, col)</span>:</span>
+    <span class="hljs-keyword">if</span> row &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> row &gt;= nr <span class="hljs-keyword">or</span> col &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> col &gt;= nc <span class="hljs-keyword">or</span> grid[row][col] == <span class="hljs-number">1</span>:
+      <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">if</span> (row, col) <span class="hljs-keyword">in</span> visited:
+      <span class="hljs-keyword">return</span>
+    visited.add((row, col))
+    res.append((row, col))
+    <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> ((<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">1</span>, <span class="hljs-number">0</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">1</span>), (<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>)):
+      visit(row + dir[<span class="hljs-number">0</span>], col + dir[<span class="hljs-number">1</span>])
+
+  visit(start_row, start_col)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <h2 id="lazy-vs-eager-memoization-dp">Lazy vs Eager Memoization DP</h2>
+        <p>
+          In a <strong>lazy</strong> memoization DP (Dynamic Programming)
+          algorithm, we call the recursive function for a subproblem without
+          checking first if we have already computed that subproblem. In an
+          <strong>eager</strong> algorithm, we only call the recursive function
+          for subproblems that we still need to compute.
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-comment"># Returns all cells reachable from (start_row, start_col).</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci_eager</span><span class="hljs-params">(n)</span>:</span>
+  memo = {}
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib_rec</span><span class="hljs-params">(i)</span>:</span>
+    <span class="hljs-keyword">if</span> i &lt;= <span class="hljs-number">1</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> i<span class="hljs-number">-1</span> <span class="hljs-keyword">in</span> memo:
+      prev = memo[i<span class="hljs-number">-1</span>]
+    <span class="hljs-keyword">else</span>:
+      prevprev = fib_rec(i<span class="hljs-number">-1</span>)
+    <span class="hljs-keyword">if</span> i<span class="hljs-number">-2</span> <span class="hljs-keyword">in</span> memo:
+      prevprev = memo[i<span class="hljs-number">-2</span>]
+    <span class="hljs-keyword">else</span>:
+      prev = fib_rec(i<span class="hljs-number">-2</span>)
+    memo[i] = prev + prevprev
+    <span class="hljs-keyword">return</span> memo[i]
+
+  <span class="hljs-keyword">return</span> fib_rec(n)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibonacci_lazy</span><span class="hljs-params">(n)</span>:</span>
+  memo = {}
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib_rec</span><span class="hljs-params">(i)</span>:</span>
+    <span class="hljs-keyword">if</span> i &lt;= <span class="hljs-number">1</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> memo:
+      <span class="hljs-keyword">return</span> memo[i]
+    memo[i] = fib_rec(i<span class="hljs-number">-1</span>) + fib_rec(i<span class="hljs-number">-2</span>)
+    <span class="hljs-keyword">return</span> memo[i]
+
+  <span class="hljs-keyword">return</span> fib_rec(n)</code></pre>
+        <p>
+          For memoization DP, I think <strong>lazy</strong> is cleaner and more
+          conventional.
+        </p>
+        <h2 id="lazy-vs-eager-iterative-tree-traversals">
+          Lazy vs Eager Iterative Tree traversals
+        </h2>
+        <p>
+          Consider a level-order traversal on a binary tree. A level-order
+          traversal is an iterative algorithm that uses a queue data structure.
+        </p>
+        <ul>
+          <li>
+            A <strong>lazy</strong> version puts children in the queue without
+            checking if they are NULL first. We can call it a
+            <strong>dirty queue</strong> algorithm.
+          </li>
+          <li>
+            An <strong>eager</strong> version checks for NULL nodes and avoids
+            putting them in the queue. We can call it a
+            <strong>clean queue</strong> algorithm.
+          </li>
+        </ul>
+        <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">level_order_traversal_eager</span><span class="hljs-params">(root)</span>:</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+    <span class="hljs-keyword">return</span> []
+  res = []
+  Q = deque([root])
+  <span class="hljs-keyword">while</span> Q:
+    node = Q.popleft()
+    res.append(node.val)
+    <span class="hljs-keyword">if</span> node.left:
+      Q.append(node.left)
+    <span class="hljs-keyword">if</span> node.right:
+      Q.append(node.right)
+  <span class="hljs-keyword">return</span> res
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">level_order_traversal_lazy</span><span class="hljs-params">(root)</span>:</span>
+  res = []
+  Q = deque([root])
+  <span class="hljs-keyword">while</span> Q:
+    node = Q.popleft()
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node:
+      <span class="hljs-keyword">continue</span>
+    res.append(node.val)
+    Q.append(node.left)
+    Q.append(node.right)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <h2 id="eager-graph-bfs-is-better-than-lazy-graph-bfs">
+          Eager Graph BFS is better than lazy Graph BFS
+        </h2>
+        <p>
+          This is the first exception where one is better than the other in
+          terms of big O analysis. The <strong>lazy</strong> BFS allows adding
+          already-visited nodes to the queue, while the
+          <strong>eager</strong> one does not. We'll first look at the two
+          versions, and then analyze them.
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">graph_bfs_eager</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  res = []
+  visited = set()
+  visited.add(start)
+  Q = deque([start])
+
+  <span class="hljs-keyword">while</span> Q:
+    node = Q.popleft()
+    res.append(node.val)
+    <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj_lists[node]:
+      <span class="hljs-keyword">if</span> neighbor <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:
+        visited.add(neighbor)
+        Q.append(neighbor)
+  <span class="hljs-keyword">return</span> res
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">graph_bfs_lazy</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  res = []
+  visited = set()
+  Q = deque([start])
+
+  <span class="hljs-keyword">while</span> Q:
+    node = Q.popleft()
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">in</span> visited:
+      <span class="hljs-keyword">continue</span>
+    visited.add(node)
+    res.append(node)
+    <span class="hljs-keyword">for</span> neighbor <span class="hljs-keyword">in</span> adj_lists[node]:
+      Q.append(neighbor)
+  <span class="hljs-keyword">return</span> res</code></pre>
+        <p>
+          It may come as a surprise that these two are
+          <strong>not</strong> equivalent like all the other examples.
+        </p>
+        <p>
+          Let's say <code>V</code> is the number of nodes and <code>E</code> is
+          the number of edges. To keep things simple, consider that the graph is
+          connected, meaning that <code>E</code> is at least
+          <code>V-1</code> and at most <code>O(V^2)</code>.
+        </p>
+        <p>
+          Both versions take <code>O(E)</code> time. The difference is in the
+          space complexity: the eager version takes <code>O(V)</code> space
+          because we never have the same node twice in the queue. The lazy
+          version takes <code>O(E)</code> space because we allow the same nodes
+          multiple times in the queue.
+        </p>
+        <p>To see this, consider a complete graph:</p>
+        <p>
+          <img
+            src="completegraph.png"
+            alt="Complete graph"
+            width="50%"
+            height="50%"
+          />
+        </p>
+        <ol>
+          <li>
+            When we visit start, we add A, B, C, D, E to the queue. Now the
+            queue is: <code>[A, B, C, D, E]</code>
+          </li>
+          <li>
+            When we visit A, we add start, B, C, D, E to the queue. Now the
+            queue is: <code>[B, C, D, E, start, B, C, D, E]</code>
+          </li>
+          <li>
+            When we visit B, we add start, A, C, D, E to the queue. Now the
+            queue is:
+            <code>[C, D, E, start, B, C, D, E, start, A, C, D, E]</code>
+          </li>
+          <li>And so on.</li>
+        </ol>
+        <p>
+          By the time we finish popping the nodes added as neighbors of the
+          start node, we've done <code>V</code> queue pops and
+          <code>V^2</code> queue appends, so the queue size is
+          <code>O(V^2)</code>.
+        </p>
+        <p>
+          So, why didn't this happen for other lazy algorithms we have seen?
+        </p>
+        <ul>
+          <li>
+            For tree traversals, each tree node has a single parent that it can
+            be reached from, so we don't need to worry about the same node
+            appearing twice in the call stack or in the level-order traversal
+            queue.
+          </li>
+          <li>
+            For graph DFS, <strong>every node in the call stack</strong> is
+            marked visited, so if we call <code>visit()</code> on a node that is
+            already in the call stack, we'll immediately return as we'll see it
+            is marked as visited.
+          </li>
+        </ul>
+        <h2
+          id="eager-dijkstra-is-better-than-lazy-dijkstra-but-harder-to-implement"
+        >
+          Eager Dijkstra is better than Lazy Dijkstra, but harder to implement
+        </h2>
+        <p>
+          I wrote extensively about different Dijktsra implementations in
+          <a href="https://nilmamano.com/blog/dijkstra/dijkstra.html"
+            >this Dijkstra blog post</a
+          >.
+        </p>
+        <p>
+          Dijkstra is similar to BFS, with the main difference that it uses a
+          priority queue (PQ) instead of a queue to visit the nodes that are
+          closer first (in terms of shortest paths).
+        </p>
+        <p>
+          In BFS, when a node is added to the queue, its distance from the
+          starting node is already established and there is never a reason to
+          add it again to the queue. In Dijkstra, when a node is added to the
+          PQ, we might later find a shorter path while it is still in the PQ.
+          When that happens, we can do two things:
+        </p>
+        <ul>
+          <li>
+            <strong>Lazy Dijkstra</strong>: just add the node again with the
+            new, improved distance. It will get popped before the previous
+            occurrence because it has higher priority in the PQ. When a node
+            with a "stale" distance gets popped off from the queue, we just
+            ignore it.
+          </li>
+          <li>
+            <strong>Eager Dijkstra</strong> (called textbook Dijkstra in the
+            other blog post): instead of adding the node again, find the
+            existing occurrence of it in the PQ, and update it with the new
+            found distance. This guarantees that the same node never appears
+            twice in the PQ.
+          </li>
+        </ul>
+        <p>
+          Both versions take <code>O(E*log V)</code> time, but eager is more
+          space efficient, analogously to eager BFS: <code>O(V)</code> for eager
+          Dijkstra vs <code>O(E)</code> for lazy Dijkstra.
+        </p>
+        <p>Here is lazy Dijkstra:</p>
+        <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dijkstra_lazy</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  dist = defaultdict(int)
+  dist[start] = <span class="hljs-number">0</span>
+  visited = set()
+  PQ = [(<span class="hljs-number">0</span>, start)]
+  <span class="hljs-keyword">while</span> PQ:
+    _, node = heappop(PQ)  <span class="hljs-comment"># Only need the node, not the distance.</span>
+    <span class="hljs-keyword">if</span> node <span class="hljs-keyword">in</span> visited:
+      <span class="hljs-keyword">continue</span>  <span class="hljs-comment"># Not the first extraction.</span>
+    visited.add(node)
+    <span class="hljs-keyword">for</span> neighbor, weight <span class="hljs-keyword">in</span> adj_lists[node]:
+      <span class="hljs-keyword">if</span> dist[node]+weight &lt; dist[neighbor]:
+        dist[neighbor] = dist[node]+weight
+        <span class="hljs-comment"># Neighbor may already be in the PQ; we add it anyway.</span>
+        heappush(PQ, (dist[neighbor], neighbor))
+  <span class="hljs-keyword">return</span> dist</code></pre>
+        <p>
+          Unfortunately, eager Dijkstra is not so easy to implement in Python
+          because we are missing the <code>decrease_key()</code> operation in a
+          heap (and Python does have a self-balancing BST data structure, which
+          can also be used for eager Dijkstra). You can see a BST-based C++
+          implementation in my other blog post.
+        </p>
+        <p>
+          The <code>dijkstra_lazy()</code> algorithm above is more or less
+          standard and it has been known as "lazy Dijkstra" for a while.
+          However, it is possible to make an even lazier version which has the
+          same runtime and space analysis (but likely bigger constant factors).
+          The idea is that instead of only adding to the PQ the neighbors for
+          whom we find an improved distance, we can simply add all of them, and
+          discard duplicates once we extract them from the PQ:
+        </p>
+        <pre><code class="hljs python language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dijkstra_super_lazy</span><span class="hljs-params">(adj_lists, start)</span>:</span>
+  dist = defaultdict(int)
+  dist[start] = <span class="hljs-number">0</span>
+  PQ = [(<span class="hljs-number">0</span>, s)]
+  <span class="hljs-keyword">while</span> PQ:
+    d, node = heappop(PQ)
+    <span class="hljs-keyword">if</span> dist[node] != math.inf: <span class="hljs-keyword">continue</span>
+    dist[node] = d
+    <span class="hljs-keyword">for</span> neighbor, weight <span class="hljs-keyword">in</span> adj_lists[node]:
+      heappush(PQ, (dist[node]+weight, neighbor))
+  <span class="hljs-keyword">return</span> dist</code></pre>
+        <h2 id="so-lazy-or-eager">So, Lazy or Eager?</h2>
+        <p>
+          We could keep looking at lazy vs eager algorithms, but I'll stop here.
+          In aggregate, these are the pros and cons that I see:
+        </p>
+        <h3 id="pros-of-lazy-algorithms">Pros of lazy algorithms</h3>
+        <ul>
+          <li>
+            <strong>Lazy algorithms require less code.</strong> This is because
+            you only need to validate the parameters of the recursive function
+            once at the beginning, instead of validating what you pass to each
+            recursive call. This is specially true in binary tree problems,
+            where you usually have two recursive calls. It doesn't apply as much
+            for graphs.
+          </li>
+          <li>
+            <strong>Lazy algorithms require less indentation.</strong> For
+            instance, in graph problems, we don't need to do checks inside the
+            for loop over the neighbors.
+          </li>
+          <li>
+            <strong
+              >Lazy algorithms do not require special handling for the first
+              recursive call.</strong
+            >
+            You don't need to worry about things like checking if the root is
+            NULL or marking the start node as visited.
+          </li>
+          <li>
+            <strong
+              >Lazy recursive functions have simpler preconditions.</strong
+            >
+            You can just pass anything to them, and they work.
+          </li>
+        </ul>
+        <h3 id="pros-of-eager-algorithms">Pros of eager algorithms</h3>
+        <ul>
+          <li>
+            <strong
+              >For a graph BFS, eager has a better space complexity.</strong
+            >
+            This is a case where eager is objectively better. (Eager Dijkstra is
+            also better but it is not expected to be implemented in interviews.
+            Your interviewer is probably expecting lazy Dijkstra.)
+          </li>
+          <li>
+            <strong
+              >Eager algorithms do fewer recursive calls or iterations.</strong
+            >
+            In a binary tree, the number of NULL nodes is always one more than
+            the number of internal nodes. This means that a lazy traversal does
+            twice as many recursive calls/iterations as the eager counterpart.
+            This could make a big difference if you want to debug the code
+            manually. For instance, in this picture, you can see that adding
+            NULLs to the queue makes visualizing the steps more painful:
+          </li>
+        </ul>
+        <p>
+          <img
+            src="levelorder.png"
+            alt="Evolution of the level-order traversal queue"
+            width="80%"
+            height="80%"
+          />
+        </p>
+        <ul>
+          <li>
+            <strong>Eager algorithm can 'feel safer'.</strong> A friend
+            commented that, with a lazy algorithm, they feel like they are
+            missing an edge case.
+          </li>
+        </ul>
+        <h3 id="my-preference">My preference</h3>
+        <p>
+          Here are my personal preferences for coding interviews (not those of
+          the other authors of 'Beyond Cracking the Coding Interview'):
+        </p>
+        <p><strong>Strong preferences:</strong></p>
+        <ul>
+          <li>For BFS, use eager. This one is clear cut.</li>
+          <li>For memoization DP, use lazy. It is much cleaner to code.</li>
+          <li>
+            For Dijkstra, use lazy Dijkstra (not super lazy Dijkstra). It is
+            what is realistic to do in an interview and probably what the
+            interviewer expects.
+          </li>
+        </ul>
+        <p><strong>Weak preferences:</strong></p>
+        <ul>
+          <li>
+            For binary tree traversals (iterative or recursive), use lazy. It is
+            a bit cleaner.
+          </li>
+          <li>
+            For graph DFS, use eager. It is a bit more standard, and aligned
+            with a graph BFS.
+          </li>
+        </ul>
+        <p>
+          In the book, we'll definitely mention that some algorithms can be
+          implemented in a lazy or eager way (in way less detail than here), and
+          that you should choose the one that feels easier to you. But, we still
+          need to pick one to show in the problem solutions. One idea is trying
+          to be consistent throughout (e.g., doing all tree and graph traversals
+          in an eager way). If you have an opinion on which one is better,
+          please reach out! I'd love to hear it.
+        </p>
+      </div>
+
+      <div class="blogreturn">
+        <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+      </div>
+    </main>
+  </body>
+</html>
