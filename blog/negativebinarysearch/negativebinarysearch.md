@@ -1,6 +1,6 @@
 # Negative Binary Search and Choir Rehearsal
 
-One of the points we touch on on the upcoming book (Beyond Cracking the Coding Interview) is that binary search has many interesting applications beyond finding an element in a sorted array. I'll share an example based on a personal story that's a bit too niche for the book but kind of fun.
+One of the points we touch on on the upcoming book, Beyond Cracking the Coding Interview, is that binary search has many interesting applications besides finding an element in a sorted array. I'll share an example based on a personal story that's a bit too niche for the book, but kind of fun.
 
 A friend sings in a choir of 40-50 people, and they told me that, in the last rehearsal, the conductor could hear one person singing the wrong part but couldn't identify who. The conductor tried to isolate where the wrong part was coming from by basically **binary searching** the choir members, but there was an issue: when the conductor narrowed down the source to a small enough group, the issue disappeared. Whoever was singing the wrong part was only getting tripped up by hearing other people singing around them, but would sign their part perfectly in isolation. Eventually, the conductor gave up.
 
@@ -37,6 +37,15 @@ Iteration 3:
 - You want to check if the culprit is in 26-38, so you make everyone else (1-25 and 39-100) sing.
 - Imagine they sing **correctly.** That means the culprit is in 26-38.
 
+Iteration 4:
+
+- The culprit is in range 26-38.
+- You split the range into 26-31 and 32-38.
+- You want to check if the culprit is in 26-31, so you make everyone else (1-25 and 32-100) sing.
+- Imagine they sing **incorrectly.** That means the culprit is in 32-38.
+
 And so on. In this way, the conductor could have found the culprit in `O(log n)` steps.
 
-Credit to Timothy Johnson for the "negative binary search" idea.
+Credit to Timothy Johnson for the "negative binary search" idea, which I had never heard before.
+
+PS. If you happen to be a choir conductor, I'd love to hear if (a) the problem is relatable, and (b) the algorithm may be useful to you.
