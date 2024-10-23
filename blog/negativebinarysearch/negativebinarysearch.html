@@ -43,15 +43,15 @@
       </div>
 
       <div id="mdToHtml">
-        <h1 id="negative-binary-search-and-choir-practice">
+        <h1 id="negative-binary-search-and-choir-rehearsal">
           Negative Binary Search and Choir Rehearsal
         </h1>
         <p>
-          One of the points we touch on on the upcoming book (Beyond Cracking
-          the Coding Interview) is that binary search has many interesting
-          applications beyond finding an element in a sorted array. I'll share
+          One of the points we touch on on the upcoming book, Beyond Cracking
+          the Coding Interview, is that binary search has many interesting
+          applications besides finding an element in a sorted array. I'll share
           an example based on a personal story that's a bit too niche for the
-          book but kind of fun.
+          book, but kind of fun.
         </p>
         <p>
           A friend sings in a choir of 40-50 people, and they told me that, in
@@ -130,11 +130,31 @@
             is in 26-38.
           </li>
         </ul>
+        <p>Iteration 4:</p>
+        <ul>
+          <li>The culprit is in range 26-38.</li>
+          <li>You split the range into 26-31 and 32-38.</li>
+          <li>
+            You want to check if the culprit is in 26-31, so you make everyone
+            else (1-25 and 32-100) sing.
+          </li>
+          <li>
+            Imagine they sing <strong>incorrectly.</strong> That means the
+            culprit is in 32-38.
+          </li>
+        </ul>
         <p>
           And so on. In this way, the conductor could have found the culprit in
           <code>O(log n)</code> steps.
         </p>
-        <p>Credit to Timothy Johnson for the "negative binary search" idea.</p>
+        <p>
+          Credit to Timothy Johnson for the "negative binary search" idea, which
+          I had never heard before.
+        </p>
+        <p>
+          PS. If you happen to be a choir conductor, I'd love to hear if (a) the
+          problem is relatable, and (b) the algorithm may be useful to you.
+        </p>
       </div>
 
       <div class="blogreturn">
