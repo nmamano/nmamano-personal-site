@@ -2,7 +2,7 @@
 
 One of the points we touch on on the upcoming book, Beyond Cracking the Coding Interview ([beyondctci.com](https://www.beyondctci.com/)), is that binary search has many interesting applications besides finding an element in a sorted array. I'll share an example based on a personal story that's a bit too niche for the book, but kind of fun.
 
-A friend sings in a choir of 40-50 people, and they told me that, in the last rehearsal, the conductor could hear one person singing the wrong part but couldn't identify who. The conductor tried to isolate where the wrong part was coming from by basically **binary searching** the choir members, but there was an issue: when the conductor narrowed down the source to a small enough group, the issue disappeared. Whoever was singing the wrong part was only getting tripped up by hearing other people singing around them, but would sign their part perfectly in isolation. Eventually, the conductor gave up.
+A friend sings in a choir of 40-50 people, and they told me that, in the last rehearsal, the conductor could hear one person singing the wrong part but couldn't identify who. The conductor tried to isolate where the wrong part was coming from by basically **binary searching** the choir members, but there was an issue: when the conductor narrowed down the source to a small enough group, the issue disappeared. Whoever was singing the wrong part was only getting tripped up by hearing other people singing around them, but would sing their part perfectly in isolation. Eventually, the conductor gave up.
 
 What should the conductor have done? More precisely, what algorithm should they have used to find the culprit? First, let's formalize the problem.
 
