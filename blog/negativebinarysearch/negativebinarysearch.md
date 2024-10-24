@@ -50,4 +50,4 @@ Credit to Timothy Johnson for the "negative binary search" idea, which I had nev
 
 PS. Let me know if you had seen this technique used before. Also, if you happen to be a choir conductor, I'd love to hear if (a) the problem is relatable, and (b) the algorithm may be useful to you.
 
-![Choir](choir.png)
+![Choir](choir.png =40%x40%)
