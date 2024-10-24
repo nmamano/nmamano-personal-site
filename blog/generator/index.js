@@ -57,7 +57,7 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
 
   let firstLine = text.split("\n")[0].replace(/^#\s*/, "");
   const outputDir = path.basename(markdownFilePath, ".md");
-  const url = `https://nilmamano.com/blog/${outputDir}/${outputDir}.html`;
+  const url = `https://nilmamano.com/blog/${outputDir}.html`;
   const thumbnailUrl = `https://nilmamano.com/blog/${outputDir}/thumbnail.png`;
 
   const prefix = `<!DOCTYPE html>
@@ -80,15 +80,15 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
   <meta property="og:image" content="${thumbnailUrl}" />
 
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link href="../../css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/default.min.css">
+  <link href="../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/default.min.css">
 
 </head>
 
 <body class="blogpostpage">
   <main class="blogpost">
     <div class="blogreturn">
-      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+      <p>Return to the <a href="../blog.html">blog's main page</a>.</p>
     </div>
     
     <div id="mdToHtml">
@@ -97,7 +97,7 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
   const suffix = `    </div>
 
     <div class="blogreturn">
-      <p>Return to the <a href="../../blog.html">blog's main page</a>.</p>
+      <p>Return to the <a href="../blog.html">blog's main page</a>.</p>
     </div>
   </main>
 

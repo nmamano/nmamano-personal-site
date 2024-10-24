@@ -302,7 +302,7 @@ So, why didn't this happen for other lazy algorithms we have seen?
 
 ## Eager Dijkstra is better than Lazy Dijkstra, but harder to implement
 
-I wrote extensively about different Dijktsra implementations in [this Dijkstra blog post](https://nilmamano.com/blog/dijkstra/dijkstra.html).
+I wrote extensively about different Dijktsra implementations in [this Dijkstra blog post](https://nilmamano.com/blog/dijkstra.html).
 
 Dijkstra is similar to BFS, with the main difference that it uses a priority queue (PQ) instead of a queue to visit the nodes that are closer first (in terms of shortest paths).
 
