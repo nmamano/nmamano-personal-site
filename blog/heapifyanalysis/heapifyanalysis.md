@@ -47,7 +47,7 @@ Heapify uses the "bubble-down" procedure, which starts at a node that may not sa
 
 Heapify works by "bubbling down" every non-leaf (internal) node, from bottom to top:
 
-![Heapify steps](steps.png)
+![Heapify steps](steps.png =60%x60%)
 
 This figure shows the heapify steps for a min-heap. The first tree is the initial state, which doesn't yet have the min-heap property. Leaves are already at the bottom, so bubbling them down has no effect. The next 3 trees show the evolution after bubbling down the two nodes at depth 1 and then the node at depth 0.
 

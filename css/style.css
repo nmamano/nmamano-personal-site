@@ -692,12 +692,6 @@ nav #links a {
   line-height: 36px;
 }
 
-@media (max-width: 800px) {
-  .blogpostpage img {
-    width: 100%;
-  }
-}
-
 @media (min-width: 801px) {
   .headshot-container {
     display: grid;
