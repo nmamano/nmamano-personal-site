@@ -80,7 +80,9 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
 
   let firstLine = text.split("\n")[0].replace(/^#\s*/, "");
   const url = `https://nilmamano.com/blog/${outputDir}.html`;
-  const thumbnailUrl = `https://nilmamano.com/blog/${inputDir}/thumbnail.png`;
+  const thumbnailUrl = `https://nilmamano.com/blog/${
+    path.parse(path.basename(markdownFilePath)).name
+  }/thumbnail.png`;
 
   const prefix = `<!DOCTYPE html>
 <html lang="en">
@@ -94,7 +96,7 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
   <meta name="sortname" content="Mamano, Nil">
   <meta name="keywords" content="personal site,computer science,blog">
   <meta name="description" content="${firstLine}">
-
+  
   <meta property="og:title" content="Nil Mamano | Blog" />
   <meta property="og:description" content="${firstLine}" />
   <meta property="og:type" content="website" />
@@ -104,7 +106,10 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="css/default.min.css">
-
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+  
 </head>
 
 <body class="blogpostpage">
