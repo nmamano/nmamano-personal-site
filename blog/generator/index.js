@@ -38,8 +38,29 @@ showdown.extension("highlight", () => [
   },
 ]);
 
+// Custom extension to fix image URLs by adding the input directory path
+showdown.extension("fixImagePaths", function () {
+  return [
+    {
+      type: "output",
+      filter: function (text) {
+        return text.replace(/<img src="([^"]+)"/g, (match, url) => {
+          if (
+            !url.startsWith("http") &&
+            !url.startsWith("/") &&
+            !url.startsWith(inputDir)
+          ) {
+            return `<img src="${path.basename(inputDir)}/${url}"`;
+          }
+          return match;
+        });
+      },
+    },
+  ];
+});
+
 const converter = new showdown.Converter({
-  extensions: ["highlight"],
+  extensions: ["highlight", "fixImagePaths"],
   parseImgDimensions: true,
   simplifiedAutoLink: true,
   ghCodeBlocks: true,
@@ -48,17 +69,18 @@ converter.setFlavor("github");
 
 const markdownFilePath = process.argv[2];
 const outputFile = path.join(
-  path.dirname(markdownFilePath),
+  path.dirname(path.dirname(markdownFilePath)),
   `${path.basename(markdownFilePath, ".md")}.html`
 );
+const outputDir = path.dirname(outputFile);
+const inputDir = path.dirname(markdownFilePath);
 
 fs.readFile(markdownFilePath, "utf8", (err, text) => {
   if (err) throw err;
 
   let firstLine = text.split("\n")[0].replace(/^#\s*/, "");
-  const outputDir = path.basename(markdownFilePath, ".md");
   const url = `https://nilmamano.com/blog/${outputDir}.html`;
-  const thumbnailUrl = `https://nilmamano.com/blog/${outputDir}/thumbnail.png`;
+  const thumbnailUrl = `https://nilmamano.com/blog/${inputDir}/thumbnail.png`;
 
   const prefix = `<!DOCTYPE html>
 <html lang="en">

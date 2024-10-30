@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nil Mamano | Blog</title>
+  <meta name="person" content="Nil Mamano">
+  <meta name="sortname" content="Mamano, Nil">
+  <meta name="keywords" content="personal site,computer science,blog">
+  <meta name="description" content="Heapify Analysis Without Math">
+
+  <meta property="og:title" content="Nil Mamano | Blog" />
+  <meta property="og:description" content="Heapify Analysis Without Math" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nilmamano.com/blog/...html" />
+  <meta property="og:image" content="https://nilmamano.com/blog/../heapifyanalysis/thumbnail.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/default.min.css">
+
+</head>
+
+<body class="blogpostpage">
+  <main class="blogpost">
+    <div class="blogreturn">
+      <p>Return to the <a href="../blog.html">blog's main page</a>.</p>
+    </div>
+    
+    <div id="mdToHtml">
+<h1 id="heapify-analysis-without-math">Heapify Analysis Without Math</h1>
+<p>I'm writing about heaps for Beyond Cracking the Coding Interview (<a href="https://www.beyondctci.com/">beyondctci.com</a>), and the most technical part is the analysis of <em>heapify</em>. This method takes <code>O(n)</code> time, where <code>n</code> is the number of nodes in the heap, but most explanations I can find online involve more math than I want to put in this book (the bulk of the audience consists of people trying to land a SWE job, not math enthusiasts). For instance, <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap">Wikipedia</a> derives and simplifies the following formula:</p>
+<p><img src="heapifyanalysis/wikipedia.png" alt="wikipedia" width="20%" height="20%" /></p>
+<p>And every resource I found online followed that same approach.</p>
+<p>Below is my explanation "without math" that heapify takes <code>O(n)</code> time that I came up with and might end up using for the book. Let me know if you find it clear, and if you know of someone else who explained it in a similar way, please let me know too.</p>
+<p>If you already know what heapify is, you can jump directly to the <a href="#proof">Proof</a>.</p>
+<h2 id="heap-recap">Heap Recap</h2>
+<p>Heaps are binary trees with two special properties:</p>
+<ol>
+<li>They are <strong>complete</strong> binary trees: all the levels except the last one have the maximum number of nodes; the last level may not be full, but all the nodes are aligned to the left. (In particular, this implies that heaps have logarithmic height, which is key to the big O analysis.)</li>
+<li>The <strong>heap property:</strong> every node is smaller than its children (this is assuming a min-heap - it would be the opposite for a max-heap).</li>
+</ol>
+<p><img src="heapifyanalysis/heaps.png" alt="Min-heap vs max-heap" width="40%" height="40%" /></p>
+<p>I will focus on the heapify operation and its analysis, but I left a full Python heap implementation at the bottom of this post.</p>
+<h2 id="whats-heapify">What's Heapify?</h2>
+<p>Heapify (invented by <a href="https://en.wikipedia.org/wiki/Robert_W._Floyd">Robert W. Floyd</a>) converts a binary tree which is already complete, but may not have the heap property, into a proper heap.</p>
+<p>Heapify uses the "bubble-down" procedure, which starts at a node that may not satisfy the heap property, and recursively swaps it with the smallest of its two children until the heap property is restored:</p>
+<p><img src="heapifyanalysis/bubbledown.png" alt="Bubble-down procedure" width="40%" height="40%" /></p>
+<pre><code class="hljs py language-py">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bubble_down</span><span class="hljs-params">(self, idx)</span>:</span>
+    left_idx, right_idx = left_child(idx), right_child(idx)
+    is_leaf = left_idx &gt;= len(self.heap)
+    <span class="hljs-keyword">if</span> is_leaf: <span class="hljs-keyword">return</span>  <span class="hljs-comment"># Leaves cannot be bubbled down.</span>
+
+    <span class="hljs-comment"># Find the index of the smallest child</span>
+    child_idx = left_idx
+    <span class="hljs-keyword">if</span> right_idx &lt; len(self.heap) <span class="hljs-keyword">and</span> self.heap[right_idx] &lt; self.heap[left_idx]:
+      child_idx = right_idx
+
+    <span class="hljs-keyword">if</span> self.heap[child_idx] &lt; self.heap[idx]:
+      self.heap[idx], self.heap[child_idx] = self.heap[child_idx], self.heap[idx]
+      self.bubble_down(child_idx)</code></pre>
+<p>Heapify works by "bubbling down" every non-leaf (internal) node, from bottom to top:</p>
+<p><img src="heapifyanalysis/steps.png" alt="Heapify steps" /></p>
+<p>This figure shows the heapify steps for a min-heap. The first tree is the initial state, which doesn't yet have the min-heap property. Leaves are already at the bottom, so bubbling them down has no effect. The next 3 trees show the evolution after bubbling down the two nodes at depth 1 and then the node at depth 0.</p>
+<p>In the array-based heap implementation, <code>heapify()</code> looks like this:</p>
+<pre><code class="hljs py language-py">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> range(len(self.heap) // <span class="hljs-number">2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>):
+      self.bubble_down(idx)</code></pre>
+<p>The reason why we start bubbling down from the middle of the heap is that, in a complete tree, at least half the nodes are leaves, and we don't need to bubble those down.</p>
+<h2 id="proof">Proof</h2>
+<p>I'll start with a definition and a fact we'll use later:</p>
+<p>A <em>perfect</em> binary tree is a complete tree where the last level is full:</p>
+<p><img src="heapifyanalysis/perfect.png" alt="Perfect tree" width="15%" height="15%" /></p>
+<p><strong>Fact 1: In a perfect tree, the number of leaves is 1 more than the number of internal nodes.</strong></p>
+<p>For instance:</p>
+<pre><code class="hljs py language-py">- Height <span class="hljs-number">1</span>:  <span class="hljs-number">1</span> leaf,    <span class="hljs-number">0</span> internal nodes,   <span class="hljs-number">1</span> total
+- Height <span class="hljs-number">2</span>:  <span class="hljs-number">2</span> leaves,  <span class="hljs-number">1</span> internal node,    <span class="hljs-number">3</span> total
+- Height <span class="hljs-number">3</span>:  <span class="hljs-number">4</span> leaves,  <span class="hljs-number">3</span> internal nodes,   <span class="hljs-number">7</span> total
+- Height <span class="hljs-number">4</span>:  <span class="hljs-number">8</span> leaves,  <span class="hljs-number">7</span> internal nodes,  <span class="hljs-number">15</span> total</code></pre>
+<p>Fact 1 is true because the number of nodes at each level is a power of 2, so:</p>
+<ul>
+<li>the number of leaves is a power of 2, and</li>
+<li>the number of internal nodes is the sum of all the previous powers of 2.</li>
+</ul>
+<p>The sum of the first few powers of 2 add up to one less than the next power of 2. You can see that if you line them up like this:</p>
+<p><img src="heapifyanalysis/zeno.png" alt="Sum of power's of 2" width="50%" height="50%" /></p>
+<p>It's a bit like <a href="https://en.wikipedia.org/wiki/Zeno%27s_paradoxes">Zeno's paradox</a>, where each power of 2 in the sum halves the remaining distance, but never quite gets to 64.</p>
+<p>With that out of the way, back to heapify:</p>
+<p>In the worst case, each node will get bubbled down all the way to a leaf. Thus, each node needs to move down <code>O(log n)</code> levels, so one might reasonably expect heapify to take <code>O(n log n)</code> time. This is correct in the 'upper bound' sense, but not tight: the total time is actually <code>O(n)</code>. The intuition for why that is the case is that most nodes are in the deeper levels of the tree, where they don't need to travel a lot to get to the bottom.</p>
+<p>We'll actually prove a <strong>stronger</strong> claim:</p>
+<p><strong>Main Claim: If you heapify a perfect tree, the number of 'bubble-down' swaps is smaller than <code>n</code>, the number of nodes.</strong></p>
+<ul>
+<li>We'll assume the worst case, in which every node is bubbled down to a leaf position.</li>
+<li>If the claim is true and heapify does <code>&lt;n</code> swaps, then it takes <code>O(n)</code> time, since most bubble-down iterations involve a swap.</li>
+<li>We make the claim about perfect trees (rather than complete trees in general) to keep things simple.</li>
+</ul>
+<p>The proof goes like this:</p>
+<ol>
+<li>When the height is 1, the claim is true because the tree has 1 node and requires 0 swaps to heapify.</li>
+<li>Every time we add a new level, <strong>the number of nodes increases more than the number of swaps</strong> (by one, to be exact).</li>
+</ol>
+<p>If we can prove (2), together with (1) it implies the Main Claim because, as we add levels, the number of swaps can never catch up to the number of nodes.</p>
+<p>To see why (2) is true, imagine we add a new level to a perfect tree:</p>
+<p><img src="heapifyanalysis/mainclaim.png" alt="mainclaim" width="50%" height="50%" /></p>
+<p>Every preexisting node needs to bubble down one additional level, while the new leaves do not need to do any swaps. Thus, the number of swaps increases by the number of preexisting nodes.<br />
+But, another way of saying Fact 1 is that if you take a perfect tree and add a new level, the number of new/leaf nodes is 1 more than the number of preexisting/internal nodes.</p>
+<p>And that's the proof!</p>
+<h2 id="appendix-the-proof-in-numbers">Appendix: The Proof in Numbers</h2>
+<p>We can compute the actual number of swaps needed, in the worst case, for concrete heights:</p>
+<pre><code class="hljs py language-py">- Height <span class="hljs-number">1</span> (  <span class="hljs-number">1</span> node ):   <span class="hljs-number">0</span> swaps
+- Height <span class="hljs-number">2</span> (  <span class="hljs-number">3</span> nodes):   <span class="hljs-number">1</span> swap
+- Height <span class="hljs-number">3</span> (  <span class="hljs-number">7</span> nodes):   <span class="hljs-number">4</span> swaps: <span class="hljs-number">2</span> to bubble down the root <span class="hljs-keyword">and</span>  <span class="hljs-number">1</span>*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> the <span class="hljs-number">2</span> subtrees of the root
+- Height <span class="hljs-number">4</span> ( <span class="hljs-number">15</span> nodes):  <span class="hljs-number">11</span> swaps: <span class="hljs-number">3</span> to bubble down the root <span class="hljs-keyword">and</span>  <span class="hljs-number">4</span>*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> the <span class="hljs-number">2</span> subtrees of the root
+- Height <span class="hljs-number">5</span> ( <span class="hljs-number">31</span> nodes):  <span class="hljs-number">26</span> swaps: <span class="hljs-number">4</span> to bubble down the root <span class="hljs-keyword">and</span> <span class="hljs-number">11</span>*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> the <span class="hljs-number">2</span> subtrees of the root
+- Height <span class="hljs-number">6</span> ( <span class="hljs-number">63</span> nodes):  <span class="hljs-number">57</span> swaps: <span class="hljs-number">5</span> to bubble down the root <span class="hljs-keyword">and</span> <span class="hljs-number">26</span>*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> the <span class="hljs-number">2</span> subtrees of the root
+- Height <span class="hljs-number">7</span> (<span class="hljs-number">127</span> nodes): <span class="hljs-number">120</span> swaps: <span class="hljs-number">6</span> to bubble down the root <span class="hljs-keyword">and</span> <span class="hljs-number">57</span>*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> the <span class="hljs-number">2</span> subtrees of the root
+- ...</code></pre>
+<p>We can see that the number of swaps never catches up with the root, per the Main Claim.</p>
+<p>We can also show how the number of nodes grows vs the number of swaps:</p>
+<pre><code class="hljs py language-py">- Height <span class="hljs-number">1</span> to <span class="hljs-number">2</span>: the size increases <span class="hljs-keyword">from</span>  <span class="hljs-number">1</span> to  <span class="hljs-number">3.</span> We add  <span class="hljs-number">2</span> nodes <span class="hljs-keyword">and</span>  <span class="hljs-number">1</span> swap
+- Height <span class="hljs-number">2</span> to <span class="hljs-number">3</span>: the size increases <span class="hljs-keyword">from</span>  <span class="hljs-number">3</span> to  <span class="hljs-number">7.</span> We add  <span class="hljs-number">4</span> nodes <span class="hljs-keyword">and</span>  <span class="hljs-number">3</span> swaps
+- Height <span class="hljs-number">3</span> to <span class="hljs-number">4</span>: the size increases <span class="hljs-keyword">from</span>  <span class="hljs-number">7</span> to <span class="hljs-number">15.</span> We add  <span class="hljs-number">8</span> nodes <span class="hljs-keyword">and</span>  <span class="hljs-number">7</span> swaps
+- Height <span class="hljs-number">3</span> to <span class="hljs-number">4</span>: the size increases <span class="hljs-keyword">from</span> <span class="hljs-number">15</span> to <span class="hljs-number">31.</span> We add <span class="hljs-number">16</span> nodes <span class="hljs-keyword">and</span> <span class="hljs-number">15</span> swaps
+- ...</code></pre>
+<h2 id="appendix-full-heap-implementation">Appendix: Full heap implementation</h2>
+<pre><code class="hljs py language-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parent</span><span class="hljs-params">(idx)</span>:</span>
+  <span class="hljs-keyword">if</span> idx == <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>  <span class="hljs-comment"># The root has no parent.</span>
+  <span class="hljs-keyword">return</span> (idx - <span class="hljs-number">1</span>) // <span class="hljs-number">2</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">left_child</span><span class="hljs-params">(idx)</span>:</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * idx + <span class="hljs-number">1</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">right_child</span><span class="hljs-params">(idx)</span>:</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * idx + <span class="hljs-number">2</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinHeap</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+    self.heap = []
+
+  <span class="hljs-comment"># Returns the smallest element.</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">top</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.heap: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+    <span class="hljs-keyword">return</span> self.heap[<span class="hljs-number">0</span>]
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(self, elem)</span>:</span>
+    self.heap.append(elem)
+    self.bubble_up(len(self.heap)<span class="hljs-number">-1</span>)
+
+  <span class="hljs-comment"># Removes the smallest element.</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.heap: <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+    <span class="hljs-keyword">if</span> len(self.heap) == <span class="hljs-number">1</span>:
+      self.heap = []
+      <span class="hljs-keyword">return</span>
+    self.heap[<span class="hljs-number">0</span>] = self.heap[<span class="hljs-number">-1</span>]
+    self.heap.pop()
+    self.bubble_down(<span class="hljs-number">0</span>)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bubble_up</span><span class="hljs-params">(self, idx)</span>:</span>
+    <span class="hljs-keyword">if</span> idx == <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span>  <span class="hljs-comment"># The root cannot be bubbled up.</span>
+    parent_idx = parent(idx)
+    <span class="hljs-keyword">if</span> self.heap[idx] &lt; self.heap[parent_idx]:
+      self.heap[idx], self.heap[parent_idx] = self.heap[parent_idx], self.heap[idx]
+      self.bubble_up(parent_idx)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bubble_down</span><span class="hljs-params">(self, idx)</span>:</span>
+    left_idx, right_idx = left_child(idx), right_child(idx)
+    is_leaf = left_idx &gt;= len(self.heap)
+    <span class="hljs-keyword">if</span> is_leaf: <span class="hljs-keyword">return</span>  <span class="hljs-comment"># Leaves cannot be bubbled down.</span>
+
+    <span class="hljs-comment"># Find the index of the smallest child</span>
+    child_idx = left_idx
+    <span class="hljs-keyword">if</span> right_idx &lt; len(self.heap) <span class="hljs-keyword">and</span> self.heap[right_idx] &lt; self.heap[left_idx]:
+      child_idx = right_idx
+
+    <span class="hljs-keyword">if</span> self.heap[child_idx] &lt; self.heap[idx]:
+      self.heap[idx], self.heap[child_idx] = self.heap[child_idx], self.heap[idx]
+      self.bubble_down(child_idx)
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> range(len(self.heap) // <span class="hljs-number">2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>):
+      self.bubble_down(idx)</code></pre>    </div>
+
+    <div class="blogreturn">
+      <p>Return to the <a href="../blog.html">blog's main page</a>.</p>
+    </div>
+  </main>
+
+</body>
