@@ -78,7 +78,7 @@ const inputDir = path.dirname(markdownFilePath);
 fs.readFile(markdownFilePath, "utf8", (err, text) => {
   if (err) throw err;
 
-  let firstLine = text.split("\n")[0].replace(/^#\s*/, "");
+  let firstLine = text.split("\n")[0].replace(/^#\s*/, "").trimEnd();
   const url = `https://nilmamano.com/blog/${outputDir}.html`;
   const thumbnailUrl = `https://nilmamano.com/blog/${
     path.parse(path.basename(markdownFilePath)).name
@@ -106,9 +106,9 @@ fs.readFile(markdownFilePath, "utf8", (err, text) => {
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="css/default.min.css">
-  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="../img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
   
 </head>
 
