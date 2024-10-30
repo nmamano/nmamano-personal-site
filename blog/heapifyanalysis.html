@@ -46,7 +46,8 @@
 <li>The <strong>heap property:</strong> every node is smaller than its children (this is assuming a min-heap - it would be the opposite for a max-heap).</li>
 </ol>
 <p><img src="heapifyanalysis/heaps.png" alt="Min-heap vs max-heap" width="40%" height="40%" /></p>
-<p>I will focus on the heapify operation and its analysis, but I left a full Python heap implementation at the bottom of this post.</p>
+<p>I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a <a href="https://www.youtube.com/watch?v=WCm3TqScBM8">great video</a> on it.</p>
+<p>In any case, I left a full Python heap implementation at the bottom of this post.</p>
 <h2 id="whats-heapify">What's Heapify?</h2>
 <p>Heapify (invented by <a href="https://en.wikipedia.org/wiki/Robert_W._Floyd">Robert W. Floyd</a>) converts a binary tree which is already complete, but may not have the heap property, into a proper heap.</p>
 <p>Heapify uses the "bubble-down" procedure, which starts at a node that may not satisfy the heap property, and recursively swaps it with the smallest of its two children until the heap property is restored:</p>
@@ -68,20 +69,22 @@
 <p><img src="heapifyanalysis/steps.png" alt="Heapify steps" width="60%" height="60%" /></p>
 <p>This figure shows the heapify steps for a min-heap. The first tree is the initial state, which doesn't yet have the min-heap property. Leaves are already at the bottom, so bubbling them down has no effect. The next 3 trees show the evolution after bubbling down the two nodes at depth 1 and then the node at depth 0.</p>
 <p>In the array-based heap implementation, <code>heapify()</code> looks like this:</p>
-<pre><code class="hljs py language-py">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self)</span>:</span>
+<pre><code class="hljs py language-py">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self, arr)</span>:</span>
+    self.heap = arr
     <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> range(len(self.heap) // <span class="hljs-number">2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>):
       self.bubble_down(idx)</code></pre>
 <p>The reason why we start bubbling down from the middle of the heap is that, in a complete tree, at least half the nodes are leaves, and we don't need to bubble those down.</p>
+<p>Here, we won't prove that it <em>works</em>, only that its analysis is <code>O(n)</code>.</p>
 <h2 id="proof">Proof</h2>
 <p>I'll start with a definition and a fact we'll use later:</p>
 <p>A <em>perfect</em> binary tree is a complete tree where the last level is full:</p>
 <p><img src="heapifyanalysis/perfect.png" alt="Perfect tree" width="15%" height="15%" /></p>
 <p><strong>Fact 1: In a perfect tree, the number of leaves is 1 more than the number of internal nodes.</strong></p>
 <p>For instance:</p>
-<pre><code class="hljs py language-py">- Height <span class="hljs-number">1</span>:  <span class="hljs-number">1</span> leaf,    <span class="hljs-number">0</span> internal nodes,   <span class="hljs-number">1</span> total
-- Height <span class="hljs-number">2</span>:  <span class="hljs-number">2</span> leaves,  <span class="hljs-number">1</span> internal node,    <span class="hljs-number">3</span> total
-- Height <span class="hljs-number">3</span>:  <span class="hljs-number">4</span> leaves,  <span class="hljs-number">3</span> internal nodes,   <span class="hljs-number">7</span> total
-- Height <span class="hljs-number">4</span>:  <span class="hljs-number">8</span> leaves,  <span class="hljs-number">7</span> internal nodes,  <span class="hljs-number">15</span> total</code></pre>
+<pre><code class="hljs py language-py">- Height <span class="hljs-number">1</span>: <span class="hljs-number">1</span> leaf,   <span class="hljs-number">0</span> internal nodes,  <span class="hljs-number">1</span> total
+- Height <span class="hljs-number">2</span>: <span class="hljs-number">2</span> leaves, <span class="hljs-number">1</span> internal node,   <span class="hljs-number">3</span> total
+- Height <span class="hljs-number">3</span>: <span class="hljs-number">4</span> leaves, <span class="hljs-number">3</span> internal nodes,  <span class="hljs-number">7</span> total
+- Height <span class="hljs-number">4</span>: <span class="hljs-number">8</span> leaves, <span class="hljs-number">7</span> internal nodes, <span class="hljs-number">15</span> total</code></pre>
 <p>Fact 1 is true because the number of nodes at each level is a power of 2, so:</p>
 <ul>
 <li>the number of leaves is a power of 2, and</li>
@@ -182,7 +185,8 @@ But, another way of saying Fact 1 is that if you take a perfect tree and add a n
       self.heap[idx], self.heap[child_idx] = self.heap[child_idx], self.heap[idx]
       self.bubble_down(child_idx)
 
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self)</span>:</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">heapify</span><span class="hljs-params">(self, arr)</span>:</span>
+    self.heap = arr
     <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> range(len(self.heap) // <span class="hljs-number">2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>):
       self.bubble_down(idx)</code></pre>    </div>
 

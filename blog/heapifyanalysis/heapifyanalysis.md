@@ -19,7 +19,9 @@ Heaps are binary trees with two special properties:
 
 ![Min-heap vs max-heap](heaps.png =40%x40%)
 
-I will focus on the heapify operation and its analysis, but I left a full Python heap implementation at the bottom of this post.
+I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a [great video](https://www.youtube.com/watch?v=WCm3TqScBM8) on it.
+
+In any case, I left a full Python heap implementation at the bottom of this post.
 
 ## What's Heapify?
 
@@ -54,12 +56,15 @@ This figure shows the heapify steps for a min-heap. The first tree is the initia
 In the array-based heap implementation, `heapify()` looks like this:
 
 ```py
-  def heapify(self):
+  def heapify(self, arr):
+    self.heap = arr
     for idx in range(len(self.heap) // 2, -1, -1):
       self.bubble_down(idx)
 ```
 
 The reason why we start bubbling down from the middle of the heap is that, in a complete tree, at least half the nodes are leaves, and we don't need to bubble those down.
+
+Here, we won't prove that it _works_, only that its analysis is `O(n)`.
 
 ## Proof
 
@@ -74,10 +79,10 @@ A _perfect_ binary tree is a complete tree where the last level is full:
 For instance:
 
 ```py
-- Height 1:  1 leaf,    0 internal nodes,   1 total
-- Height 2:  2 leaves,  1 internal node,    3 total
-- Height 3:  4 leaves,  3 internal nodes,   7 total
-- Height 4:  8 leaves,  7 internal nodes,  15 total
+- Height 1: 1 leaf,   0 internal nodes,  1 total
+- Height 2: 2 leaves, 1 internal node,   3 total
+- Height 3: 4 leaves, 3 internal nodes,  7 total
+- Height 4: 8 leaves, 7 internal nodes, 15 total
 ```
 
 Fact 1 is true because the number of nodes at each level is a power of 2, so:
@@ -203,7 +208,8 @@ class MinHeap:
       self.heap[idx], self.heap[child_idx] = self.heap[child_idx], self.heap[idx]
       self.bubble_down(child_idx)
 
-  def heapify(self):
+  def heapify(self, arr):
+    self.heap = arr
     for idx in range(len(self.heap) // 2, -1, -1):
       self.bubble_down(idx)
 ```
