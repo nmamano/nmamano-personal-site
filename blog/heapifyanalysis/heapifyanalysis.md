@@ -1,12 +1,14 @@
 # Heapify Analysis Without Math
 
-I'm writing about heaps for Beyond Cracking the Coding Interview ([beyondctci.com](https://www.beyondctci.com/)), and the most technical part is the analysis of _heapify_. This method takes `O(n)` time, where `n` is the number of nodes in the heap, but most explanations I can find online involve more math than I want to put in this book (the bulk of the audience consists of people trying to land a SWE job, not math enthusiasts). For instance, [Wikipedia](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap) derives and simplifies the following formula:
+I'm writing about heaps for Beyond Cracking the Coding Interview ([beyondctci.com](https://www.beyondctci.com/)), and the most technical part is the analysis of _heapify_. It's easy to show that it takes `O(n log n)` time, where `n` is the number of nodes in the heap, but it's not straightforward to show that this is not tight and the method actually takes `O(n)`. time.
+
+Every proof I have found online involves a summation over the levels of the heap that ends up looking something like the one in [Wikipedia heap page](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap):
 
 ![wikipedia](wikipedia.png =20%x20%)
 
-And every resource I found online followed that same approach.
+which is more math than I want to put in this book (the bulk of the audience consists of people trying to land a SWE job, not math enthusiasts).
 
-Below is my explanation "without math" that heapify takes `O(n)` time that I came up with and might end up using for the book. Let me know if you find it clear, and if you know of someone else who explained it in a similar way, please let me know too.
+Below is the proof "without complicated math" I came up with that heapify takes `O(n)` time. If you are familiar with the classic proof, let me know if you find it easier - I might use it for the book. Also, please let me know if you've seen someone else proving it in a similar way.
 
 If you already know what heapify is, you can jump directly to the [Proof](#proof).
 
@@ -19,7 +21,7 @@ Heaps are binary trees with two special properties:
 
 ![Min-heap vs max-heap](heaps.png =40%x40%)
 
-I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a [great video](https://www.youtube.com/watch?v=WCm3TqScBM8) on it.
+I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a [great video](https://www.youtube.com/watch?v=WCm3TqScBM8) on it. He also covered the [classic linear-time proof](https://www.youtube.com/watch?v=MiyLo8adrWw) for heapify, if you want to compare it to mine.
 
 In any case, I left a full Python heap implementation at the bottom of this post.
 
@@ -119,7 +121,7 @@ To see why (2) is true, imagine we add a new level to a perfect tree:
 
 ![mainclaim](mainclaim.png =50%x50%)
 
-Every preexisting node needs to bubble down one additional level, while the new leaves do not need to do any swaps. Thus, the number of swaps increases by the number of preexisting nodes.
+Every preexisting node needs to bubble down one additional level, while the new leaves do not need to do to be bubbled down. Thus, the number of swaps increases by the number of preexisting nodes.
 But, another way of saying Fact 1 is that if you take a perfect tree and add a new level, the number of new/leaf nodes is 1 more than the number of preexisting/internal nodes.
 
 And that's the proof!

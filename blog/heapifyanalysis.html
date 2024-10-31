@@ -34,10 +34,11 @@
     
     <div id="mdToHtml">
 <h1 id="heapify-analysis-without-math">Heapify Analysis Without Math</h1>
-<p>I'm writing about heaps for Beyond Cracking the Coding Interview (<a href="https://www.beyondctci.com/">beyondctci.com</a>), and the most technical part is the analysis of <em>heapify</em>. This method takes <code>O(n)</code> time, where <code>n</code> is the number of nodes in the heap, but most explanations I can find online involve more math than I want to put in this book (the bulk of the audience consists of people trying to land a SWE job, not math enthusiasts). For instance, <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap">Wikipedia</a> derives and simplifies the following formula:</p>
+<p>I'm writing about heaps for Beyond Cracking the Coding Interview (<a href="https://www.beyondctci.com/">beyondctci.com</a>), and the most technical part is the analysis of <em>heapify</em>. It's easy to show that it takes <code>O(n log n)</code> time, where <code>n</code> is the number of nodes in the heap, but it's not straightforward to show that this is not tight and the method actually takes <code>O(n)</code>. time.</p>
+<p>Every proof I have found online involves a summation over the levels of the heap that ends up looking something like the one in <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap">Wikipedia heap page</a>:</p>
 <p><img src="heapifyanalysis/wikipedia.png" alt="wikipedia" width="20%" height="20%" /></p>
-<p>And every resource I found online followed that same approach.</p>
-<p>Below is my explanation "without math" that heapify takes <code>O(n)</code> time that I came up with and might end up using for the book. Let me know if you find it clear, and if you know of someone else who explained it in a similar way, please let me know too.</p>
+<p>which is more math than I want to put in this book (the bulk of the audience consists of people trying to land a SWE job, not math enthusiasts).</p>
+<p>Below is the proof "without complicated math" I came up with that heapify takes <code>O(n)</code> time. If you are familiar with the classic proof, let me know if you find it easier - I might use it for the book. Also, please let me know if you've seen someone else proving it in a similar way.</p>
 <p>If you already know what heapify is, you can jump directly to the <a href="#proof">Proof</a>.</p>
 <h2 id="heap-recap">Heap Recap</h2>
 <p>Heaps are binary trees with two special properties:</p>
@@ -46,7 +47,7 @@
 <li>The <strong>heap property:</strong> every node is smaller than its children (this is assuming a min-heap - it would be the opposite for a max-heap).</li>
 </ol>
 <p><img src="heapifyanalysis/heaps.png" alt="Min-heap vs max-heap" width="40%" height="40%" /></p>
-<p>I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a <a href="https://www.youtube.com/watch?v=WCm3TqScBM8">great video</a> on it.</p>
+<p>I will focus on the heapify operation and its analysis, but if you want to learn heaps from scratch, the Algorithms with Attitude Youtube channel has a <a href="https://www.youtube.com/watch?v=WCm3TqScBM8">great video</a> on it. He also covered the <a href="https://www.youtube.com/watch?v=MiyLo8adrWw">classic linear-time proof</a> for heapify, if you want to compare it to mine.</p>
 <p>In any case, I left a full Python heap implementation at the bottom of this post.</p>
 <h2 id="whats-heapify">What's Heapify?</h2>
 <p>Heapify (invented by <a href="https://en.wikipedia.org/wiki/Robert_W._Floyd">Robert W. Floyd</a>) converts a binary tree which is already complete, but may not have the heap property, into a proper heap.</p>
@@ -110,7 +111,7 @@
 <p>If we can prove (2), together with (1) it implies the Main Claim because, as we add levels, the number of swaps can never catch up to the number of nodes.</p>
 <p>To see why (2) is true, imagine we add a new level to a perfect tree:</p>
 <p><img src="heapifyanalysis/mainclaim.png" alt="mainclaim" width="50%" height="50%" /></p>
-<p>Every preexisting node needs to bubble down one additional level, while the new leaves do not need to do any swaps. Thus, the number of swaps increases by the number of preexisting nodes.<br />
+<p>Every preexisting node needs to bubble down one additional level, while the new leaves do not need to do to be bubbled down. Thus, the number of swaps increases by the number of preexisting nodes.<br />
 But, another way of saying Fact 1 is that if you take a perfect tree and add a new level, the number of new/leaf nodes is 1 more than the number of preexisting/internal nodes.</p>
 <p>And that's the proof!</p>
 <h2 id="appendix-the-proof-in-numbers">Appendix: The Proof in Numbers</h2>
