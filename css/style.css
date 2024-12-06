@@ -723,3 +723,83 @@ nav #links a {
     display: none;
   }
 }
+
+/* Add/modify these styles for better mobile handling */
+.blogpostpage {
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+#mdToHtml {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 50px;
+  max-width: 100%;
+  overflow-wrap: break-word; /* Ensure long words wrap */
+}
+
+/* Add styles for code blocks */
+pre {
+  max-width: 100%;
+  overflow-x: auto; /* Allow horizontal scroll only for code blocks */
+  white-space: pre-wrap; /* Allow code to wrap */
+  word-wrap: break-word;
+}
+
+/* Ensure images don't overflow container */
+#mdToHtml img {
+  max-width: 100%;
+  height: auto;
+  min-width: 300px; /* Prevent images from becoming too small */
+}
+
+@media (max-width: 800px) {
+  #mdToHtml img[width] {
+    min-width: unset; /* Reset min-width for images with explicit width attributes */
+    width: min(100%, attr(width px)); /* Use the smaller of 100% or specified width */
+  }
+  
+  /* Handle percentage-based images */
+  #mdToHtml img[width="15%"] {
+    width: 40% !important; /* Increase small percentage images on mobile */
+  }
+  
+  #mdToHtml img[width="20%"] {
+    width: 40% !important;
+  }
+  
+  #mdToHtml img[width="40%"] {
+    width: 80% !important;
+  }
+  
+  #mdToHtml img[width="50%"] {
+    width: 100% !important;
+  }
+  
+  #mdToHtml img[width="60%"] {
+    width: 100% !important;
+  }
+
+  /* Set minimum size for very small images */
+  #mdToHtml img[width="15%"],
+  #mdToHtml img[width="20%"] {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 800px) {
+  .blogpost {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100vw;
+  }
+
+  #mdToHtml {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  /* Adjust font size for better readability on mobile */
+  body {
+    font-size: 16px;
+  }
+}
